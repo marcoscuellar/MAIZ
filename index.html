@@ -537,6 +537,37 @@ td .mono{font-size:9px}
 .vp-cut::after{content:"";flex:1;height:1px;
   background:repeating-linear-gradient(90deg,#C4CAD2 0 5px,transparent 5px 10px)}
 
+/* ---- TEXTURE + DEPTH ----
+   The cut edge and perforation already say "this is a physical card." Grain and
+   a tracked tilt finish the illusion. 3D stays on the card, never the header
+   (see hard rules). */
+.vp-card{--rx:0deg;--ry:0deg;--mx:50%;--my:0%;position:relative;
+  transform-origin:50% 60%}
+/* paper grain — fractal noise, multiplied so it darkens fibres without hazing text */
+/* content sits above the texture, so grain and sheen treat the surface only and
+   never wash over type */
+.vp-card>.va-head,.vp-card>.va-body,.vp-card>.vp-perf,.vp-card>.vp-cut{position:relative;z-index:2}
+.vp-card>.vp-grain{position:absolute;inset:0;pointer-events:none;z-index:1;border-radius:inherit;
+  mix-blend-mode:multiply;opacity:.34;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size:140px 140px}
+/* sheen — light catching the stock as it tilts */
+.vp-card>.vp-sheen{position:absolute;inset:0;pointer-events:none;z-index:1;border-radius:inherit;
+  opacity:0;transition:opacity .35s ease;
+  background:
+    radial-gradient(440px circle at var(--mx) var(--my), rgba(212,255,0,.13), rgba(212,255,0,0) 56%),
+    linear-gradient(160deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 40%, rgba(11,12,16,.05) 100%)}
+.vp-card.tiltable:hover>.vp-sheen{opacity:1}
+/* the tilt itself — applied only after the entrance has landed, so the two
+   transforms never fight. .rise clears the entrance offsets; this composes on top. */
+.vp-card.tiltable{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease}
+.vp-card.tiltable.rise{transform:perspective(1500px) rotateX(var(--rx)) rotateY(var(--ry))}
+.vp-card.tiltable.tracking{transition:box-shadow .3s ease}
+.vp-light .vp-card.tiltable:hover{box-shadow:0 54px 90px -30px rgba(11,12,16,.46)}
+@media(prefers-reduced-motion:reduce){
+  .vp-card.tiltable.rise{transform:none!important}
+  .vp-card>.vp-sheen{display:none}}
+
 /* ---- ENGINE TAGS IGNITE ----
    Each fact's attribution lights up as its row lands, so you watch the engines
    report in rather than just reading that they did. */
@@ -922,6 +953,7 @@ footer .mono{line-height:2}
 <div class="page">
   <div class="vp-light">
     <div class="va-card vp-card vp-intel" id="vpIntel">
+      <div class="vp-grain"></div><div class="vp-sheen"></div>
       <div class="va-head">
         <div class="va-head-top"><span class="mono">First touch &middot; Touch 1</span><span class="va-verified"><span class="va-vd"></span><span class="va-vd"></span><span class="va-vd"></span> Verified</span></div>
         <div class="va-name">Dana Rivera</div>
@@ -965,6 +997,7 @@ footer .mono{line-height:2}
   <div class="vp-out-grid">
   <div class="vp-light">
     <div class="va-card vp-card vp-out" id="vpOut">
+      <div class="vp-grain"></div><div class="vp-sheen"></div>
       <div class="vp-perf top"></div>
       <div class="vp-cut"><b>continued</b> Dana Rivera &middot; Brightpath Health</div>
       <div class="va-body">
@@ -1307,6 +1340,58 @@ var MAIZ_BOOKING_URL = ''; /* TODO: paste the real booking URL here */
   ['bookBtn','bookStreak'].forEach(function(id){
     var a=document.getElementById(id);
     if(a){ a.href=MAIZ_BOOKING_URL; a.target='_blank'; a.rel='noopener'; }
+  });
+})();
+
+/* Card tilt — pointer-tracked perspective on the VAMOS halves.
+   Armed only once the entrance transition has landed, so the tilt transform
+   never fights the rise transform. Pointer-only; no-ops on touch and under
+   reduced motion. */
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.vp-card'));
+  if(!cards.length) return;
+  var REDUCE=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(REDUCE||!(window.matchMedia&&window.matchMedia('(hover: hover)').matches)) return;
+
+  var MAX=3.6;            /* degrees — restraint; enough to read as a surface */
+  var raf=null, live=[];
+
+  function tick(){
+    raf=null; var moving=false;
+    live.forEach(function(st){
+      st.rx+=(st.trx-st.rx)*.14; st.ry+=(st.try_-st.ry)*.14;
+      st.el.style.setProperty('--rx', st.rx.toFixed(3)+'deg');
+      st.el.style.setProperty('--ry', st.ry.toFixed(3)+'deg');
+      if(Math.abs(st.trx-st.rx)>.02||Math.abs(st.try_-st.ry)>.02) moving=true;
+    });
+    if(moving) raf=requestAnimationFrame(tick);
+  }
+
+  cards.forEach(function(el){
+    var st={el:el,rx:0,ry:0,trx:0,try_:0}; live.push(st);
+    /* arm the tilt after the .rise entrance finishes */
+    function arm(){ el.classList.add('tiltable'); }
+    if(el.classList.contains('rise')) arm();
+    else new MutationObserver(function(m,ob){
+      if(el.classList.contains('rise')){ setTimeout(arm,1250); ob.disconnect(); }
+    }).observe(el,{attributes:true,attributeFilter:['class']});
+
+    el.addEventListener('pointermove',function(e){
+      if(!el.classList.contains('tiltable')) return;
+      var r=el.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+      st.try_=(px-.5)*2*MAX;          /* rotateY follows horizontal travel */
+      st.trx=-(py-.5)*2*MAX;          /* rotateX inverted so it leans toward you */
+      el.style.setProperty('--mx',(px*100).toFixed(1)+'%');
+      el.style.setProperty('--my',(py*100).toFixed(1)+'%');
+      el.classList.add('tracking');
+      if(!raf) raf=requestAnimationFrame(tick);
+    },{passive:true});
+
+    el.addEventListener('pointerleave',function(){
+      st.trx=0; st.try_=0; el.classList.remove('tracking');
+      if(!raf) raf=requestAnimationFrame(tick);
+    },{passive:true});
   });
 })();
 
