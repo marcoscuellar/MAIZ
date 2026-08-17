@@ -497,6 +497,29 @@ td .mono{font-size:9px}
 .vp-card.rise .va-compose>*:nth-child(7){transition-delay:1.06s}
 .vp-card.rise .va-compose>*:nth-child(8){transition-delay:1.12s}
 
+/* §03 — the card cut in half: the intelligence, built out.
+   Two verified groups side by side (the org / the contact) instead of one
+   cramped column, so each fact and its engine attribution can breathe. */
+.vp-intel .va-body{grid-template-columns:1fr 1fr}
+@media(max-width:820px){.vp-intel .va-body{grid-template-columns:1fr}}
+.vp-intel .va-know:last-child{border-right:none}
+@media(max-width:820px){.vp-intel .va-know:last-child{border-bottom:none}}
+.vp-intel .va-val{font-size:14px}
+
+/* §04 — the other half: the start of VAMOS. Narrower, so it reads as the
+   beginning of a flow rather than a second full-width slab. */
+.vp-out{max-width:620px}
+.vp-out .va-body{grid-template-columns:1fr}
+.vp-out .va-compose{background:var(--raised)}
+.vp-out .va-ta{min-height:260px}
+/* the cut edge — shows this half was severed from the intelligence side */
+.vp-cut{display:flex;align-items:center;gap:14px;padding:14px 22px 0;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim)}
+.vp-cut::before{content:"";flex:none;width:22px;height:1px;background:var(--olive)}
+.vp-cut::after{content:"";flex:1;height:1px;
+  background:repeating-linear-gradient(90deg,#C4CAD2 0 5px,transparent 5px 10px)}
+
 /* the §04 turn — the human takes over */
 .vp-turn{margin-top:44px;padding-top:30px;border-top:1px solid var(--border);
   display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start}
@@ -703,7 +726,7 @@ footer .mono{line-height:2}
   <div class="mrow">
     <svg class="mmark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg><div class="mword"><span class="parent">ŌLLIN</span>MAIZ<i>.</i></div>
     <div class="mnav">
-      <a href="#evidence">The gap</a><a href="#trust">Trust</a><a href="#signal">The signal</a><a href="#vamos">VAMOS</a>
+      <a href="#evidence">The gap</a><a href="#trust">Trust</a><a href="#signal">The signal</a><a href="#vamos">Intelligence</a><a href="#ovamos">VAMOS</a>
     </div>
     <a class="streak" id="bookStreak" href="#book">Book 30 minutes</a>
   </div>
@@ -843,17 +866,17 @@ footer .mono{line-height:2}
 <section id="vamos"><div class="page"><div class="sec">
   <div class="rail"><div class="inner">
     <div class="no">03</div>
-    <div class="rt">Intelligence + outreach<br><span class="sub">what we know &middot; what you send</span></div>
+    <div class="rt">The intelligence<br><span class="sub">before the first word</span></div>
   </div></div>
   <div class="content">
     <h2>We never pitch. We show up<br>already knowing what<br>they&rsquo;re up against<span class="v">.</span></h2>
-    <p class="lede">Every contact arrives with the company, the person, the evidence, and the reason to act already attached &mdash; and <strong>every fact carries the engine that found it.</strong> Choose the angle; ŌLLIN drafts it from the verified facts only. Review it, adjust it, send it. Sample data, nothing sent.</p>
+    <p class="lede">Every contact arrives with the company, the person, the evidence, and the reason to act already attached &mdash; and <strong>every fact carries the engine that found it.</strong> This is the half of the card that exists before anyone writes a word. Sample data.</p>
   </div>
 </div></div>
 
 <div class="page">
   <div class="vp-light">
-    <div class="va-card vp-card" id="vpCard">
+    <div class="va-card vp-card vp-intel" id="vpIntel">
       <div class="va-head">
         <div class="va-head-top"><span class="mono">First touch &middot; Touch 1</span><span class="va-verified"><span class="va-vd"></span><span class="va-vd"></span><span class="va-vd"></span> Verified</span></div>
         <div class="va-name">Dana Rivera</div>
@@ -862,19 +885,40 @@ footer .mono{line-height:2}
       </div>
 
       <div class="va-body">
-        <!-- LEFT · the intelligence -->
         <div class="va-know">
           <div class="va-know-h mono">01 &nbsp;What we know &middot; The org</div>
           <div class="va-row"><div class="va-k mono">Signal</div><div class="va-val">Verified open role <span class="dim">(perishable)</span> &mdash; 4 senior Azure implementation roles open 60+ days on Workday ATS, with the platform rollout live this year. <span class="va-eng mono">&#9679; Engine 02 &middot; Signals</span></div></div>
           <div class="va-row"><div class="va-k mono">Money</div><div class="va-val">Cost of the gap: <strong>$12,000 / week</strong> in delayed go-lives and implementation overtime, compounding while the reqs sit open. <span class="va-eng mono">&#9679; Engine 05 &middot; Cost of gap</span></div></div>
           <div class="va-row"><div class="va-k mono">Buyer</div><div class="va-val dim">not tracked yet</div></div>
+        </div>
+        <div class="va-know">
           <div class="va-know-h mono">02 &nbsp;What we know &middot; The contact</div>
           <div class="va-row"><div class="va-k mono">Why</div><div class="va-val">Leads the global Workforce OS team &mdash; feels the gap before anyone reports it. <span class="va-eng mono">&#9679; Engine 06 &middot; Contact intel</span></div></div>
           <div class="va-row"><div class="va-k mono">Hook</div><div class="va-val dim">not tracked yet</div></div>
           <div class="va-row"><div class="va-k mono">Status</div><div class="va-val">In cadence &mdash; touch 1 of 4 <span class="va-eng mono">&#9679; System</span></div></div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:20px">Two rows still read <b>not tracked yet</b>. Nothing fills them in until an engine can prove it &mdash; <b>missing beats fabricated.</b></div>
+</div></section>
 
-        <!-- RIGHT · the outreach -->
+<section id="ovamos"><div class="page"><div class="sec">
+  <div class="rail"><div class="inner">
+    <div class="no">04</div>
+    <div class="rt">Outreach + VAMOS<br><span class="sub">the move is yours</span></div>
+  </div></div>
+  <div class="content">
+    <h2>MAIZ builds the move.<br>You make the call<span class="v">.</span></h2>
+    <p class="lede">The other half of the same card. Those verified facts come across as a draft you can actually send &mdash; <strong>choose the angle and ŌLLIN writes from the evidence only.</strong> Nothing invented, nothing sent. Sample data.</p>
+  </div>
+</div></div>
+
+<div class="page">
+  <div class="vp-light">
+    <div class="va-card vp-card vp-out" id="vpOut">
+      <div class="vp-cut">continued &middot; Dana Rivera &middot; Brightpath Health</div>
+      <div class="va-body">
         <div class="va-compose">
           <div class="va-seg"><button class="va-seg-b on" type="button">&#9993; Email</button><button class="va-seg-b" type="button">in&nbsp;LinkedIn</button></div>
           <div class="va-grounded mono">Grounded in 4 facts</div>
@@ -894,10 +938,9 @@ footer .mono{line-height:2}
     </div>
   </div>
 
-  <!-- the turn: the system stops, the human decides -->
   <div class="vp-turn">
-    <h3>MAIZ builds the move.<br>You make the call<span class="v">.</span></h3>
-    <p>Because the relationship <strong>was always yours.</strong> ŌLLIN prepares the work &mdash; you review it, adjust it, and decide what leaves the building. <strong>Approval is not send.</strong></p>
+    <h3>Approval is<br>not send<span class="v">.</span></h3>
+    <p>Because the relationship <strong>was always yours.</strong> ŌLLIN prepares the work &mdash; you review it, adjust it, and decide what leaves the building. Nothing goes out on its own.</p>
   </div>
 </div></section>
 
