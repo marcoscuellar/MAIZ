@@ -512,13 +512,58 @@ td .mono{font-size:9px}
 .vp-out .va-body{grid-template-columns:1fr}
 .vp-out .va-compose{background:var(--raised)}
 .vp-out .va-ta{min-height:260px}
-/* the cut edge — shows this half was severed from the intelligence side */
-.vp-cut{display:flex;align-items:center;gap:14px;padding:14px 22px 0;
+/* ---- THE CUT ----
+   The two halves are one card severed across the scroll. §03's card ends on a
+   perforated edge, §04's begins on its mirror, and a dashed volt line carries
+   the eye between them. Reads as a physical object cut in two, not two cards. */
+.vp-intel{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom:none}
+.vp-out{border-top-left-radius:0;border-top-right-radius:0;border-top:none}
+/* perforation: notches punched along the severed edge */
+.vp-perf{height:16px;position:relative;
+  background:
+    radial-gradient(circle 8px at 12px 100%, transparent 0 7.5px, #fff 8px) 0 0/24px 100% repeat-x;
+  filter:drop-shadow(0 1px 0 #E4E7EC)}
+.vp-perf.top{transform:rotate(180deg)}
+/* the connector between the two sections */
+.vp-link{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:-1px}
+.vp-link i{display:block;width:1px;height:26px;
+  background:repeating-linear-gradient(180deg,var(--em) 0 4px,transparent 4px 9px)}
+.vp-link span{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--dim);padding:7px 0}
+.vp-cut{display:flex;align-items:center;gap:12px;padding:15px 22px 0;
   font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--dim)}
-.vp-cut::before{content:"";flex:none;width:22px;height:1px;background:var(--olive)}
+.vp-cut b{color:var(--olive);font-weight:700}
 .vp-cut::after{content:"";flex:1;height:1px;
   background:repeating-linear-gradient(90deg,#C4CAD2 0 5px,transparent 5px 10px)}
+
+/* ---- ENGINE TAGS IGNITE ----
+   Each fact's attribution lights up as its row lands, so you watch the engines
+   report in rather than just reading that they did. */
+.vp-card .va-eng{color:#C4CAD2;transition:color .55s ease,text-shadow .55s ease}
+.vp-card.rise .va-eng{color:var(--olive);text-shadow:0 0 14px rgba(110,125,26,.45)}
+.vp-card.rise .va-know>*:nth-child(2) .va-eng{transition-delay:.62s}
+.vp-card.rise .va-know>*:nth-child(3) .va-eng{transition-delay:.74s}
+.vp-card.rise .va-know>*:nth-child(4) .va-eng{transition-delay:.86s}
+
+/* ---- §04 PROVENANCE ----
+   "Grounded in 4 facts" made literal: the draft sits beside the exact facts it
+   drew from, each still carrying its engine. The receipts, next to the pitch. */
+.vp-out-grid{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
+  gap:44px;align-items:start}
+@media(max-width:980px){.vp-out-grid{grid-template-columns:1fr;gap:28px}}
+.vp-prov{padding-top:6px}
+.vp-prov-h{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--dim);padding-bottom:6px}
+.vp-prov-h b{color:var(--em)}
+.vp-fact{border-top:1px solid var(--border);padding:13px 0;display:grid;
+  grid-template-columns:22px 1fr;gap:12px;align-items:start}
+.vp-fact-n{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--dim);padding-top:3px}
+.vp-fact-t{font-size:13.5px;color:var(--body);line-height:1.5}
+.vp-fact-e{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:.08em;color:var(--em);margin-top:5px}
+.vp-prov-note{margin-top:16px;font-size:12px;color:var(--dim);line-height:1.55}
+.vp-prov-note b{color:var(--slate)}
 
 /* the §04 turn — the human takes over */
 .vp-turn{margin-top:44px;padding-top:30px;border-top:1px solid var(--border);
@@ -898,8 +943,10 @@ footer .mono{line-height:2}
           <div class="va-row"><div class="va-k mono">Status</div><div class="va-val">In cadence &mdash; touch 1 of 4 <span class="va-eng mono">&#9679; System</span></div></div>
         </div>
       </div>
+      <div class="vp-perf"></div>
     </div>
   </div>
+  <div class="vp-link"><span>the same card, cut in half</span><i></i></div>
   <div class="note" style="margin-top:20px">Two rows still read <b>not tracked yet</b>. Nothing fills them in until an engine can prove it &mdash; <b>missing beats fabricated.</b></div>
 </div></section>
 
@@ -915,9 +962,11 @@ footer .mono{line-height:2}
 </div></div>
 
 <div class="page">
+  <div class="vp-out-grid">
   <div class="vp-light">
     <div class="va-card vp-card vp-out" id="vpOut">
-      <div class="vp-cut">continued &middot; Dana Rivera &middot; Brightpath Health</div>
+      <div class="vp-perf top"></div>
+      <div class="vp-cut"><b>continued</b> Dana Rivera &middot; Brightpath Health</div>
       <div class="va-body">
         <div class="va-compose">
           <div class="va-seg"><button class="va-seg-b on" type="button">&#9993; Email</button><button class="va-seg-b" type="button">in&nbsp;LinkedIn</button></div>
@@ -935,6 +984,17 @@ footer .mono{line-height:2}
           <div class="va-not mono">Not now? <button class="va-nb" type="button">Tomorrow</button><button class="va-nb" type="button">Next week</button><button class="va-nb" type="button">Not a fit</button></div>
         </div>
       </div>
+    </div>
+  </div>
+
+    <!-- the receipts, sitting next to the pitch -->
+    <div class="vp-prov">
+      <div class="vp-prov-h">Standing on <b>4 verified facts</b> &mdash; nothing else</div>
+      <div class="vp-fact"><div class="vp-fact-n">01</div><div class="vp-fact-t">Workforce Operating System launched &mdash; unified labor tracking across health systems.<span class="vp-fact-e">&#9679; Engine 02 &middot; Signals</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">02</div><div class="vp-fact-t">4 senior Azure implementation roles, open 60+ days on Workday ATS.<span class="vp-fact-e">&#9679; Engine 04 &middot; Roles</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">03</div><div class="vp-fact-t">Rollout live this year, so the delivery pressure is being held internally.<span class="vp-fact-e">&#9679; Engine 05 &middot; Cost of gap</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">04</div><div class="vp-fact-t">Leads the global Workforce OS team &mdash; owns the outcome when go-lives slip.<span class="vp-fact-e">&#9679; Engine 06 &middot; Contact intel</span></div></div>
+      <div class="vp-prov-note">Every sentence in the draft traces to one of these. <b>No fact, no sentence</b> &mdash; the two rows the engines could not verify stayed empty rather than getting filled in.</div>
     </div>
   </div>
 
