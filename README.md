@@ -76,8 +76,33 @@ The volt palette is applied via `<html data-accent="volt">`; the bare `:root` or
 
 Concise, confident, specific, human. Editorial black and volt. The system shows its work; restraint is the differentiator. Anti-lead-gen positioning: everyone else sells volume — MAIZ verifies, protects, and tracks the person.
 
+## Page structure
+
+Five beats and an ask. The VAMOS card is the centerpiece — everything else earns its place.
+
+| Rail | Section | What it does |
+|---|---|---|
+| — | Hero | "Not another AI sales tool." |
+| **00** | `#evidence` | The execution gap — the problem, three cited stat cards |
+| **01** | `#trust` | Safety and privacy — the white verified report card |
+| **02** | `#signal` | The signal — a console that types itself a question and answers it |
+| **03** | `#vamos` | **Intelligence + outreach** — the VAMOS product card, then the turn to the human |
+| **→** | `#book` | Book 30 minutes |
+
+Sections held back for later pages live in `parked/` — see `parked/README.md`.
+
+## The booking link
+
+`index.html` defines `MAIZ_BOOKING_URL` as a single constant in the second `<script>` block. Set it and both CTAs (masthead and final) pick it up automatically:
+
+```js
+var MAIZ_BOOKING_URL = 'https://...';
+```
+
+While it is empty, both buttons fall back to jumping to `#book` rather than going nowhere.
+
 ## Known issues
 
-- The Forrester / Tandem.ai statistic in §01 ("4.3 hours a week… $14,200 per employee, per year") is **not independently verified**. It is a public claim with a named source and should be confirmed before it stays in production.
-- `.va-q:hover` references `--line-2`, a custom property that is never defined, so that hover is a no-op.
-- The booking CTA destination is a placeholder constant pending the real scheduler URL.
+- **The Forrester / Tandem.ai statistic in §01** ("4.3 hours a week… $14,200 per employee, per year") is **not independently verified**. It is a public claim with a named source and should be confirmed before it stays in production.
+- **`MAIZ_BOOKING_URL` is empty** — the CTA is not yet live. This is the one thing standing between the page and working.
+- The 30-minute duration in the CTA copy should match whatever the real scheduler actually books.

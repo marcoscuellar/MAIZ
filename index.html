@@ -350,35 +350,6 @@ td .mono{font-size:9px}
   .intro-proc.on,.intro-ask.show{animation:none;opacity:1;transform:none;filter:none}
 }
 
-/* ---- VAMOS card ---- */
-.vcard{border:1px solid var(--border);border-radius:20px;background:var(--raised);overflow:hidden;max-width:720px;
-  box-shadow:inset 0 1px 0 rgba(248,250,252,.05),0 0 0 1px var(--em-line),0 0 40px -16px rgba(var(--em-rgb),.35),0 30px 70px -24px rgba(0,0,0,.85)}
-.vc-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 22px;border-bottom:1px solid var(--border);background:rgba(var(--em-rgb),.05)}
-.vc-prospect{padding:22px 22px 4px}
-.vc-name{font-weight:900;font-size:22px;letter-spacing:-.03em;text-transform:uppercase;line-height:1.05}
-.vc-role{color:var(--em);font-weight:700;font-size:13.5px;margin-top:4px}
-.vc-meta{margin-top:6px;font-size:9.5px;color:var(--dim)}
-.vc-intel{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 22px}
-@media(max-width:560px){.vc-intel{grid-template-columns:1fr}}
-.vc-copy{border-top:1px solid var(--border);background:var(--surface)}
-.vc-copy-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 22px;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.vc-angle{font-size:10px;color:var(--em)}
-.vc-audit{font-size:9.5px;color:var(--dim)}
-.vc-copy-body{padding:18px 22px}
-.vc-copy-body .subj{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--em);margin-bottom:14px}
-.vc-copy-body .bodytxt{font-size:14.5px;color:var(--body);line-height:1.62;min-height:150px;transition:opacity .16s ease}
-.vc-copy-body .bodytxt p{margin-bottom:10px}
-.vc-copy-body .bodytxt strong{color:var(--white)}
-.vc-angles{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:14px 22px;border-top:1px solid var(--border)}
-.vc-btn{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;
-  background:transparent;border:1px solid var(--border);color:var(--slate);border-radius:0;padding:9px 13px;transition:border-color .15s,color .15s,background .15s}
-.vc-btn:hover{border-color:var(--slate);color:var(--white)}
-.vc-btn.on{background:var(--em);border-color:var(--em);color:var(--on-em);font-weight:700}
-.vc-send{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
-  background:var(--em);color:var(--on-em);border:1px solid var(--em);border-radius:0;padding:10px 16px;transition:transform .2s,background .15s,color .15s}
-.vc-send:hover{background:transparent;color:var(--em);transform:scale(1.03)}
-.vc-send.sent{background:transparent;color:var(--em)}
-@media(max-width:560px){.vc-send{margin-left:0;width:100%;text-align:center}}
 
 /* ---- VAMOS product UI ---- */
 .va-app{display:grid;grid-template-columns:270px 1fr;gap:16px;margin-top:26px;align-items:start}
@@ -386,7 +357,7 @@ td .mono{font-size:9px}
 .va-queue{border:1px solid var(--border);border-radius:16px;background:var(--raised);padding:14px;display:flex;flex-direction:column;gap:8px;max-height:640px;overflow:auto}
 .va-queue-h{font-size:10px;color:var(--dim);letter-spacing:.16em;padding:4px 4px 8px}
 .va-q{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 14px;transition:border-color .15s,background .15s}
-.va-q:hover{border-color:var(--line-2)}
+.va-q:hover{border-color:var(--slate)}
 .va-q.on{border-color:var(--em);box-shadow:0 0 0 1px var(--em-line),0 0 22px -8px rgba(var(--em-rgb),.5)}
 .va-q-name{font-weight:800;font-size:14.5px;letter-spacing:-.01em;color:var(--white)}
 .va-q-role{font-size:12px;color:var(--slate);margin-top:2px}
@@ -410,6 +381,11 @@ td .mono{font-size:9px}
 
 .va-body{display:grid;grid-template-columns:1fr 360px;gap:0}
 @media(max-width:820px){.va-body{grid-template-columns:1fr}}
+/* grid/flex children default to min-width:auto, so they refuse to shrink below
+   min-content and punch out of the card on narrow screens (body has overflow-x:clip,
+   so it silently truncates rather than scrolling). Let them shrink. */
+.va-body>*,.va-ta,.va-ask,.va-ask .q,.va-row,.va-row>*{min-width:0}
+.va-val,.va-ta{overflow-wrap:break-word}
 .va-know{padding:18px 26px 24px;border-right:1px solid var(--border)}
 @media(max-width:820px){.va-know{border-right:none;border-bottom:1px solid var(--border)}}
 .va-know-h{font-size:9.5px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin:8px 0 6px}
@@ -447,6 +423,93 @@ td .mono{font-size:9px}
 .va-not{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:16px;font-size:9.5px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
 .va-nb{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);background:none;border:1px solid var(--border);border-radius:100px;padding:6px 12px}
 .va-nb:hover{border-color:var(--slate);color:var(--white)}
+
+/* CTA eyebrow */
+.cta-kick{font-size:11px;letter-spacing:.2em;color:var(--em);font-weight:700;margin-bottom:16px}
+
+/* ---- VAMOS card · light product theme ----
+   The .va-* rules above are written entirely in custom properties, so the whole
+   card flips to the real product's light surface by redefining the tokens in
+   this scope. No rule duplication, and the JS keeps the same ids. Palette is
+   the one already approved on .sp-card (the §01 verified report card). */
+.vp-light{
+  --raised:#FFFFFF;          /* card surface        */
+  --surface:#FAFBFC;         /* compose panel       */
+  --black:#F4F6F8;           /* inset fields        */
+  --border:#E4E7EC;
+  --white:#0B0C10;           /* names / headings    */
+  --body:#39414E;            /* values              */
+  --slate:#6B7480;
+  --dim:#98A0AD;
+  --em-line:rgba(110,125,26,.30);
+  --olive:#6E7D1A;           /* volt, legible on white */
+}
+/* body already inherited #FFF before these tokens were redefined, and inherited
+   color is an absolute value — so set it here or unstyled text (e.g. .va-name)
+   stays white on a white card. */
+.vp-light{color:#0B0C10}
+/* volt-as-text is unreadable on white — swap those to olive */
+.vp-light .va-eng,.vp-light .va-org{color:var(--olive)}
+.vp-light .va-vd{background:var(--olive)}
+/* the draft is ~414 chars — give it room so the pitch reads without scrolling */
+.vp-light .va-ta{min-height:340px}
+.vp-light .va-card{box-shadow:0 40px 72px -26px rgba(11,12,16,.30)}
+.vp-light .va-row{border-top:1px solid #EEF0F3}
+.vp-light .va-q:hover{border-color:#C4CAD2}
+.vp-light .va-ta:focus{border-color:var(--olive);box-shadow:0 0 0 3px rgba(110,125,26,.10)}
+.vp-light .va-go{box-shadow:0 10px 26px -12px rgba(110,125,26,.55)}
+.vp-light .va-go:hover{box-shadow:0 14px 32px -12px rgba(110,125,26,.7)}
+.vp-light .va-lk{color:var(--body)}
+.vp-light .va-lk:hover{color:#0B0C10}
+.vp-light .va-ava{background:#EEF0F3}
+.vp-light .va-ask{background:#fff;border:1px solid var(--border)}
+.vp-light .va-ask .q{color:var(--slate)}
+
+/* the audited tick that trails the char/word count */
+.va-aud{color:#6E7D1A;font-weight:700}
+
+/* entrance — Motion hero-terminal feel, same curve as .sp-card */
+.vp-card{opacity:0;transform:translateY(34px) scale(.955);filter:blur(14px);
+  transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1),filter .9s cubic-bezier(.22,1,.36,1)}
+.vp-card.rise{opacity:1;transform:none;filter:none}
+/* left-column rows stagger in after the card lands */
+.vp-card .va-know>*,.vp-card .va-compose>*{
+  opacity:0;transform:translateY(12px);filter:blur(7px);
+  transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1),filter .6s ease}
+.vp-card.rise .va-know>*,.vp-card.rise .va-compose>*{
+  opacity:1;transform:none;filter:none}
+/* .va-know mixes headers and rows (both divs), so stagger by child position */
+.vp-card.rise .va-know>*:nth-child(1){transition-delay:.20s}
+.vp-card.rise .va-know>*:nth-child(2){transition-delay:.26s}
+.vp-card.rise .va-know>*:nth-child(3){transition-delay:.32s}
+.vp-card.rise .va-know>*:nth-child(4){transition-delay:.38s}
+.vp-card.rise .va-know>*:nth-child(5){transition-delay:.46s}
+.vp-card.rise .va-know>*:nth-child(6){transition-delay:.52s}
+.vp-card.rise .va-know>*:nth-child(7){transition-delay:.58s}
+.vp-card.rise .va-know>*:nth-child(8){transition-delay:.64s}
+/* the outreach side answers the intelligence side */
+.vp-card.rise .va-compose>*:nth-child(1){transition-delay:.70s}
+.vp-card.rise .va-compose>*:nth-child(2){transition-delay:.76s}
+.vp-card.rise .va-compose>*:nth-child(3){transition-delay:.82s}
+.vp-card.rise .va-compose>*:nth-child(4){transition-delay:.88s}
+.vp-card.rise .va-compose>*:nth-child(5){transition-delay:.94s}
+.vp-card.rise .va-compose>*:nth-child(6){transition-delay:1.00s}
+.vp-card.rise .va-compose>*:nth-child(7){transition-delay:1.06s}
+.vp-card.rise .va-compose>*:nth-child(8){transition-delay:1.12s}
+
+/* the §04 turn — the human takes over */
+.vp-turn{margin-top:44px;padding-top:30px;border-top:1px solid var(--border);
+  display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start}
+@media(max-width:820px){.vp-turn{grid-template-columns:1fr;gap:16px}}
+.vp-turn h3{font-weight:900;text-transform:uppercase;letter-spacing:-.035em;line-height:.98;
+  font-size:clamp(26px,3.4vw,42px);color:var(--ink)}
+.vp-turn h3 .v{color:var(--em)}
+.vp-turn p{font-size:16.5px;color:var(--body);max-width:52ch}
+.vp-turn p strong{color:var(--ink);font-weight:700}
+
+@media(prefers-reduced-motion:reduce){
+  .vp-card,.vp-card .va-know>*,.vp-card .va-compose>*{
+    opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}
 
 /* ---- Cinematic intro ---- */
 html.intro-lock,html.intro-lock body{overflow:hidden}
@@ -640,9 +703,9 @@ footer .mono{line-height:2}
   <div class="mrow">
     <svg class="mmark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg><div class="mword"><span class="parent">ŌLLIN</span>MAIZ<i>.</i></div>
     <div class="mnav">
-      <a href="#engines">Engines</a><a href="#pathways">Pathways</a><a href="#tracker">Tracker</a><a href="#vamos">VAMOS</a><a href="#receipts">Receipts</a>
+      <a href="#evidence">The gap</a><a href="#trust">Trust</a><a href="#signal">The signal</a><a href="#vamos">VAMOS</a>
     </div>
-    <a class="streak" href="#book">Run an account</a>
+    <a class="streak" id="bookStreak" href="#book">Book 30 minutes</a>
   </div>
 </div>
 
@@ -653,7 +716,7 @@ footer .mono{line-height:2}
     <div class="deck-explain hero-post">
       <p>MAIZ finds the opportunity, proves it’s real, finds the right stakeholder, and builds the next move — then keeps the work moving through execution. <b>So you can show up where you matter most: in the conversation, building the kind of relationships that last.</b></p>
     </div>
-    <div class="hero-cta hero-post"><span class="magnet" id="heroMagnet"><a class="btn-hatch" href="#ai">See it run <span class="plus"></span><span class="cn l"></span><span class="cn r"></span></a></span></div>
+    <div class="hero-cta hero-post"><span class="magnet" id="heroMagnet"><a class="btn-hatch" href="#vamos">See it run <span class="plus"></span><span class="cn l"></span><span class="cn r"></span></a></span></div>
     <svg class="hero-mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg>
   </div>
 </div>
@@ -777,178 +840,48 @@ footer .mono{line-height:2}
   </div>
 </div></div></section>
 
-<section id="intelligence"><div class="page"><div class="sec">
+<section id="vamos"><div class="page"><div class="sec">
   <div class="rail"><div class="inner">
     <div class="no">03</div>
-    <div class="rt">The intelligence<br><span class="sub">you already know</span></div>
+    <div class="rt">Intelligence + outreach<br><span class="sub">what we know &middot; what you send</span></div>
   </div></div>
   <div class="content">
     <h2>We never pitch. We show up<br>already knowing what<br>they&rsquo;re up against<span class="v">.</span></h2>
-    <p class="lede">Because that&rsquo;s how you prove <strong>you actually care.</strong></p>
+    <p class="lede">Every contact arrives with the company, the person, the evidence, and the reason to act already attached &mdash; and <strong>every fact carries the engine that found it.</strong> Choose the angle; ŌLLIN drafts it from the verified facts only. Review it, adjust it, send it. Sample data, nothing sent.</p>
   </div>
-</div></div></section>
-
-<section id="ovamos"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">04</div>
-    <div class="rt">Outreach + VAMOS<br><span class="sub">the move is yours</span></div>
-  </div></div>
-  <div class="content">
-    <h2>MAIZ builds the move.<br>You make the call<span class="v">.</span></h2>
-    <p class="lede">Because the relationship <strong>was always yours.</strong></p>
-  </div>
-</div></div></section>
-
-
-<section id="pathways"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">05</div>
-    <div class="rt">The pathways<br><span class="sub">same system · four routes</span></div>
-  </div></div>
-  <div class="content">
-    <h2>One system.<br>Four ways in<span class="v">.</span></h2>
-    <p class="lede">ŌLLIN selects the pathway that matches the question, then runs only the engines needed to move it forward. <strong>Different starting points. One connected system.</strong> Every route ends with a clear next move. <strong>Choose a pathway to open it.</strong></p>
-    <div id="paths"></div>
-  </div>
-</div></div></section>
-
-<section id="ai"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">06</div>
-    <div class="rt">ŌLLIN AI<br><span class="sub">the front door</span></div>
-  </div></div>
-  <div class="content">
-    <h2>Ask the question.<br>Watch the work move<span class="v">.</span></h2>
-    <p class="lede">Ask in plain language. ŌLLIN understands the request, selects the right pathway, and coordinates the engines behind it. Every signal, source, verification step, and decision stays visible. <strong>You don't just get an answer—you see how the system reached it and what should happen next.</strong></p>
-    <div class="ai-stage">
-      <div class="askbar" id="askbar" aria-hidden="true">
-        <span class="q" id="askq" data-ph="Ask ŌLLIN…"></span><span class="ph-cursor" id="askcur"></span>
-        <span class="mic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="18" x2="12" y2="21.5"/></svg></span>
-        <span class="send" id="asksend">&rarr;</span>
-      </div>
-      <div class="cons" id="cons" role="log" aria-label="Agent execution trace">
-        <div class="cons-bar">
-          <span class="cons-dots"><i></i><i></i><i></i></span>
-          <span class="cons-t">ŌLLIN · agent execution · sample</span>
-          <span class="cons-live"><i></i> live</span>
-        </div>
-        <div class="cons-body" id="consBody">
-          <div class="cl cl-cmd"><span class="pr">&gt;</span><span>Run <b>Brightpath Health</b> through Engine 0</span></div>
-          <div class="cl cl-run"><span class="dot">&#9679;</span><span>Executing <b>Pathway 02 &middot; Intelligence</b> <span class="dim">(4 engines)</span></span></div>
-          <div class="cl cl-sub"><span class="tee">&#9500;</span><span><b>Engine 02</b>: 4 Azure roles open &gt;60d on Workday ATS</span></div>
-          <div class="cl cl-sub"><span class="tee">&#9500;</span><span><b>Engine 03</b>: Adversarial audit <span class="ok">100% VERIFIED</span></span></div>
-          <div class="cl cl-sub"><span class="tee">&#9500;</span><span><b>Engine 05</b>: Cost of Gap calculated at <span class="ok">$15k/wk</span></span></div>
-          <div class="cl cl-sub"><span class="tee">&#9492;</span><span><b>Engine 08</b>: 3 copy variants drafted &middot; <span class="ok">Self-Audit 9/9</span></span></div>
-          <div class="cl cl-cur"><span class="pr">&gt;</span><span class="caret"></span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div></div></section>
-
-<section id="output"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">07</div>
-    <div class="rt">The output<br><span class="sub">evidence made usable</span></div>
-  </div></div>
-  <div class="content">
-    <h2>Not a list.<br>A move you can make<span class="v">.</span></h2>
-    <p class="lede">MAIZ doesn't hand your team a pile of names and walk away. It turns the finding into usable account intelligence: what changed, why it matters, who feels it, what the gap may be costing, and how to approach the conversation. <strong>Every claim remains attached to its source. Every missing fact stays missing.</strong> Sample, not a live account.</p>
-    <div class="pull">4 Senior Azure roles open &gt; 60 days · cost of the gap: <i>$15,000 / week</i> · Dana Rivera, VP Talent Acquisition — <i>Engine 03: Verified.</i></div>
-    <div class="post-item">
-      <div class="subj">Req #10492 — 60 days open</div>
-      <div class="bodytxt">
-        <p>Dana,</p>
-        <p>Four senior Azure roles have been open past sixty days while the supply-chain migration is live. <strong>That gap is a lot of pressure to hold on your side.</strong></p>
-        <p>I saw you posted about scaling engineering for Q3. If the migration timeline is driving that, it may be worth a short conversation — I work with senior Azure people who move quickly.</p>
-        <p>Worth twenty minutes?</p>
-        <p>— Marcos</p>
-      </div>
-      <div class="meta"><span class="pill em">Self-audit 9/9</span><span>78 words</span><span>nothing sent</span></div>
-    </div>
-    <div class="note"><b>The rule:</b> every claim in that message traces to a verified fact. Missing beats fabricated.</div>
-  </div>
-</div></div></section>
-
-<section id="tracker"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">08</div>
-    <div class="rt">The tracker<br><span class="sub">the connective tissue · sample data</span></div>
-  </div></div>
-  <div class="content">
-    <h2>One record.<br>The whole motion<span class="v">.</span></h2>
-    <p class="lede">The Tracker is the central nervous system between intelligence and execution. It connects every company, person, signal, source, verification state, action, outcome, and next step. <strong>Nothing gets lost between "we found something" and "someone did something."</strong> The record moves forward with the work.</p>
-    <div class="statgrid">
-      <div class="stat"><div class="big"><em>2</em><span class="unit">tabs</span></div><div class="t">relational architecture — <strong>Companies and Contacts</strong>, linked by unique Account IDs.</div><div class="src">Master Intelligence Tracker</div></div>
-      <div class="stat"><div class="big"><em>3</em><span class="unit">states</span></div><div class="t">every row is live: <strong>Verified · Flagged · Needs review</strong> — with source and ATS link attached.</div><div class="src">Engine 03 · audit-grounded</div></div>
-      <div class="stat"><div class="big" style="color:var(--em)"><em>1</em><span class="unit">click</span></div><div class="t">formatted for <strong>instant export</strong> into HubSpot or a custom sales stack.</div><div class="src">CRM-ready</div></div>
-    </div>
-    <table>
-      <tr><th>Account</th><th>Priority function</th><th>Cost of gap</th><th>Status</th></tr>
-      <tr><td><b>Brightpath Health Systems</b></td><td>Azure implementation</td><td class="mono">$12k / wk</td><td><span class="pill solid">Verified</span></td></tr>
-      <tr><td><b>Halcyon Devices</b></td><td>Facility ramp staffing</td><td class="mono">$15k / wk</td><td><span class="pill solid">Verified</span></td></tr>
-      <tr><td><b>Cobalt Platforms</b></td><td>Platform migration</td><td class="mono">$9k / wk</td><td><span class="pill em">Needs review</span></td></tr>
-      <tr><td><b>Northgate Freight</b></td><td>—</td><td class="mono">—</td><td><span class="pill dim">Flagged</span></td></tr>
-    </table>
-    <div class="note" style="margin-top:20px"><b>The bridge:</b> intelligence enters on one side. Executable work leaves on the other. Every action remains connected to the evidence that produced it.</div>
-    <div class="row" style="margin-top:22px"><a class="btn ghost" href="https://drive.google.com/file/d/1a81plo6IZ5h1S29hdehkw9F-rQI7zTd7U7vpfTF0jc0/view?usp=drivesdk" target="_blank" rel="noopener">Open the tracker ↗</a></div>
-  </div>
-</div></div></section>
-
-<section id="vamos"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">09</div>
-    <div class="rt">VAMOS<br><span class="sub">kinetic execution</span></div>
-  </div></div>
-  <div class="content">
-    <h2>The next move,<br>already in front of you<span class="v">.</span></h2>
-    <p class="lede">No hunting. No blank page. Every contact arrives with the company, the person, the evidence, and the reason to act already attached. <strong>Choose the angle. ŌLLIN builds the approach from the verified facts.</strong> Review it, adjust it, send it, and log the outcome—without leaving the flow of work. Sample data, nothing sent.</p>
-  </div>
-</div>
+</div></div>
 
 <div class="page">
-  <div class="va-app">
-    <!-- QUEUE -->
-    <aside class="va-queue">
-      <div class="va-queue-h mono">Up next</div>
-      <button class="va-q on" type="button"><div class="va-q-main"><div class="va-q-name">Dana Rivera</div><div class="va-q-role">VP, Technology Implementation</div><div class="va-q-co"><span class="va-ava">B</span>Brightpath Health</div></div><span class="va-ready">Ready</span></button>
-      <button class="va-q" type="button"><div class="va-q-main"><div class="va-q-name">Marcus Vale</div><div class="va-q-role">Senior Director, Data Science</div><div class="va-q-co"><span class="va-ava">B</span>Brightpath Health</div></div><span class="va-ready">Ready</span></button>
-      <button class="va-q" type="button"><div class="va-q-main"><div class="va-q-name">Priya Anand</div><div class="va-q-role">VP, Client Success</div><div class="va-q-co"><span class="va-ava">H</span>Halcyon Devices</div></div><span class="va-ready">Ready</span></button>
-      <button class="va-q" type="button"><div class="va-q-main"><div class="va-q-name">Leo Fontaine</div><div class="va-q-role">VP, Customer Operations</div><div class="va-q-co"><span class="va-ava">H</span>Halcyon Devices</div></div><span class="va-ready">Ready</span></button>
-      <button class="va-q" type="button"><div class="va-q-main"><div class="va-q-name">Nadia Cole</div><div class="va-q-role">VP, Platform Engineering</div><div class="va-q-co"><span class="va-ava">C</span>Cobalt Platforms</div></div><span class="va-ready">Ready</span></button>
-      <button class="va-q" type="button"><div class="va-q-main"><div class="va-q-name">Omar Reyes</div><div class="va-q-role">Director, Delivery</div><div class="va-q-co"><span class="va-ava">C</span>Cobalt Platforms</div></div><span class="va-ready">Ready</span></button>
-      <button class="va-q" type="button"><div class="va-q-main"><div class="va-q-name">Sofia Marin</div><div class="va-q-role">VP, Customer Engagement</div><div class="va-q-co"><span class="va-ava">N</span>Northgate Freight</div></div><span class="va-ready">Ready</span></button>
-      <button class="va-q" type="button"><div class="va-q-main"><div class="va-q-name">Grace Kim</div><div class="va-q-role">VP, Implementation</div><div class="va-q-co"><span class="va-ava">N</span>Northgate Freight</div></div><span class="va-ready">Ready</span></button>
-    </aside>
-
-    <!-- TOUCH CARD -->
-    <div class="va-card">
+  <div class="vp-light">
+    <div class="va-card vp-card" id="vpCard">
       <div class="va-head">
-        <div class="va-head-top"><span class="mono">First touch · Touch 1</span><span class="va-verified"><span class="va-vd"></span><span class="va-vd"></span><span class="va-vd"></span> Verified</span></div>
+        <div class="va-head-top"><span class="mono">First touch &middot; Touch 1</span><span class="va-verified"><span class="va-vd"></span><span class="va-vd"></span><span class="va-vd"></span> Verified</span></div>
         <div class="va-name">Dana Rivera</div>
-        <div class="va-title">Vice President, Technology Implementation · <span class="va-org">Brightpath Health ↗</span></div>
-        <div class="va-contact mono">✉ dana.rivera@brightpath.example · <span class="va-lk">Find on LinkedIn</span> · Dallas, TX</div>
+        <div class="va-title">Vice President, Technology Implementation &middot; <span class="va-org">Brightpath Health</span></div>
+        <div class="va-contact mono">&#9993; dana.rivera@brightpath.example &middot; <span class="va-lk">Find on LinkedIn</span> &middot; Dallas, TX</div>
       </div>
 
       <div class="va-body">
+        <!-- LEFT · the intelligence -->
         <div class="va-know">
-          <div class="va-know-h mono">01 &nbsp;What we know · The org</div>
-          <div class="va-row"><div class="va-k mono">Signal</div><div class="va-val">Hiring signal — verified open role <span class="dim">(perishable)</span>: 4 senior Azure implementation roles open 60+ days on Workday ATS; platform rollout live this year. <span class="va-eng mono">● Engine 02 · Signals</span></div></div>
-          <div class="va-row"><div class="va-k mono">Money</div><div class="va-val">Read VP, Technology as the person who feels the gap before anyone reports it. <span class="va-eng mono">● Engine 05 · Cost of gap</span></div></div>
+          <div class="va-know-h mono">01 &nbsp;What we know &middot; The org</div>
+          <div class="va-row"><div class="va-k mono">Signal</div><div class="va-val">Verified open role <span class="dim">(perishable)</span> &mdash; 4 senior Azure implementation roles open 60+ days on Workday ATS, with the platform rollout live this year. <span class="va-eng mono">&#9679; Engine 02 &middot; Signals</span></div></div>
+          <div class="va-row"><div class="va-k mono">Money</div><div class="va-val">Cost of the gap: <strong>$12,000 / week</strong> in delayed go-lives and implementation overtime, compounding while the reqs sit open. <span class="va-eng mono">&#9679; Engine 05 &middot; Cost of gap</span></div></div>
           <div class="va-row"><div class="va-k mono">Buyer</div><div class="va-val dim">not tracked yet</div></div>
-          <div class="va-know-h mono">02 &nbsp;What we know · The contact</div>
-          <div class="va-row"><div class="va-k mono">Why</div><div class="va-val">Leads the global Workforce OS team — feels the gap before anyone reports it. <span class="va-eng mono">● Engine 06 · Contact intel</span></div></div>
+          <div class="va-know-h mono">02 &nbsp;What we know &middot; The contact</div>
+          <div class="va-row"><div class="va-k mono">Why</div><div class="va-val">Leads the global Workforce OS team &mdash; feels the gap before anyone reports it. <span class="va-eng mono">&#9679; Engine 06 &middot; Contact intel</span></div></div>
           <div class="va-row"><div class="va-k mono">Hook</div><div class="va-val dim">not tracked yet</div></div>
-          <div class="va-row"><div class="va-k mono">Status</div><div class="va-val">In cadence — touch 1 of 4 <span class="va-eng mono">● System</span></div></div>
+          <div class="va-row"><div class="va-k mono">Status</div><div class="va-val">In cadence &mdash; touch 1 of 4 <span class="va-eng mono">&#9679; System</span></div></div>
         </div>
 
+        <!-- RIGHT · the outreach -->
         <div class="va-compose">
-          <div class="va-seg"><button class="va-seg-b on" type="button">✉ Email</button><button class="va-seg-b" type="button">in&nbsp;LinkedIn</button></div>
+          <div class="va-seg"><button class="va-seg-b on" type="button">&#9993; Email</button><button class="va-seg-b" type="button">in&nbsp;LinkedIn</button></div>
           <div class="va-grounded mono">Grounded in 4 facts</div>
           <textarea class="va-ta" id="vaTa" placeholder="Ask ŌLLIN to write it — or type your own." spellcheck="false"></textarea>
-          <div class="va-ta-meta mono"><span id="vaCount">0 chars · 0 words</span><span><span class="va-lk">Open email</span> · <span class="va-lk">Copy</span></span></div>
-          <div class="askbar va-ask" aria-hidden="true"><span class="q" data-ph="Ask ŌLLIN to write it — or ask about the account…"></span><span class="mic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="18" x2="12" y2="21.5"/></svg></span><span class="send" id="vaSend">&rarr;</span></div>
-          <button class="va-go" id="vaGo" type="button">Let's go »</button>
+          <div class="va-ta-meta mono"><span><span id="vaCount">0 chars · 0 words</span> &middot; <span class="va-aud">audited &#10003;</span></span><span><span class="va-lk">Open email</span> &middot; <span class="va-lk">Copy</span></span></div>
+          <div class="askbar va-ask" aria-hidden="true"><span class="q" data-ph="Ask ŌLLIN to write it — or ask about the account…">Ask ŌLLIN to write it — or ask about the account…</span><span class="mic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="18" x2="12" y2="21.5"/></svg></span><span class="send" id="vaSend">&rarr;</span></div>
+          <button class="va-go" id="vaGo" type="button">Let's go &raquo;</button>
           <div class="va-chips">
             <button class="va-chip on" data-a="0" type="button">The gap</button>
             <button class="va-chip" data-a="1" type="button">Cost of waiting</button>
@@ -960,74 +893,28 @@ footer .mono{line-height:2}
       </div>
     </div>
   </div>
-  <div class="note" style="margin-top:22px"><b>Approval is not send:</b> ŌLLIN prepares the work. You review it, adjust it, and decide what leaves the building.</div>
-  <div class="row" style="margin-top:20px"><a class="btn ghost" href="https://drive.google.com/file/d/14DIocuzw929QZyyAoBjflw5x8EHYx_sK97FbC_DW0sM/view?usp=drivesdk" target="_blank" rel="noopener">See a VAMOS card ↗</a></div>
+
+  <!-- the turn: the system stops, the human decides -->
+  <div class="vp-turn">
+    <h3>MAIZ builds the move.<br>You make the call<span class="v">.</span></h3>
+    <p>Because the relationship <strong>was always yours.</strong> ŌLLIN prepares the work &mdash; you review it, adjust it, and decide what leaves the building. <strong>Approval is not send.</strong></p>
+  </div>
 </div></section>
 
-<section id="rules"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">10</div>
-    <div class="rt">Human control<br><span class="sub">built into the system</span></div>
-  </div></div>
-  <div class="content">
-    <h2>Confidence<br>is cheap<span class="v">.</span></h2>
-    <p class="lede">Most AI tools are designed to produce an answer. <strong>MAIZ is designed to produce work your team can inspect, challenge, and decide whether to act on.</strong></p>
-    <div class="blk"><div class="bh"><h3>A built-in adversary</h3><span class="pill em">Engine 03</span></div><p>A separate engine tries to disprove the finding before it moves forward. It sees the sources, not the story. Signals that don't survive don't move.</p></div>
-    <div class="blk"><div class="bh"><h3>Missing beats fabricated</h3></div><p>No engine may invent a fact, date, title, or source. When information is unavailable, the system writes around it or sends the work back upstream. It never smooths over the gap.</p></div>
-    <div class="blk"><div class="bh"><h3>Approval is not send</h3></div><p>Nothing is emailed, messaged, or dispatched without a separate, explicit instruction from your team. MAIZ prepares the work. <b>Your person decides what leaves the building.</b></p></div>
-  </div>
-</div></div></section>
-
-<section id="engines"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">11</div>
-    <div class="rt">Under the hood<br><span class="sub">the engines · one question each</span></div>
-  </div></div>
-  <div class="content">
-    <h2>8 engines.<br>One connected system<span class="v">.</span></h2>
-    <p class="lede">Each engine owns a single question — answered with evidence or not at all. <strong>Click an engine to see the question it owns.</strong></p>
-  </div>
-</div>
-<div class="ecar" id="ecar">
-  <button class="car-nav prev" id="eprev" type="button" aria-label="Previous engine">&lsaquo;</button>
-  <button class="car-nav next" id="enext" type="button" aria-label="Next engine">&rsaquo;</button>
-  <div class="car-stage"><div class="car-track" id="etrack"></div></div>
-  <div class="car-dots" id="edots"></div>
-</div>
-</div></section>
-
-<section id="receipts"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">12</div>
-    <div class="rt">Receipts<br><span class="sub">verbatim · field tests</span></div>
-  </div></div>
-  <div class="content">
-    <h2>We gave it to<br>people who'd know<span class="v">.</span></h2>
-    <p class="lede">People who have spent their careers doing this work—and who would recognize a shortcut immediately—ran the system against real commercial questions. <strong>Their words are verbatim.</strong></p>
-    <div class="pull">"They know when to go, when to stop, and how to check each other… <i>we know the routes and the answer</i>, because it's well laid out. I'm very impressed."<br><span class="mono" style="display:block;margin-top:10px">Analytics &amp; AI leader · major recruiting-tech platform</span></div>
-    <table>
-      <tr><th>Receipt</th><th>Quote</th><th>Who</th></tr>
-      <tr><td class="mono">02</td><td>"These engines work together to do the work, so we can get out in the field even more."</td><td><b>SVP</b> · national staffing firm</td></tr>
-      <tr><td class="mono">03</td><td>"I cannot believe it does all this from just one prompt. Amazing."</td><td><b>Senior Director</b> · IT staffing firm</td></tr>
-      <tr><td class="mono">04</td><td>"Wow — I'm impressed. This really works."</td><td><b>Owner</b> · search &amp; staffing firm</td></tr>
-    </table>
-    <div class="note">Engines run: <b>8</b> · Invented facts: <b>0</b></div>
-  </div>
-</div></div></section>
 
 <section id="book" style="border-bottom:1px solid var(--border)"><div class="page"><div class="sec">
   <div class="rail"><div class="inner">
     <div class="no">→</div>
-    <div class="rt"><b>Run it live</b><br><span class="sub">bring a real account</span></div>
+    <div class="rt"><b>Book 30 minutes</b><br><span class="sub">bring a real account</span></div>
   </div></div>
   <div class="content">
-    <h2>From signal<br><span class="v">to next move—live.</span></h2>
-    <p class="lede">Bring one account your team is already working. Ask ŌLLIN the question, watch MAIZ verify the evidence and build the approach, then see the next action arrive in VAMOS. <strong>You bring the judgment. We'll show you how the rest of the work moves around it.</strong></p>
+    <div class="cta-kick mono">30 minutes &middot; the engines running live</div>
+    <h2>Let me show you how<br>the engines <span class="v">actually work.</span></h2>
+    <p class="lede">You&rsquo;ve seen one card. There are eight engines behind it, and I&rsquo;d rather show you than describe them. <strong>Let&rsquo;s book 30 minutes to go over them and work out how we can support you.</strong> Bring an account you&rsquo;re already working &mdash; we&rsquo;ll run it.</p>
     <div class="row">
-      <a class="btn" href="#">Run an account →</a>
-      <a class="btn ghost" href="#engines">See the system ↑</a>
+      <a class="btn" id="bookBtn" href="#book">Book 30 minutes →</a>
     </div>
-    <div class="note" style="margin-top:22px">Eight engines. Four pathways. One connected system. Zero invented facts.</div>
+    <div class="note" style="margin-top:22px"><b>Approval is not send:</b> two-signal minimum, every claim double-checked against the live ATS, and nothing leaves the building without you.</div>
   </div>
 </div></div></section>
 
@@ -1045,263 +932,8 @@ footer .mono{line-height:2}
   var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var S = 'stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"';
 
-  var ENGINES = [
-    { num:'00', chip:'Orchestrator', name:'The Dispatcher',
-      what:'Holds the scope and moves work between the engines, checking each result before the next one starts.',
-      why:'So a run stays on what you actually asked for, and nothing downstream gets built on a shaky finding.',
-      paths:['Signal','Intelligence','Ely · Redeploy','FullCycle'],
-      link:'https://drive.google.com/file/d/1jxCFP6ELzcFikTX1_p9vZPVzX9AmqtlymJkDkrN9mP0/view?usp=drivesdk',
-      ico:'<circle cx="12" cy="12" r="2.6"/><circle cx="4.5" cy="5.5" r="2.2"/><circle cx="19.5" cy="5.5" r="2.2"/><circle cx="4.5" cy="18.5" r="2.2"/><circle cx="19.5" cy="18.5" r="2.2"/><line x1="6.2" y1="7" x2="10.3" y2="10.4"/><line x1="17.8" y1="7" x2="13.7" y2="10.4"/><line x1="6.2" y1="17" x2="10.3" y2="13.6"/><line x1="17.8" y1="17" x2="13.7" y2="13.6"/>' },
-    { num:'01', chip:'Pipeline', name:'Timing',
-      what:'Reads the market’s calendar — when it’s under real pressure, and when money actually moves.',
-      why:'So your hours land while the window’s open. Showing up at the right moment is how a first conversation turns into a standing one.',
-      paths:['Signal','FullCycle'],
-      link:'https://drive.google.com/file/d/1AB7Idgz81LT_hL3wLunJEBkhHjk5Swz6-uJeeLRqmXM/view?usp=drivesdk',
-      ico:'<circle cx="12" cy="12" r="8.5"/><polyline points="12,6.8 12,12 15.8,14.2"/>' },
-    { num:'02', chip:'Multi-vertical', name:'Signals',
-      what:'Finds what just changed at a company, and what that change left uncovered.',
-      why:'So you arrive with a reason to reach out, at a moment when it’s genuinely useful to them.',
-      paths:['Signal','FullCycle'],
-      link:'https://drive.google.com/file/d/1BOeFflxDL1OpqeUpe5CpLRZhgNWU-692JGDB1PGl8mU/view?usp=drivesdk',
-      ico:'<polyline points="1,12.5 5.5,12.5 8,5.5 10.5,19.5 13,12.5 23,12.5"/><circle cx="8" cy="5.5" r="1.2" fill="currentColor" stroke="none"/>' },
-    { num:'03', chip:'Standalone', name:'The Skeptic',
-      what:'An independent subagent whose only job is to audit and disprove findings. If it isn’t verified at more than one level, it dies there.',
-      why:'Because trust compounds, and it only breaks once. Worth knowing something’s true before you bring it to someone you want to keep.',
-      paths:['Signal','Ely · Redeploy','FullCycle'],
-      link:'https://drive.google.com/file/d/1mqP1QLPpWstaHzLJguic_k3WuawNL-wXaBodZ7bSh5A/view?usp=drivesdk',
-      ico:'<circle cx="10.5" cy="10.5" r="7"/><line x1="15.5" y1="15.5" x2="21.5" y2="21.5"/><circle cx="10.5" cy="10.5" r="2.5"/>' },
-    { num:'04', chip:'Pipeline', name:'Roles',
-      what:'Confirms the opening is real and live at the source, today.',
-      why:'So the week goes to real openings, and the hours you’d have spent checking go back to the clients you already have.',
-      paths:['Ely · Redeploy','FullCycle'],
-      link:'https://drive.google.com/file/d/1PeXk-QY4LLG5Bps_pB_ig4oafHctbLNVSpjnYSiDcoI/view?usp=drivesdk',
-      ico:'<path d="M12 2.5 L4.5 6.5 L4.5 14.5 C4.5 18.8 12 21.5 12 21.5 C12 21.5 19.5 18.8 19.5 14.5 L19.5 6.5 Z"/><polyline points="8.5,12 11,14.5 16,9.5"/>' },
-    { num:'05', chip:'Pipeline', name:'Company Intelligence',
-      what:'Reads the whole organization — from their beginning to their current reality.',
-      why:'So you can intimately know the client’s current pain points — and spend the meeting on them, not on catching up.',
-      paths:['Intelligence','Ely · Redeploy','FullCycle'],
-      link:'https://drive.google.com/file/d/137nAQGhgB-PfRYiM1CDdrFWWg50OkcoDhm_zzKBoVxk/view?usp=drivesdk',
-      ico:'<polygon points="12,3 21.5,8 12,13 2.5,8"/><polyline points="2.5,12.5 12,17.5 21.5,12.5"/><polyline points="2.5,16.8 12,21.5 21.5,16.8"/>' },
-    { num:'06', chip:'Pipeline', name:'The People',
-      what:'Finds who’s left holding the work, and confirms they’re still there.',
-      why:'So the person carrying the problem hears from someone who understands it. That’s where a long relationship usually starts.',
-      paths:['Intelligence','Ely · Redeploy','FullCycle'],
-      link:'https://drive.google.com/file/d/1IcRoNkMDnJeaO2YalXpF0km_PovNwMgLUqzXVnxCoZQ/view?usp=drivesdk',
-      ico:'<circle cx="9" cy="8" r="3.4"/><path d="M2.8 20c0-3.4 2.8-5.8 6.2-5.8s6.2 2.4 6.2 5.8"/><path d="M16.4 5.2a3.4 3.4 0 0 1 0 6.4"/><path d="M18.2 14.6c1.9.8 3.1 2.6 3.1 5"/>' },
-    { num:'08', chip:'Output', name:'The Words',
-      what:'Writes the outreach from what was verified, then grades its own draft before you ever see it.',
-      why:'So the first thing they read sounds like a person who paid attention. That’s an opening, not a transaction.',
-      paths:['Intelligence','Ely · Redeploy','FullCycle'],
-      link:'https://drive.google.com/file/d/1foMFC0BFVhxOKMAIcJrTGZmJGn7NEOmtDlZ8FEYj_eU/view?usp=drivesdk',
-      ico:'<rect x="2.5" y="5" width="19" height="14" rx="2.4"/><polyline points="3.4,6.6 12,13 20.6,6.6"/>' }
-  ];
 
-  var host=document.getElementById('etrack'), dotsEl=document.getElementById('edots'),
-      prev=document.getElementById('eprev'), next=document.getElementById('enext');
-  if (host) {
-    var n=ENGINES.length, active=0, cards=[], dots=[];
-    function handoff(k){
-      return ENGINES[k].num==='00'
-        ? 'Every result returns here. Nothing moves on until it checks out.'
-        : 'Returns to <b>Engine 00</b>, which checks the result and decides what runs next.';
-    }
-    ENGINES.forEach(function(e,i){
-      var c=document.createElement('article');
-      c.className='car-card';
-      c.setAttribute('tabindex','0'); c.setAttribute('role','button');
-      var pills = e.paths.map(function(p){ return '<span class="ppill"><i></i>'+p+'</span>'; }).join('');
-      c.innerHTML =
-        '<div class="ec-top"><span class="ec-eng">Engine '+e.num+'</span><span class="chip">'+e.chip+'</span></div>'+
-        '<span class="ec-ico"><svg viewBox="0 0 24 24" width="30" height="30" '+S+'>'+e.ico+'</svg></span>'+
-        '<h3 class="ec-name">'+e.name+'</h3>'+
-        '<div class="ec-full">'+
-          '<div class="emod-paths"><div class="k">Runs in</div><div class="ppills">'+pills+'</div></div>'+
-          '<div class="ec-grid">'+
-            '<div class="ec-box"><span class="ic"><svg viewBox="0 0 24 24" width="24" height="24" '+S+'>'+e.ico+'</svg></span>'+
-              '<div class="k">What it does</div><p>'+e.what+'</p></div>'+
-            '<div class="ec-box why"><span class="ic"><svg viewBox="0 0 24 24" width="24" height="24" '+S+'><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="3"/></svg></span>'+
-              '<div class="k">Why it matters</div><p>'+e.why+'</p></div>'+
-          '</div>'+
-          '<div class="ec-hand"><span class="c">&#8635;</span><span>'+handoff(i)+'</span></div>'+
-          (e.link?'<a class="ec-spec" href="'+e.link+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">Open the Engine '+e.num+' spec <span>&#8599;</span></a>':'')+
-        '</div>';
-      c.addEventListener('click',function(){ if(i!==active) goTo(i); });
-      c.addEventListener('keydown',function(ev){ if(ev.key==='Enter'||ev.key===' '){ev.preventDefault(); if(i!==active) goTo(i);} });
-      host.appendChild(c); cards.push(c);
-      var d=document.createElement('button');
-      d.className='car-dot'; d.type='button';
-      d.setAttribute('aria-label','Engine '+e.num);
-      d.addEventListener('click',function(){ goTo(i); });
-      dotsEl.appendChild(d); dots.push(d);
-    });
-    function shortestOffset(i,a,len){ var d=i-a; if(d>len/2)d-=len; if(d<-len/2)d+=len; return d; }
-    function render(){
-      for(var k=0;k<n;k++){
-        var off=shortestOffset(k,active,n);
-        cards[k].setAttribute('data-pos', Math.abs(off)>2 ? 'hidden' : String(off));
-        cards[k].classList.toggle('is-active', off===0);
-        cards[k].setAttribute('aria-hidden', Math.abs(off)>2 ? 'true':'false');
-        dots[k].classList.toggle('on', k===active);
-      }
-    }
-    function rotate(dir){ active=(active+dir+n)%n; render(); }
-    function goTo(i){ active=i; render(); }
-    if(prev) prev.addEventListener('click',function(){ rotate(-1); });
-    if(next) next.addEventListener('click',function(){ rotate(1); });
-    var stage=document.querySelector('.car-stage');
-    if(stage){
-      stage.tabIndex=0;
-      stage.addEventListener('keydown',function(e){
-        if(e.key==='ArrowLeft'){ e.preventDefault(); rotate(-1); }
-        if(e.key==='ArrowRight'){ e.preventDefault(); rotate(1); }
-      });
-      var sx=null;
-      stage.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; },{passive:true});
-      stage.addEventListener('touchend',function(e){
-        if(sx===null) return;
-        var d=e.changedTouches[0].clientX-sx; sx=null;
-        if(Math.abs(d)>50) rotate(d<0?1:-1);
-      });
-    }
-    render();
-  }
 
-  (function(){
-    var PATHS = [
-      { kick:'Pathway 01', name:'ŌLLIN : Signal', sub:'Start with a market. End with proof.',
-        desc:'Market timing, buying-signal discovery, and adversarial verification. Answers “what should we chase next?” — and only hands you signals that survived the skeptic.',
-        used:['0','1','2','3'],
-        steps:[['0','The Dispatcher','Locks the scope and the exclusion list so the run can’t drift.'],
-               ['1','Timing','Finds the windows where this market is actually under pressure.'],
-               ['2','Signals','Surfaces what changed, and what work it uncovered.'],
-               ['3','The Skeptic','Independently attacks each signal. Only survivors are returned.']],
-        skip:'<b>04 · 05 · 06 · 08 sit this one out.</b> No contacts, no outreach — this route stops at proof, on purpose.' },
-      { kick:'Pathway 02', name:'ŌLLIN : Intelligence', sub:'Start with a company. End with who and what to say.',
-        desc:'You already know the account. This route digs the opportunity thesis, confirms real contacts, and writes audited outreach for each one.',
-        used:['0','5','6','8'],
-        steps:[['0','The Dispatcher','Resolves canonical identity — ambiguous input stops the run rather than guessing.'],
-               ['5','The Dig','Builds the opportunity thesis and the list of approved facts.'],
-               ['6','The People','Confirms who owns the problem and that they’re still in seat.'],
-               ['8','The Words','Three audited angles per contact, from approved facts only.']],
-        skip:'<b>01 · 02 · 03 · 04 are skipped.</b> Discovery is unnecessary when you already have the account — so truth is enforced by 05 and 06 instead.' },
-      { kick:'Pathway 03', name:'ŌLLIN : Ely — Redeploy', sub:'Start with a person. Find their next seat.',
-        desc:'The engines run backwards. Starts from a consultant rolling off, discovers live roles that fit, validates them, maps the buyer, and writes the intro — the candidate stays anonymous throughout.',
-        used:['0','4','3','5','6','8'],
-        steps:[['0','The Dispatcher','Takes the resume, sets the roll-off clock, assigns an anonymous handle.'],
-               ['4','Roles — reversed','Instead of validating a known role, it goes hunting for seats that fit this person.'],
-               ['3','The Skeptic','Validates each discovered seat is live and a real match, not a keyword match.'],
-               ['5','The Dig','Why that need exists at each company, from the candidate’s angle.'],
-               ['6','The People','Who actually owns the hire — existing clients first, then warm, then cold.'],
-               ['8','The Words','The intro, positioned anonymously. Availability date is the honest urgency.']],
-        skip:'<b>01 and 02 are skipped.</b> The timing pressure is already known — it’s the roll-off date.' },
-      { kick:'Pathway 04', name:'ŌLLIN : FullCycle', sub:'Start with a question. End with a campaign.',
-        desc:'Every engine, in order, with a validated gate between each one. Goes from “where’s the opportunity?” all the way to an audited outreach plan.',
-        used:['0','1','2','3','4','5','6','8'],
-        steps:[['0','The Dispatcher','Orchestrates the whole chain and validates every handoff.'],
-               ['1','Timing','Where and when the pressure is real.'],
-               ['2','Signals','What changed, graded on sight.'],
-               ['3','The Skeptic','Verified, caveated, or killed.'],
-               ['4','Roles','Live reqs confirmed at the source.'],
-               ['5','The Dig','The lead signal, excavated.'],
-               ['6','The People','Confirmed, sequenceable contacts.'],
-               ['8','The Words','Three audited angles each.']],
-        skip:'<b>Nothing is skipped.</b> A failed gate can stop the run early — and it records exactly why.' }
-    ];
-    var ALL=['0','1','2','3','4','5','6','8'];
-    var host=document.getElementById('paths');
-    if(!host) return;
-    PATHS.forEach(function(p){
-      var card=document.createElement('div');
-      card.className='pblk';
-      var rail=ALL.map(function(nn,k){
-        var on=p.used.indexOf(nn)>-1;
-        return (k?'<span class="arrow">'+(on&&p.used.indexOf(ALL[k-1])>-1?'→':'·')+'</span>':'')+
-               '<span class="node'+(on?'':' off')+'">'+nn+'</span>';
-      }).join('');
-      var steps=p.steps.map(function(st){
-        return '<div class="step"><span class="sn">'+st[0]+'</span><div><div class="st">'+st[1]+'</div><div class="sd">'+st[2]+'</div></div></div>';
-      }).join('');
-      card.innerHTML=
-        '<button class="phead" type="button" aria-expanded="false">'+
-          '<span class="pk">'+p.kick+'</span>'+
-          '<h3>'+p.name+'<span class="v">.</span></h3>'+
-          '<div class="psub">'+p.sub+'</div>'+
-          '<div class="proute">'+rail+'<span class="ptog">Open <span class="c">+</span></span></div>'+
-        '</button>'+
-        '<div class="ppanel"><div class="ppanel-in">'+
-          '<p class="pdesc">'+p.desc+'</p>'+
-          '<div class="steps-lbl">Engines this route actually runs</div>'+steps+
-          '<div class="skipnote">'+p.skip+'</div>'+
-        '</div></div>';
-      host.appendChild(card);
-      var head=card.querySelector('.phead'), panel=card.querySelector('.ppanel'),
-          inner=card.querySelector('.ppanel-in'), tog=card.querySelector('.ptog');
-      head.addEventListener('click',function(){
-        var open=!card.classList.contains('open');
-        host.querySelectorAll('.pblk.open').forEach(function(o){
-          if(o===card) return;
-          o.classList.remove('open');
-          var op=o.querySelector('.ppanel'); op.style.height=op.scrollHeight+'px';
-          requestAnimationFrame(function(){ op.style.height='0px'; });
-          o.querySelector('.phead').setAttribute('aria-expanded','false');
-          o.querySelector('.ptog').childNodes[0].textContent='Open ';
-        });
-        card.classList.toggle('open',open);
-        head.setAttribute('aria-expanded',String(open));
-        tog.childNodes[0].textContent=open?'Close ':'Open ';
-        if(open){
-          panel.style.height=inner.scrollHeight+'px';
-          panel.addEventListener('transitionend',function te(e){
-            if(e.propertyName!=='height')return;
-            if(card.classList.contains('open'))panel.style.height='auto';
-            panel.removeEventListener('transitionend',te);
-          });
-        } else {
-          panel.style.height=inner.scrollHeight+'px';
-          requestAnimationFrame(function(){ panel.style.height='0px'; });
-        }
-      });
-    });
-  })();
-
-  (function(){
-    var bar=document.getElementById('askbar'), q=document.getElementById('askq'),
-        cur=document.getElementById('askcur'), send=document.getElementById('asksend'),
-        cons=document.getElementById('cons'), bodyEl=document.getElementById('consBody');
-    if(!bar||!cons) return;
-    if(REDUCE){ q.textContent='Run Brightpath Health through Engine 0'; return; }
-    var MSG='Run Brightpath Health through Engine 0';
-    var lines=bodyEl.querySelectorAll('.cl');
-    var started=false;
-    function sleep(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
-    async function loop(){
-      for(;;){
-        q.textContent=''; cons.classList.remove('play'); cons.style.opacity='0';
-        lines.forEach(function(l){ l.style.animationDelay=''; });
-        bar.classList.remove('hot');
-        await sleep(700);
-        bar.classList.add('hot');
-        for(var i=0;i<MSG.length;i++){ q.textContent+=MSG[i]; await sleep(26+Math.random()*34); }
-        await sleep(350);
-        send.classList.add('pop'); await sleep(180); send.classList.remove('pop');
-        bar.classList.remove('hot');
-        await sleep(250);
-        cons.style.opacity='1';
-        lines.forEach(function(l,idx){ l.style.animationDelay=(idx*0.42)+'s'; });
-        cons.classList.add('play');
-        await sleep(lines.length*420+900);
-        await sleep(5200);
-      }
-    }
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(en){
-        en.forEach(function(e){
-          if(e.isIntersecting && !started){ started=true; loop(); io.disconnect(); }
-        });
-      },{threshold:.3});
-      io.observe(bar);
-    } else { started=true; loop(); }
-  })();
 
   if (!REDUCE && window.matchMedia('(hover: hover)').matches) {
     var cardsEls = document.querySelectorAll('.blk,.stat,.post-item,.pull');
@@ -1342,10 +974,6 @@ footer .mono{line-height:2}
   if (!REDUCE && 'IntersectionObserver' in window) {
     var GROUPS = [
       ['.statgrid', '.stat'],
-      ['#pathways .content', '.pblk'],
-      ['#output .content', '.pull,.post-item,.note'],
-      ['#rules .content', '.blk'],
-      ['#receipts .content', '.pull,tr'],
       ['#book .content', '.row,.note']
     ];
     GROUPS.forEach(function(pair){
@@ -1436,51 +1064,6 @@ footer .mono{line-height:2}
   }
 })();
 
-// ---- VAMOS copy-angle switcher ----
-(function(){
-  var ANGLES=[
-    {label:'Angle 01 · The gap', words:64,
-     subj:'Subject: Implementation capacity + your platform rollout',
-     body:['Hi Dana — saw Brightpath recently launched the Workforce Operating System, bringing unified labor tracking to health systems.',
-           'You’ve had four senior Azure implementation roles open on Workday for 60+ days. Scaling enterprise SaaS across hospital networks strains internal teams fast.',
-           'I partner with Dallas tech leaders to deliver <strong>pre-vetted healthcare SaaS implementation engineers</strong> who get go-lives over the line faster.',
-           'Worth a 20-minute conversation?']},
-    {label:'Angle 02 · Cost of waiting', words:71,
-     subj:'Subject: The real cost of those 4 open Azure roles',
-     body:['Hi Dana — four senior Azure roles open 60+ days isn’t just a hiring gap; on a rollout of Brightpath’s scale it’s roughly <strong>$12,000/week</strong> in delayed hospital go-lives and implementation overtime.',
-           'That number compounds every week the reqs stay open while your team absorbs the load.',
-           'I place pre-vetted healthcare SaaS implementation engineers who close that gap in weeks, not quarters.',
-           'Open to comparing notes for 20 minutes?']},
-    {label:'Angle 03 · The capability', words:66,
-     subj:'Subject: A pre-vetted Azure implementation lead, ready now',
-     body:['Hi Dana — I have a healthcare SaaS implementation engineer who’s led three enterprise Workday-adjacent go-lives on Azure and is <strong>available immediately</strong>.',
-           'Given Brightpath’s Workforce OS rollout and the senior Azure reqs still open on your board, the fit looked too direct not to send your way.',
-           'Happy to share an anonymized profile before we talk.',
-           'Worth a quick 20-minute intro?']}
-  ];
-  var body=document.getElementById('vcBody'), subj=document.getElementById('vcSubj'),
-      angle=document.getElementById('vcAngle'), words=document.getElementById('vcWords'),
-      send=document.getElementById('vcSend'), btns=document.querySelectorAll('.vc-btn');
-  if(!body) return;
-  function render(i){
-    var a=ANGLES[i];
-    body.style.opacity=0;
-    setTimeout(function(){
-      body.innerHTML=a.body.map(function(p){return '<p>'+p+'</p>';}).join('');
-      subj.textContent=a.subj; angle.textContent=a.label; words.textContent=a.words;
-      body.style.opacity=1;
-    },140);
-  }
-  render(0);
-  btns.forEach(function(b){
-    b.addEventListener('click',function(){
-      btns.forEach(function(x){x.classList.remove('on');});
-      b.classList.add('on'); render(parseInt(b.dataset.a));
-      send.classList.remove('sent'); send.innerHTML='Send &amp; log →';
-    });
-  });
-  send.addEventListener('click',function(){ send.classList.add('sent'); send.innerHTML='✓ Sent &amp; logged'; });
-})();
 
 // ---- Cinematic intro: process line → chatbox → greeting → swipe up ----
 (function(){
@@ -1492,10 +1075,8 @@ footer .mono{line-height:2}
       bar=document.getElementById('introAsk'),
       q=document.getElementById('introQ'), cur=document.getElementById('introCur'),
       up=document.getElementById('introUp'), send=document.getElementById('introSend');
-  var SEGS=['Market signals identified','account intelligence assembled','the right buyer found and verified','outreach campaign locked in\u2026'];
   var MSG="Hi, I'm \u014cLLIN AI... ready when you are.";
   function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
-  function mk(cls,txt){var e=document.createElement('span');e.className=cls;e.textContent=txt;proc.appendChild(e);return e;}
   async function play(){
     if(REDUCE){
       proc.classList.add('on');
@@ -1537,60 +1118,11 @@ footer .mono{line-height:2}
 
 // ---- Hero letter-scramble decode ----
 (function(){
-  var REDUCE=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var els=[].slice.call(document.querySelectorAll('.hero .scr')); if(!els.length) return;
-  var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/<>*';
-  els.forEach(function(el){ el.setAttribute('data-final', el.textContent); });
-  var played=false;
-  var h1=document.querySelector('.hero h1');
-  var movingEl=document.querySelector('.hero .scr.accent');
-  function scrambleOne(el, delay, done){
-    var target=el.getAttribute('data-final');
-    if(REDUCE){ el.textContent=target; done&&done(); return; }
-    setTimeout(function(){
-      var t0=null, DUR=780;
-      function frame(now){
-        if(t0===null)t0=now;
-        var p=Math.min((now-t0)/DUR,1);
-        var lock=Math.floor(p*target.length*1.3);
-        var out='';
-        for(var i=0;i<target.length;i++){
-          if(target[i]===' '){out+=' ';continue;}
-          out += (i<lock)? target[i] : chars[Math.floor(Math.random()*chars.length)];
-        }
-        el.textContent=out;
-        if(p<1) requestAnimationFrame(frame); else { el.textContent=target; done&&done(); }
-      }
-      requestAnimationFrame(frame);
-    }, delay);
-  }
-  // Magnetic CTA — armed only once the ŌLLIN AI intro has cleared.
-  function armMagnet(){
-    return; // CTA stays static — glow on hover instead
-    var wrap=document.getElementById('heroMagnet'); if(!wrap||wrap.__armed) return;
-    wrap.__armed=true;
-    var btn=wrap.querySelector('.btn-hatch');
-    var RANGE=220, PULL=.6, x=0,y=0,tx=0,ty=0,raf=null;
-    function tick(){
-      x+=(tx-x)*.22; y+=(ty-y)*.22;
-      wrap.style.transform='translate('+x.toFixed(2)+'px,'+y.toFixed(2)+'px)';
-      btn.style.transform='translate('+(x*.45).toFixed(2)+'px,'+(y*.45).toFixed(2)+'px)';
-      raf=(Math.abs(tx-x)>.1||Math.abs(ty-y)>.1||tx!==0||ty!==0)?requestAnimationFrame(tick):null;
-      if(raf===null){wrap.style.transform='';btn.style.transform='';}
-    }
-    window.addEventListener('pointermove',function(e){
-      var r=wrap.getBoundingClientRect();
-      var cx=r.left+r.width/2, cy=r.top+r.height/2;
-      var dx=e.clientX-cx, dy=e.clientY-cy;
-      var d=Math.hypot(dx,dy);
-      if(d<RANGE){ var f=(1-d/RANGE)*PULL; tx=dx*f; ty=dy*f; }
-      else { tx=0; ty=0; }
-      if(!raf) raf=requestAnimationFrame(tick);
-    },{passive:true});
-  }
-  // No scramble: hero sits fully settled behind the intro — the intro lifts off to reveal it.
-  window.__heroReveal=function(){ setTimeout(armMagnet, 650); };
-  if(!document.getElementById('intro')) armMagnet();
+  /* The hero has no entrance animation — it sits fully settled behind the intro,
+     which lifts off to reveal it. There is deliberately NO letter-scramble here:
+     see the hard rules in README.md. The CTA is static too, with a hover glow
+     instead of magnetic pull. */
+  window.__heroReveal=function(){};
 
   // El Macron fades out as you scroll away from the hero
   (function(){
@@ -1660,9 +1192,25 @@ footer .mono{line-height:2}
 })();
 </script>
 <script>
-/* Section 01 verified-card — Motion hero-terminal style appear (blur+fade+rise, staggered rows) */
+/* ============================================================
+   BOOKING LINK — single source of truth.
+   Replace the value below with the real scheduler URL and both
+   CTAs (masthead + final) pick it up. Nothing else to change.
+   ============================================================ */
+var MAIZ_BOOKING_URL = ''; /* TODO: paste the real booking URL here */
+
 (function(){
-  var cards=document.querySelectorAll('.sp-card'); if(!cards.length) return;
+  if(!MAIZ_BOOKING_URL) return;              /* leave the #book jump-links in place until it's set */
+  ['bookBtn','bookStreak'].forEach(function(id){
+    var a=document.getElementById(id);
+    if(a){ a.href=MAIZ_BOOKING_URL; a.target='_blank'; a.rel='noopener'; }
+  });
+})();
+
+/* Motion hero-terminal style appear (blur+fade+rise, staggered rows).
+   Covers the §01 verified report card and the §03 VAMOS product card — both use .rise. */
+(function(){
+  var cards=document.querySelectorAll('.sp-card,.vp-card'); if(!cards.length) return;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce){ cards.forEach(function(c){c.classList.add('rise');}); return; }
   var io=new IntersectionObserver(function(en){
