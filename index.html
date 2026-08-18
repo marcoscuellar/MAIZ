@@ -441,6 +441,35 @@ td .mono{font-size:9px}
 /* CTA eyebrow */
 .cta-kick{font-size:11px;letter-spacing:.2em;color:var(--em);font-weight:700;margin-bottom:16px}
 
+/* ---- CONTACT SHEET ----
+   No backend: on submit the fields are composed into a pre-filled email and
+   handed to the visitor's mail client. Nothing is transmitted from the page,
+   which is also the honest version of "approval is not send". */
+.cs{margin-top:30px;max-width:640px}
+.cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.cs-grid{grid-template-columns:1fr}}
+.cs-f{display:flex;flex-direction:column;gap:7px}
+.cs-f.wide{grid-column:1/-1}
+.cs-f label{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim)}
+.cs-f label .req{color:var(--em)}
+.cs-f input,.cs-f textarea{width:100%;min-width:0;background:var(--black);
+  border:1px solid var(--border);border-radius:10px;padding:12px 13px;color:var(--ink);
+  font-family:'Archivo',sans-serif;font-size:14.5px;line-height:1.5;
+  transition:border-color .2s,box-shadow .2s}
+.cs-f textarea{min-height:104px;resize:vertical}
+.cs-f input:focus,.cs-f textarea:focus{outline:none;border-color:var(--em);
+  box-shadow:0 0 0 3px rgba(var(--em-rgb),.10)}
+.cs-f input::placeholder,.cs-f textarea::placeholder{color:var(--dim)}
+.cs-f input[aria-invalid="true"],.cs-f textarea[aria-invalid="true"]{border-color:#FF6B4A}
+.cs-err{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:#FF6B4A;min-height:12px}
+.cs-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px}
+.cs-note{font-size:12px;color:var(--dim);line-height:1.6;margin-top:14px}
+.cs-note b{color:var(--body)}
+.cs-alt{color:var(--em);text-decoration:none;border-bottom:1px solid var(--em-line)}
+.cs-alt:hover{border-bottom-color:var(--em)}
+
 /* ---- VAMOS card · light product theme ----
    The .va-* rules above are written entirely in custom properties, so the whole
    card flips to the real product's light surface by redefining the tokens in
@@ -1136,10 +1165,37 @@ footer .mono{line-height:2}
     <div class="cta-kick mono">30 minutes &middot; the engines running live</div>
     <h2>Let me show you how<br>the engines <span class="v">actually work.</span></h2>
     <p class="lede">You&rsquo;ve seen one card. There are eight engines behind it, and I&rsquo;d rather show you than describe them. <strong>Let&rsquo;s book 30 minutes to go over them and work out how we can support you.</strong> Bring an account you&rsquo;re already working &mdash; we&rsquo;ll run it.</p>
-    <div class="row">
-      <a class="btn" id="bookBtn" href="#book">Book 30 minutes →</a>
-    </div>
-    <div class="note" style="margin-top:22px"><b>Approval is not send:</b> two-signal minimum, every claim double-checked against the live ATS, and nothing leaves the building without you.</div>
+    <form class="cs" id="csForm" novalidate>
+      <div class="cs-grid">
+        <div class="cs-f">
+          <label for="csName">Name <span class="req">*</span></label>
+          <input id="csName" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+        </div>
+        <div class="cs-f">
+          <label for="csEmail">Work email <span class="req">*</span></label>
+          <input id="csEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
+        </div>
+        <div class="cs-f">
+          <label for="csCo">Company</label>
+          <input id="csCo" name="company" type="text" autocomplete="organization" placeholder="Where you work">
+        </div>
+        <div class="cs-f">
+          <label for="csAcct">An account to run</label>
+          <input id="csAcct" name="account" type="text" placeholder="One you&rsquo;re already working">
+        </div>
+        <div class="cs-f wide">
+          <label for="csMsg">What would you want it to find?</label>
+          <textarea id="csMsg" name="message" placeholder="A territory, a market, a role you keep struggling to fill &mdash; whatever you&rsquo;d bring to the call."></textarea>
+        </div>
+      </div>
+      <div class="cs-err" id="csErr" role="alert" aria-live="polite"></div>
+      <div class="cs-actions">
+        <button class="btn" type="submit" id="csSend">Book 30 minutes →</button>
+        <span class="mono" style="letter-spacing:.14em">No list, no newsletter</span>
+      </div>
+      <div class="cs-note">Submitting opens your own email client with this filled in &mdash; <b>nothing is transmitted from this page</b>, and there is no tracker on it. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
+    </form>
+    <div class="note" style="margin-top:26px"><b>Approval is not send:</b> two-signal minimum, every claim double-checked against the live ATS, and nothing leaves the building without you.</div>
   </div>
 </div></div></section>
 
@@ -1422,13 +1478,70 @@ footer .mono{line-height:2}
    Replace the value below with the real scheduler URL and both
    CTAs (masthead + final) pick it up. Nothing else to change.
    ============================================================ */
-var MAIZ_BOOKING_URL = ''; /* TODO: paste the real booking URL here */
+var MAIZ_BOOKING_URL = '';                    /* optional: a scheduler link. When set, the
+                                                 masthead button points at it instead of the form. */
+var MAIZ_CONTACT_EMAIL = 'hello@getmaiz.com'; /* where the contact sheet sends. Must be a real mailbox. */
 
 (function(){
-  if(!MAIZ_BOOKING_URL) return;              /* leave the #book jump-links in place until it's set */
-  ['bookBtn','bookStreak'].forEach(function(id){
-    var a=document.getElementById(id);
-    if(a){ a.href=MAIZ_BOOKING_URL; a.target='_blank'; a.rel='noopener'; }
+  /* masthead button: scheduler if there is one, otherwise down to the contact sheet */
+  var streak=document.getElementById('bookStreak');
+  if(streak){
+    if(MAIZ_BOOKING_URL){ streak.href=MAIZ_BOOKING_URL; streak.target='_blank'; streak.rel='noopener'; }
+    else { streak.href='#book'; }
+  }
+
+  var form=document.getElementById('csForm'); if(!form) return;
+  var err=document.getElementById('csErr');
+  var F=function(id){ return document.getElementById(id); };
+
+  var direct=document.getElementById('csDirect');
+  if(direct){
+    direct.href='mailto:'+MAIZ_CONTACT_EMAIL+'?subject='+encodeURIComponent('Run one of my accounts');
+    direct.textContent=MAIZ_CONTACT_EMAIL;
+  }
+
+  function invalid(el,on){ el.setAttribute('aria-invalid',on?'true':'false'); }
+
+  /* clear the red state as soon as they start fixing it, not on the next submit */
+  ['csName','csEmail'].forEach(function(id){
+    var el=F(id); if(!el) return;
+    el.addEventListener('input',function(){
+      if(el.getAttribute('aria-invalid')==='true'){ invalid(el,false); err.textContent=''; }
+    });
+  });
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=F('csName'), email=F('csEmail');
+    var problems=[];
+    invalid(name,false); invalid(email,false);
+    if(!name.value.trim()){ invalid(name,true); problems.push('a name'); }
+    /* deliberately loose — a strict regex rejects real, valid addresses */
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())){ invalid(email,true); problems.push('a valid work email'); }
+    if(problems.length){ err.textContent='Still needs '+problems.join(' and ')+'.'; return; }
+    err.textContent='';
+
+    var L=[];
+    L.push('Name: '+name.value.trim());
+    L.push('Email: '+email.value.trim());
+    if(F('csCo').value.trim())   L.push('Company: '+F('csCo').value.trim());
+    if(F('csAcct').value.trim()) L.push('Account to run: '+F('csAcct').value.trim());
+    if(F('csMsg').value.trim())  L.push('', 'What they want it to find:', F('csMsg').value.trim());
+    L.push('', '— sent from getmaiz.com');
+
+    var subject='30 minutes — '+(F('csCo').value.trim() || name.value.trim());
+    var href='mailto:'+MAIZ_CONTACT_EMAIL
+           + '?subject='+encodeURIComponent(subject)
+           + '&body='+encodeURIComponent(L.join('\n'));
+
+    var btn=document.getElementById('csSend'), was=btn.textContent;
+    btn.textContent='Opening your email…';
+    window.location.href=href;
+    setTimeout(function(){
+      btn.textContent=was;
+      err.textContent='';
+      /* if no mail client picked it up, the fallback link is right below */
+    },2600);
   });
 })();
 

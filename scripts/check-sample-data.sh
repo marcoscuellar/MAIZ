@@ -27,6 +27,13 @@ APPROVED=(
   "Omar Reyes" "Sofia Marin" "Grace Kim"
 )
 
+# The one genuine address on the page (the contact sheet destination). Everything
+# else that looks like an email must use a reserved TLD.
+REAL_CONTACT="hello@getmaiz.com"
+
+# Form placeholder text — interface chrome, not sample data about anyone.
+UI_PLACEHOLDERS="you@company.com"
+
 TARGETS=(index.html)
 fail=0
 
@@ -43,7 +50,8 @@ done
 
 # Sample email addresses must use a reserved TLD that can never resolve
 if bad=$(grep -rIoEh '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' "${TARGETS[@]}" 2>/dev/null \
-         | grep -vE '\.(example|invalid|test|localhost)$' | sort -u); then
+         | grep -vE '\.(example|invalid|test|localhost)$' \
+         | grep -vxF "$REAL_CONTACT" | grep -vxF "$UI_PLACEHOLDERS" | sort -u); then
   if [ -n "$bad" ]; then
     echo "EMAIL NOT USING A RESERVED TLD (use .example):"
     echo "$bad" | sed 's/^/    /'

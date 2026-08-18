@@ -93,18 +93,23 @@ Five beats and an ask. The VAMOS card is the centerpiece — everything else ear
 
 Sections held back for later pages live in `parked/` — see `parked/README.md`.
 
-## The booking link
+## Contact and booking
 
-`index.html` defines `MAIZ_BOOKING_URL` as a single constant in the second `<script>` block. Set it and both CTAs (masthead and final) pick it up automatically:
+The CTA is a **contact sheet** — a form in `#book`. There is no backend: on submit the fields are composed into a pre-filled email and handed to the visitor's own mail client, so nothing is transmitted from the page and there is no tracker on it.
+
+Two constants sit at the top of the second `<script>` block:
 
 ```js
-var MAIZ_BOOKING_URL = 'https://...';
+var MAIZ_BOOKING_URL   = '';                     // optional scheduler link
+var MAIZ_CONTACT_EMAIL = 'hello@getmaiz.com';    // where the form sends
 ```
 
-While it is empty, both buttons fall back to jumping to `#book` rather than going nowhere.
+- **`MAIZ_CONTACT_EMAIL` must be a real, monitored mailbox.** Until `hello@getmaiz.com` exists, submissions bounce. Create the alias in Google Workspace, or change this to an address that already works.
+- **`MAIZ_BOOKING_URL` is optional.** Set it and the masthead button points at the scheduler instead of scrolling to the form; leave it empty and the form is the only path.
+- `scripts/check-sample-data.sh` allowlists the real contact address and the form's placeholder; every other email on the page must use a reserved TLD.
 
 ## Known issues
 
 - **The Forrester / Tandem.ai statistic was removed** from §01. The "4.3 hours a week / $14,200 per employee" figures could not be traced to any Forrester publication — they appear on tendem.ai's own blog and a ring of SEO stat-roundup sites citing each other. Attributing them to Forrester was not defensible on a page arguing "evidence or not at all". The footnote now makes the same point without borrowed numbers. If the real Forrester report surfaces, cite it directly.
-- **`MAIZ_BOOKING_URL` is empty** — the CTA is not yet live. This is the one thing standing between the page and working.
-- The 30-minute duration in the CTA copy should match whatever the real scheduler actually books.
+- **`hello@getmaiz.com` does not exist yet.** The contact sheet is wired to it, so submissions bounce until the mailbox or alias is created. This is the one thing standing between the page and working.
+- The 30-minute duration in the CTA copy should match whatever a scheduler actually books, if one is added later.
