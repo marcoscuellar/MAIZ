@@ -33,8 +33,10 @@ These have been enforced repeatedly. If a spec document asks for something on th
 
 1. **No letter-scramble animation. Ever.** It has been added twice from spec docs and rejected both times. (The *number*-scramble on the stat figures in §00 is different and is original, intended behavior — that one stays.)
 2. **No real client or person names in sample data.**
-   - Approved fictional set: Brightpath Health Systems, Halcyon Devices, Cobalt Platforms, Northgate Freight, Dana Rivera, Marcus Vale, Priya Anand, Leo Fontaine, Nadia Cole, Omar Reyes, Sofia Marin, Grace Kim.
-   - Must **never** appear: Mediaocean, Satish Mandalika, Hallmark, Crissi Matthews, 24 Seven, Procom, Northwind.
+   - Approved fictional set: **Verrida Health, Kestrelbrook Devices, Marrowfield Platforms, Aldervane Freight**, Dana Rivera, Marcus Vale, Priya Anand, Leo Fontaine, Nadia Cole, Omar Reyes, Sofia Marin, Grace Kim.
+   - Must **never** appear: Mediaocean, Satish Mandalika, Hallmark, Crissi Matthews, 24 Seven, Procom, Northwind, **Brightpath, Cobalt, Halcyon, Northgate**.
+   - **A plausible company name is not a safe one.** Brightpath, Cobalt and Halcyon shipped here by mistake and each collides with a real business (BrightPath Health is a live telehealth company; Cobalt.io and several Cobalt logistics firms exist; Halcyon Freight Ltd is registered). Every current name was web-searched and returns zero company results — do the same before introducing a new one.
+   - Cards also carry a visible **"Sample data · fictional"** marker, because name-checking alone can never be a guarantee.
    - This applies to req numbers, salary bands, and company names copied from real screenshots too.
 3. **ŌLLIN always carries the macron (Ō)** in all visible text.
 4. **No hype language.** Never "revolutionary", "game-changing", "effortless", "next level", or unverifiable absolutes like "the only".

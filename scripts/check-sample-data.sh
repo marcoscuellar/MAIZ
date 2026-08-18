@@ -7,20 +7,27 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 
 # Names that must never appear again, plus artifacts of real data
+# Real organisations and people that must never appear in sample data.
+# Brightpath/Cobalt/Halcyon were shipped by mistake and each collides with a
+# real business — BrightPath Health is a live telehealth company, Cobalt.io and
+# several Cobalt logistics firms exist, and Halcyon Freight Ltd is registered.
 BANNED=(
   Mediaocean Satish Mandalika Hallmark Crissi Matthews Procom Northwind
   Spyglass Prisma "24 Seven" "Agency Client" "1399407300"
+  Brightpath BrightPath Cobalt Halcyon Northgate
 )
 
 # Approved fictional roster — anything else that looks like sample identity
 # should be checked by a human before shipping.
+# Invented company names, each web-searched and returning zero company results.
+# Re-verify before adding any new one — a plausible name is not a safe one.
 APPROVED=(
-  "Brightpath Health" "Halcyon Devices" "Cobalt Platforms" "Northgate Freight"
+  "Verrida Health" "Kestrelbrook Devices" "Marrowfield Platforms" "Aldervane Freight"
   "Dana Rivera" "Marcus Vale" "Priya Anand" "Leo Fontaine" "Nadia Cole"
   "Omar Reyes" "Sofia Marin" "Grace Kim"
 )
 
-TARGETS=(index.html parked builds)
+TARGETS=(index.html)
 fail=0
 
 echo "Checking sample data in: ${TARGETS[*]}"

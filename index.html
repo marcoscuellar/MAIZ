@@ -477,6 +477,26 @@ td .mono{font-size:9px}
 .vp-light .va-ask{background:#fff;border:1px solid var(--border)}
 .vp-light .va-ask .q{color:var(--slate)}
 
+/* ---- CARD HEADER · identity block ----
+   A monogram, the firmographics, and an unmissable sample marker, so the card
+   reads like the real product and can never be mistaken for a live account. */
+.va-ident{display:flex;align-items:flex-start;gap:16px;margin-top:16px}
+.va-logo{flex:none;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-family:'Archivo',sans-serif;font-weight:900;font-size:20px;
+  letter-spacing:-.02em;margin-top:4px}
+.vp-light .va-logo{background:#0B0C10;color:#D4FF00}
+.va-ident .va-name{margin-top:0}
+.va-meta-row{display:flex;flex-wrap:wrap;gap:0 10px;margin-top:14px;
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim)}
+.va-meta-row span:not(:last-child)::after{content:"·";margin-left:10px;color:#C4CAD2}
+.va-meta-row .va-conf{color:var(--olive);font-weight:700}
+.va-sample{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;padding:4px 9px;border-radius:4px;
+  background:rgba(110,125,26,.12);color:#6E7D1A;border:1px solid rgba(110,125,26,.32);
+  white-space:nowrap}
+@media(max-width:520px){.va-logo{width:38px;height:38px;font-size:16px}.va-ident{gap:12px}}
+
 /* the audited tick that trails the char/word count */
 .va-aud{color:#6E7D1A;font-weight:700}
 
@@ -742,6 +762,10 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 .sig-card-name{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;font-size:26px;letter-spacing:-.02em;line-height:1;margin:12px 0 6px;color:#0B0C10}
 .sig-card-role{font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:#39414E}
 .sig-card-role span{color:#6E7D1A}
+.sig-card-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:9px;
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#98A0AD}
+.sig-sample{font-weight:700;letter-spacing:.18em;padding:3px 7px;border-radius:3px;
+  background:rgba(110,125,26,.12);color:#6E7D1A;border:1px solid rgba(110,125,26,.3)}
 .sig-card-why{margin-top:12px;padding-top:12px;border-top:1px solid #EEF0F3;font-size:12px;line-height:1.7;color:#4A5462}
 .sig-card-why strong{color:#0B0C10;font-weight:600}
 .cl .kill{color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(148,163,184,.4)}
@@ -942,8 +966,8 @@ footer .mono{line-height:2}
         <div class="cons-body" id="sigBody">
           <div class="cl cl-cmd"><span class="pr">&gt;</span><span>Q4 &middot; East Coast market — <b>who should we reach out to?</b></span></div>
           <div class="cl cl-run"><span class="dot">&#9679;</span><span>Scanning market signals <span class="dim">· East Coast · Q4</span></span></div>
-          <div class="cl cl-sub"><span class="tee">&#9500;</span><span>Cobalt Platforms — Series C filed <span class="ok">· verified</span></span></div>
-          <div class="cl cl-sub"><span class="tee">&#9500;</span><span>Northgate Freight — hiring surge <span class="ok">· verified</span></span></div>
+          <div class="cl cl-sub"><span class="tee">&#9500;</span><span>Marrowfield Platforms — Series C filed <span class="ok">· verified</span></span></div>
+          <div class="cl cl-sub"><span class="tee">&#9500;</span><span>Aldervane Freight — hiring surge <span class="ok">· verified</span></span></div>
           <div class="cl cl-sub"><span class="tee">&#9500;</span><span class="kill">Meridian Labs — rumor only, dropped</span></div>
           <div class="cl cl-sub"><span class="tee">&#9500;</span><span>Vantage Grid — lease expansion filed <span class="ok">· verified</span></span></div>
           <div class="cl cl-sub"><span class="tee">&#9500;</span><span class="kill">Atlas Foods — signal stale, dropped</span></div>
@@ -959,7 +983,8 @@ footer .mono{line-height:2}
           <div class="sig-stamp"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" rx="3" fill="currentColor"/><circle cx="50" cy="62" r="27" stroke="currentColor" stroke-width="13" fill="none"/></svg>Verified</div>
           <div class="sig-card-h"><span class="sig-card-k">Reach out to</span></div>
           <div class="sig-card-name">Priya Anand</div>
-          <div class="sig-card-role">VP Operations · <span>Cobalt Platforms &#8599;</span></div>
+          <div class="sig-card-role">VP Operations · <span>Marrowfield Platforms</span></div>
+          <div class="sig-card-meta">Series C fintech infrastructure · 410 employees · Boston, MA<span class="sig-sample">Sample</span></div>
           <div class="sig-card-why">Series C just filed; they&rsquo;re scaling East Coast ops in Q4. <strong>The pressure lands before they&rsquo;ve staffed for it — reach out now.</strong></div>
         </div>
       </div>
@@ -984,10 +1009,19 @@ footer .mono{line-height:2}
     <div class="va-card vp-card vp-intel" id="vpIntel">
       <div class="vp-grain"></div><div class="vp-sheen"></div>
       <div class="va-head">
-        <div class="va-head-top"><span class="mono">First touch &middot; Touch 1</span><span class="va-verified"><span class="va-vd"></span><span class="va-vd"></span><span class="va-vd"></span> Verified</span></div>
-        <div class="va-name">Dana Rivera</div>
-        <div class="va-title">Vice President, Technology Implementation &middot; <span class="va-org">Brightpath Health</span></div>
-        <div class="va-contact mono">&#9993; dana.rivera@brightpath.example &middot; <span class="va-lk">Find on LinkedIn</span> &middot; Dallas, TX</div>
+        <div class="va-head-top">
+          <span class="va-verified"><span class="va-vd"></span><span class="va-vd"></span><span class="va-vd"></span> Verified &middot; First touch</span>
+          <span class="va-sample">Sample data &middot; fictional</span>
+        </div>
+        <div class="va-ident">
+          <span class="va-logo" aria-hidden="true">V</span>
+          <div>
+            <div class="va-name">Dana Rivera</div>
+            <div class="va-title">Vice President, Technology Implementation &middot; <span class="va-org">Verrida Health</span></div>
+          </div>
+        </div>
+        <div class="va-meta-row"><span>Healthcare workforce tech</span><span>350 employees</span><span>Dallas, TX</span><span class="va-conf">Contact confidence 95%</span></div>
+        <div class="va-contact mono">&#9993; dana.rivera@verrida.example &middot; <span class="va-lk">Find on LinkedIn</span></div>
       </div>
 
       <div class="va-body">
@@ -1039,7 +1073,7 @@ footer .mono{line-height:2}
     <div class="va-card vp-card vp-out" id="vpOut">
       <div class="vp-grain"></div><div class="vp-sheen"></div>
       <div class="vp-perf top"></div>
-      <div class="vp-cut"><b>continued</b> Dana Rivera &middot; Brightpath Health</div>
+      <div class="vp-cut"><b>continued</b> Dana Rivera &middot; Verrida Health<span class="va-sample" style="margin-left:12px">Sample data</span></div>
       <div class="va-body">
         <div class="va-compose">
           <div class="va-seg"><button class="va-seg-b on" type="button">&#9993; Email</button><button class="va-seg-b" type="button">in&nbsp;LinkedIn</button></div>
@@ -1339,9 +1373,9 @@ footer .mono{line-height:2}
 (function(){
   var ta=document.getElementById('vaTa'); if(!ta) return;
   var DRAFTS={
-    0:"Hi Dana,\n\nSaw Brightpath recently launched the Workforce Operating System — unified labor tracking across health systems. Four senior Azure implementation roles have been open on Workday past 60 days while that rollout is live.\n\nThat's a lot of delivery pressure to hold internally. I place pre-vetted healthcare SaaS implementation engineers who get go-lives over the line faster.\n\nWorth a 20-minute conversation?",
-    1:"Hi Dana,\n\nFour senior Azure roles open 60+ days isn't just a hiring gap — on a rollout of Brightpath's scale it's roughly $12,000/week in delayed go-lives and implementation overtime, compounding every week the reqs stay open.\n\nI place pre-vetted implementation engineers who close that gap in weeks, not quarters.\n\nOpen to comparing notes for 20 minutes?",
-    2:"Hi Dana,\n\nI have a healthcare SaaS implementation engineer who's led three enterprise Workday-adjacent go-lives on Azure and is available now. Given Brightpath's Workforce OS rollout and the senior Azure reqs still open, the fit looked too direct not to send your way.\n\nHappy to share an anonymized profile first.\n\nWorth a quick 20-minute intro?",
+    0:"Hi Dana,\n\nSaw Verrida recently launched the Workforce Operating System — unified labor tracking across health systems. Four senior Azure implementation roles have been open on Workday past 60 days while that rollout is live.\n\nThat's a lot of delivery pressure to hold internally. I place pre-vetted healthcare SaaS implementation engineers who get go-lives over the line faster.\n\nWorth a 20-minute conversation?",
+    1:"Hi Dana,\n\nFour senior Azure roles open 60+ days isn't just a hiring gap — on a rollout of Verrida's scale it's roughly $12,000/week in delayed go-lives and implementation overtime, compounding every week the reqs stay open.\n\nI place pre-vetted implementation engineers who close that gap in weeks, not quarters.\n\nOpen to comparing notes for 20 minutes?",
+    2:"Hi Dana,\n\nI have a healthcare SaaS implementation engineer who's led three enterprise Workday-adjacent go-lives on Azure and is available now. Given Verrida's Workforce OS rollout and the senior Azure reqs still open, the fit looked too direct not to send your way.\n\nHappy to share an anonymized profile first.\n\nWorth a quick 20-minute intro?",
     3:""
   };
   var countEl=document.getElementById('vaCount');
