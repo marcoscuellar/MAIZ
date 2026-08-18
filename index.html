@@ -509,14 +509,14 @@ td .mono{font-size:9px}
 .vp-card.rise .va-compose>*:nth-child(7){transition-delay:1.06s}
 .vp-card.rise .va-compose>*:nth-child(8){transition-delay:1.12s}
 
-/* §03 — the card cut in half: the intelligence, built out.
-   Two verified groups side by side (the org / the contact) instead of one
-   cramped column, so each fact and its engine attribution can breathe. */
-.vp-intel .va-body{grid-template-columns:1fr 1fr}
-@media(max-width:820px){.vp-intel .va-body{grid-template-columns:1fr}}
-.vp-intel .va-know:last-child{border-right:none}
-@media(max-width:820px){.vp-intel .va-know:last-child{border-bottom:none}}
-.vp-intel .va-val{font-size:14px}
+/* §03 — the intelligence half. Same layout as §04: the card on the left, and
+   the column beside it showing where the facts came from. The two "what we
+   know" groups stack inside the card so it reads top-to-bottom. */
+.vp-intel{max-width:620px}
+.vp-intel .va-body{grid-template-columns:1fr}
+.vp-intel .va-know{border-right:none}
+.vp-intel .va-know + .va-know{border-top:1px solid var(--border)}
+.vp-intel .va-know:last-child{border-bottom:none}
 
 /* §04 — the other half: the start of VAMOS. Narrower, so it reads as the
    beginning of a flow rather than a second full-width slab. */
@@ -537,7 +537,9 @@ td .mono{font-size:9px}
   filter:drop-shadow(0 1px 0 #E4E7EC)}
 .vp-perf.top{transform:rotate(180deg)}
 /* the connector between the two sections */
-.vp-link{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:-1px}
+/* the connector centres under the card column, not the whole page, so the cut
+   line runs straight down from §03's perforation into §04's */
+.vp-link{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:-1px;max-width:620px}
 .vp-link i{display:block;width:1px;height:26px;
   background:repeating-linear-gradient(180deg,var(--em) 0 4px,transparent 4px 9px)}
 .vp-link span{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.2em;
@@ -977,6 +979,7 @@ footer .mono{line-height:2}
 </div></div>
 
 <div class="page">
+  <div class="vp-out-grid">
   <div class="vp-light">
     <div class="va-card vp-card vp-intel" id="vpIntel">
       <div class="vp-grain"></div><div class="vp-sheen"></div>
@@ -1002,6 +1005,17 @@ footer .mono{line-height:2}
         </div>
       </div>
       <div class="vp-perf"></div>
+    </div>
+  </div>
+
+    <!-- where each fact came from, and what it had to survive -->
+    <div class="vp-prov">
+      <div class="vp-prov-h">Every fact <b>double-checked</b> &mdash; or dropped</div>
+      <div class="vp-fact"><div class="vp-fact-n">01</div><div class="vp-fact-t">Found on the careers page: 4 senior Azure implementation reqs.<span class="vp-fact-e">&#9679; Engine 02 &middot; Signals</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">02</div><div class="vp-fact-t">Re-checked against the live ATS &mdash; still open, still aged past 60 days.<span class="vp-fact-e">&#9679; Engine 03 &middot; The skeptic</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">03</div><div class="vp-fact-t">Requisition age and employment model confirmed at the source.<span class="vp-fact-e">&#9679; Engine 04 &middot; Roles</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">04</div><div class="vp-fact-t">Buyer and hook found nothing that survived the second check, so both stayed empty.<span class="vp-fact-e">&#9679; Engine 06 &middot; Contact intel</span></div></div>
+      <div class="vp-prov-note">Job board <b>plus</b> live ATS, or it does not ship. A claim that fails the second check is <b>dropped, not softened</b> &mdash; which is why two rows on this card still read <b>not tracked yet</b>.</div>
     </div>
   </div>
   <div class="vp-link"><span>the same card, cut in half</span><i></i></div>
