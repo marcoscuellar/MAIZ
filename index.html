@@ -38,6 +38,8 @@ button{font-family:inherit;cursor:pointer}
 .mmark{width:20px;height:20px;flex:none;margin-right:-8px}
 .mword{font-weight:900;font-size:17px;letter-spacing:-.01em}
 .mword i{font-style:normal;color:var(--em)}
+/* the I of MAIZ carries the volt, in the masthead and the footer alike */
+.mi{color:var(--em)}
 .mword .parent{font-weight:700;font-size:11px;letter-spacing:.08em;color:var(--slate);margin-right:8px}
 /* min-width:0 is required: as a flex item .mnav otherwise refuses to shrink below
    its content, so overflow-x:auto never engages and the masthead drags the whole
@@ -877,7 +879,7 @@ footer .mono{line-height:2}
 <div class="shell">
 <div class="masthead">
   <div class="mrow">
-    <svg class="mmark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg><div class="mword"><span class="parent">ŌLLIN</span>MAIZ<i>.</i></div>
+    <svg class="mmark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg><div class="mword"><span class="parent">ŌLLIN</span>MA<span class="mi">I</span>Z<i>.</i></div>
     <div class="mnav">
       <a href="#evidence">The gap</a><a href="#trust">Trust</a><a href="#signal">The signal</a><a href="#vamos">Intelligence</a><a href="#ovamos">VAMOS</a>
     </div>
@@ -998,7 +1000,7 @@ footer .mono{line-height:2}
     <div class="rt">The intelligence<br><span class="sub">before the first word</span></div>
   </div></div>
   <div class="content">
-    <h2>We never pitch. We show up<br>already knowing what<br>they&rsquo;re up against<span class="v">.</span></h2>
+    <h2>Show up already knowing<br>what they&rsquo;re up against<span class="v">.</span></h2>
     <p class="lede">Every contact arrives with the company, the person, the evidence, and the reason to act already attached &mdash; and <strong>every fact carries the engine that found it.</strong> This is the half of the card that exists before anyone writes a word. Sample data.</p>
   </div>
 </div></div>
@@ -1132,7 +1134,7 @@ footer .mono{line-height:2}
 
 <footer>
   <svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:40px;height:40px"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg>
-  <div class="foot-mark">ŌLLIN : MAIZ<span style="color:var(--em)">.</span></div>
+  <div class="foot-mark">ŌLLIN : MA<span class="mi">I</span>Z<span class="mi">.</span></div>
   <div class="mono">ŌLLIN : MAIZ · Intelligence to execution</div>
   <div class="mono" style="color:var(--dim)">MAIZ, like the crop: plant once, harvest all season · ŌLLIN, like the glyph: always in motion</div>
 </footer>
