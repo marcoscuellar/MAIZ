@@ -105,6 +105,6 @@ While it is empty, both buttons fall back to jumping to `#book` rather than goin
 
 ## Known issues
 
-- **The Forrester / Tandem.ai statistic in §01** ("4.3 hours a week… $14,200 per employee, per year") is **not independently verified**. It is a public claim with a named source and should be confirmed before it stays in production.
+- **The Forrester / Tandem.ai statistic was removed** from §01. The "4.3 hours a week / $14,200 per employee" figures could not be traced to any Forrester publication — they appear on tendem.ai's own blog and a ring of SEO stat-roundup sites citing each other. Attributing them to Forrester was not defensible on a page arguing "evidence or not at all". The footnote now makes the same point without borrowed numbers. If the real Forrester report surfaces, cite it directly.
 - **`MAIZ_BOOKING_URL` is empty** — the CTA is not yet live. This is the one thing standing between the page and working.
 - The 30-minute duration in the CTA copy should match whatever the real scheduler actually books.
