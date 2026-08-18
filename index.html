@@ -39,7 +39,14 @@ button{font-family:inherit;cursor:pointer}
 .mword{font-weight:900;font-size:17px;letter-spacing:-.01em}
 .mword i{font-style:normal;color:var(--em)}
 .mword .parent{font-weight:700;font-size:11px;letter-spacing:.08em;color:var(--slate);margin-right:8px}
-.mnav{display:flex;gap:2px;overflow-x:auto;margin-left:auto}
+/* min-width:0 is required: as a flex item .mnav otherwise refuses to shrink below
+   its content, so overflow-x:auto never engages and the masthead drags the whole
+   document wider than the viewport on narrow screens. */
+.mnav{display:flex;gap:2px;overflow-x:auto;margin-left:auto;min-width:0;scrollbar-width:none}
+.mnav::-webkit-scrollbar{display:none}
+/* on phones the nav would squeeze to a ~20px scroll sliver — drop it and let the
+   masthead carry the mark and the CTA, which is the only action that matters there */
+@media(max-width:700px){.mnav{display:none}}
 .mnav a{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-decoration:none;padding:7px 11px;border-radius:6px;white-space:nowrap}
 .mnav a:hover{color:var(--white)}
 .streak{background:var(--em);color:var(--on-em);border:none;border-radius:6px;padding:8px 13px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;text-decoration:none}
@@ -643,6 +650,45 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
   box-shadow:inset 0 0 0 1.5px rgba(var(--em-rgb),.35),0 0 34px -8px rgba(var(--em-rgb),.5)}
 .ollin-stamp .stamp-mark{width:23px;height:23px;flex:none;filter:drop-shadow(0 0 6px rgba(var(--em-rgb),.55))}
 .content .ast{color:var(--em);font-weight:700;font-size:.7em;vertical-align:super;line-height:0;margin-left:1px}
+
+/* ---- §01 · THE PRINT STAMP, STANDING ALONE ----
+   §01 used to hold a white contact card, which read as a near-duplicate of the
+   §03 intelligence card. It now shows the stamp itself and nothing else. */
+.stamp-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:30px;min-height:320px;padding:10px}
+.stamp-hero{margin-top:0;font-size:clamp(17px,2.2vw,28px);letter-spacing:.32em;
+  gap:clamp(13px,1.7vw,21px);border-width:4px;
+  padding:clamp(15px,1.9vw,23px) clamp(22px,2.9vw,36px) clamp(15px,1.9vw,23px) clamp(19px,2.5vw,30px);
+  /* the press: starts big and soft, lands hard and small, like ink meeting paper */
+  opacity:0;transform:rotate(-7deg) scale(1.55);filter:blur(9px);
+  transition:opacity .42s ease,transform .5s cubic-bezier(.2,1.5,.35,1),filter .42s ease}
+.stamp-hero.rise{opacity:.94;transform:rotate(-7deg) scale(1);filter:none}
+.stamp-hero .stamp-mark{width:clamp(29px,3.8vw,50px);height:clamp(29px,3.8vw,50px)}
+.stamp-cap{max-width:32ch;text-align:center;line-height:2;
+  opacity:0;transform:translateY(8px);transition:opacity .5s ease .34s,transform .5s ease .34s}
+.stamp-hero.rise + .stamp-cap{opacity:1;transform:none}
+
+/* ---- §02 · THE STAMP ON THE CARD ----
+   Same device, small, pressed onto the verified result. Olive rather than volt,
+   because volt is unreadable on the white card. */
+.sig-stamp{position:absolute;top:-15px;right:-12px;z-index:3;
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:8.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:#6E7D1A;background:#fff;
+  border:2px solid #6E7D1A;border-radius:4px;padding:6px 11px 6px 8px;
+  box-shadow:inset 0 0 0 1px rgba(110,125,26,.28),0 6px 16px -8px rgba(11,12,16,.5);
+  /* scale from the corner it is anchored to, so the pre-press 1.7x state grows
+     inward instead of punching past the viewport on narrow screens */
+  transform-origin:100% 0;
+  opacity:0;transform:rotate(9deg) scale(1.7);
+  transition:opacity .34s ease .55s,transform .42s cubic-bezier(.2,1.5,.35,1) .55s}
+.sig-bubble.show .sig-stamp{opacity:.95;transform:rotate(9deg) scale(1)}
+.sig-stamp svg{width:13px;height:13px;flex:none}
+@media(max-width:520px){.sig-stamp{right:-4px;top:-12px}}
+@media(prefers-reduced-motion:reduce){
+  .stamp-hero,.stamp-cap,.sig-stamp{opacity:.94!important;transform:rotate(-7deg)!important;
+    filter:none!important;transition:none!important}
+  .sig-stamp{transform:rotate(9deg)!important}}
 /* Section 01 safety imagery — verified report card */
 .safety-split{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;margin-top:6px}
 @media(max-width:900px){.safety-split{grid-template-columns:1fr;gap:36px}}
@@ -856,42 +902,15 @@ footer .mono{line-height:2}
     <p class="lede">Your data stays yours — private, and only ever used to do your work. And the engines never sit still: <strong>we read the logs, audit every run, and grow them a little sharper every single day.</strong></p>
     <div class="note"><b>*</b>The verification tax: knowledge workers spend an average of <b>4.3 hours a week</b> fact-checking, auditing, and fixing AI outputs — an estimated <b>$14,200 per employee, per year</b>. MAIZ does that checking itself. Forrester &middot; via Tandem.ai.</div>
     </div>
-    <div class="sp-wrap">
-      <div class="sp-card">
-        <div class="sp-kick">First touch &middot; <b>Touch 1</b></div>
-        <div class="sp-badge">
-          <svg class="sp-macron" viewBox="0 0 120 122" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="spVolt" x1="0" y1="0" x2="0.15" y2="1">
-                <stop offset="0" stop-color="#F4FFAE"/><stop offset=".42" stop-color="#D4FF00"/><stop offset="1" stop-color="#8FBE00"/>
-              </linearGradient>
-              <linearGradient id="spRing" x1="0.15" y1="0" x2="0.85" y2="1">
-                <stop offset="0" stop-color="#454D5C"/><stop offset=".5" stop-color="#1A1E27"/><stop offset="1" stop-color="#050608"/>
-              </linearGradient>
-              <filter id="spDs" x="-45%" y="-45%" width="190%" height="190%">
-                <feDropShadow dx="0" dy="7" stdDeviation="6.5" flood-color="#0B0C10" flood-opacity="0.30"/>
-              </filter>
-            </defs>
-            <g filter="url(#spDs)">
-              <circle cx="60" cy="77" r="30" stroke="url(#spRing)" stroke-width="16"/>
-              <path d="M39 63 A30 30 0 0 1 83 61" stroke="#6B7486" stroke-width="4.2" stroke-linecap="round" opacity=".75" fill="none"/>
-              <rect x="32" y="12" width="56" height="16" rx="8" fill="url(#spVolt)"/>
-              <rect x="37" y="14.5" width="46" height="3.6" rx="1.8" fill="#FCFFE0" opacity=".7"/>
-              <rect x="35" y="24.5" width="50" height="2.2" rx="1.1" fill="#6F9200" opacity=".55"/>
-            </g>
-          </svg>
-          <div class="sp-vf">Verified</div>
-        </div>
-        <div class="sp-name">Sofia Marin</div>
-        <div class="sp-role">VP Talent Acquisition &nbsp;&middot;&nbsp; <span class="co">Northgate Freight &#8599;</span></div>
-        <div class="sp-contact">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4A5462" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          sofia.marin@northgate.example <span class="pct">95%</span>
-          <span class="sp-dot">&middot;</span>
-          <a href="#">LinkedIn</a>
-          <span class="sp-dot">&middot;</span> Chicago, IL <span class="sp-dot">&middot;</span> 350 employees
-        </div>
+    <div class="sp-wrap stamp-wrap">
+      <div class="ollin-stamp stamp-hero" id="trustStamp">
+        <svg class="stamp-mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <rect x="28" y="10" width="44" height="11" rx="3" fill="currentColor"/>
+          <circle cx="50" cy="62" r="27" stroke="currentColor" stroke-width="13" fill="none"/>
+        </svg>
+        <span>Verified</span>
       </div>
+      <div class="stamp-cap mono">Nothing carries this mark until an engine has proved it &mdash; and cited where.</div>
     </div>
     </div>
   </div>
@@ -934,7 +953,9 @@ footer .mono{line-height:2}
       <div class="sig-bubble" id="sigBubble">
         <div class="sig-ava"><svg viewBox="0 0 100 100" fill="none"><rect x="28" y="14" width="44" height="10" rx="5" fill="#D4FF00"/><circle cx="50" cy="62" r="24" stroke="#D4FF00" stroke-width="11"/></svg></div>
         <div class="sig-card">
-          <div class="sig-card-h"><span class="sig-card-k">Reach out to</span><span class="sig-vtag"><svg viewBox="0 0 100 100" fill="none"><rect x="28" y="14" width="44" height="10" rx="5" fill="#6E7D1A"/><circle cx="50" cy="62" r="24" stroke="#0B0C10" stroke-width="11"/></svg> Verified</span></div>
+          <!-- the same stamp from §01, pressed onto the result it verified -->
+          <div class="sig-stamp"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" rx="3" fill="currentColor"/><circle cx="50" cy="62" r="27" stroke="currentColor" stroke-width="13" fill="none"/></svg>Verified</div>
+          <div class="sig-card-h"><span class="sig-card-k">Reach out to</span></div>
           <div class="sig-card-name">Priya Anand</div>
           <div class="sig-card-role">VP Operations · <span>Cobalt Platforms &#8599;</span></div>
           <div class="sig-card-why">Series C just filed; they&rsquo;re scaling East Coast ops in Q4. <strong>The pressure lands before they&rsquo;ve staffed for it — reach out now.</strong></div>
@@ -1403,7 +1424,7 @@ var MAIZ_BOOKING_URL = ''; /* TODO: paste the real booking URL here */
 /* Motion hero-terminal style appear (blur+fade+rise, staggered rows).
    Covers the §01 verified report card and the §03 VAMOS product card — both use .rise. */
 (function(){
-  var cards=document.querySelectorAll('.sp-card,.vp-card'); if(!cards.length) return;
+  var cards=document.querySelectorAll('.sp-card,.vp-card,.stamp-hero'); if(!cards.length) return;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce){ cards.forEach(function(c){c.classList.add('rise');}); return; }
   var io=new IntersectionObserver(function(en){
