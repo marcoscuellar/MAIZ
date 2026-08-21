@@ -646,34 +646,84 @@ td .mono{font-size:9px}
 .vp-full .vp-cut b{white-space:nowrap}
 
 /* ---- THE CALLING CARD ----
-   The queue the open card came out of. Same paper stock, shrunk down, so the
-   product card reads as one row of a list the user already lives in. */
-.vp-queue{background:#fff;border:1px solid #E4E7EC;border-radius:14px;
-  padding:15px 16px 13px;color:#0B0C10;
-  box-shadow:0 26px 50px -24px rgba(11,12,16,.42)}
-.vp-queue-h{display:flex;align-items:center;justify-content:space-between;gap:12px;
-  font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.16em;
-  text-transform:uppercase;color:#8A94A2;padding-bottom:10px;
-  border-bottom:1px solid #EEF0F3}
-.vp-queue-h b{color:#6E7D1A;font-weight:700}
-.vp-q-row{display:grid;grid-template-columns:24px minmax(0,1fr);gap:11px;align-items:start;
-  padding:11px 0;border-bottom:1px solid #F1F3F6}
-.vp-q-i{width:24px;height:24px;border-radius:7px;background:#EEF0F3;color:#6B7480;
-  font-family:'Archivo',sans-serif;font-weight:900;font-size:11px;
-  display:flex;align-items:center;justify-content:center;margin-top:1px}
-.vp-q-n{font-weight:700;font-size:13.5px;letter-spacing:-.012em;line-height:1.25}
-.vp-q-c{font-size:11.5px;color:#6B7480;line-height:1.4;margin-top:2px}
+   The queue the open card came out of. It is not a new component: it carries
+   .va-card and .vp-card, so it inherits the same paper stock, grain, sheen,
+   perspective tilt and entrance as the product card beside it. Everything below
+   is layout for the rows - the depth is already there. */
+.vp-queue{max-width:400px}
+/* content above the grain and sheen, exactly as on the product card */
+.vp-card>.vp-q-head,.vp-card>.vp-q-row,.vp-card>.vp-q-foot{position:relative;z-index:2}
+.vp-q-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:13px 16px;border-bottom:1px solid var(--border);
+  font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--dim)}
+.vp-q-head b{color:var(--olive);font-weight:700}
+/* each row is .va-ident shrunk down - same monogram tile, same name block */
+.vp-q-row{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:12px;
+  align-items:start;padding:13px 16px;border-bottom:1px solid var(--border)}
+.vp-q-row .va-logo{width:26px;height:26px;border-radius:7px;font-size:12px;margin-top:1px}
+.vp-q-row .va-name{font-size:13.5px;font-weight:700;letter-spacing:-.012em;
+  text-transform:none;line-height:1.3;margin-top:0}
+.vp-q-row .va-title{font-size:11.5px;line-height:1.4;margin-top:2px}
 .vp-q-t{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.13em;
-  text-transform:uppercase;color:#98A0AD;margin-top:6px}
-.vp-q-row.on{margin:0 -9px;padding-left:9px;padding-right:9px;border-radius:9px;
-  background:linear-gradient(90deg,rgba(212,255,0,.22),rgba(212,255,0,0) 78%);
-  box-shadow:inset 2px 0 0 #6E7D1A}
-.vp-q-row.on .vp-q-i{background:#0B0C10;color:#D4FF00}
-.vp-q-row.on .vp-q-t{color:#6E7D1A;font-weight:700}
-.vp-queue-f{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.2em;
-  text-transform:uppercase;color:#B3BAC5;padding-top:12px}
-.vp-queue-cap{font-size:12.5px;color:var(--dim);line-height:1.55;margin:16px 0 30px}
+  text-transform:uppercase;color:var(--dim);margin-top:6px}
+.vp-q-open{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--olive);font-weight:700;white-space:nowrap;margin-top:4px}
+/* the open row - the one the big card was lifted off */
+.vp-q-row.on{background:linear-gradient(90deg,rgba(212,255,0,.34),rgba(212,255,0,0) 78%);
+  box-shadow:inset 3px 0 0 #0B0C10}
+.vp-q-row.on .va-logo{background:#0B0C10;color:#D4FF00}
+.vp-q-row.on .vp-q-t{color:var(--olive);font-weight:700}
+.vp-q-row:not(.on) .va-logo{background:#EEF0F3;color:#7B8592}
+.vp-q-foot{padding:12px 16px;background:var(--surface)}
+/* rows land in sequence once the card has settled, like .va-know rows do */
+.vp-card .vp-q-row,.vp-card .vp-q-head{opacity:0;transform:translateY(10px);
+  transition:opacity .55s ease,transform .55s cubic-bezier(.22,1,.36,1)}
+.vp-card.rise .vp-q-row,.vp-card.rise .vp-q-head{opacity:1;transform:none}
+.vp-card.rise .vp-q-row:nth-of-type(1){transition-delay:.26s}
+.vp-card.rise .vp-q-row:nth-of-type(2){transition-delay:.36s}
+.vp-card.rise .vp-q-row:nth-of-type(3){transition-delay:.46s}
+.vp-card.rise .vp-q-row:nth-of-type(4){transition-delay:.56s}
+@media(prefers-reduced-motion:reduce){
+  .vp-card .vp-q-row,.vp-card .vp-q-head{opacity:1!important;transform:none!important;
+    transition:none!important}}
+@media(max-width:980px){.vp-queue{max-width:none}}
+
+.vp-queue-cap{font-size:12.5px;color:var(--dim);line-height:1.55;margin:0 0 32px}
 .vp-queue-cap b{color:var(--slate)}
+
+/* ---- THE DECK ----
+   The queue is a stack, so it is built as one. The wrapper is the 3D stage:
+   it holds the resting angle and preserve-3d, and the two cards under the top
+   one are pushed back on Z - real depth, not a drop shadow. The top card keeps
+   the pointer tilt it already inherits from .vp-card and lifts off the stack on
+   hover, which is what makes the separation readable. */
+.vp-deck{position:relative;transform-style:preserve-3d;margin:0 40px 62px 0;
+  transform:perspective(1400px) rotateY(-9deg) rotateX(4.5deg)}
+.vp-deck::before,.vp-deck::after{content:"";position:absolute;inset:0;
+  border-radius:18px;border:1px solid #DDE1E8;opacity:0;
+  transition:opacity .9s cubic-bezier(.22,1,.36,1) .18s,transform .5s cubic-bezier(.16,1,.3,1)}
+.vp-deck::before{background:#F1F3F6;transform:translate3d(11px,13px,-30px);
+  box-shadow:0 26px 44px -26px rgba(11,12,16,.6)}
+.vp-deck::after{background:#E4E8EE;transform:translate3d(22px,26px,-60px);
+  box-shadow:0 30px 50px -28px rgba(11,12,16,.55)}
+.vp-deck:has(.rise)::before,.vp-deck:has(.rise)::after{opacity:1}
+/* the stack spreads a little as the top card lifts */
+.vp-deck:hover::before{transform:translate3d(15px,18px,-30px)}
+.vp-deck:hover::after{transform:translate3d(30px,36px,-60px)}
+/* the top card lifts off the deck. .vp-queue.tiltable.rise outranks the generic
+   .vp-card.tiltable.rise by source order, so the tracked tilt still composes. */
+.vp-queue.rise{transform:translateZ(0)}
+.vp-queue.tiltable.rise{transform:perspective(1500px) translateZ(0)
+  rotateX(var(--rx)) rotateY(var(--ry))}
+.vp-queue.tiltable.rise:hover{transform:perspective(1500px) translateZ(38px)
+  rotateX(var(--rx)) rotateY(var(--ry))}
+@media(prefers-reduced-motion:reduce){
+  .vp-deck{transform:none}
+  .vp-deck::before,.vp-deck::after{opacity:1}}
+/* narrow screens: shallower angle, and the deck still needs its lean-room */
+@media(max-width:980px){
+  .vp-deck{margin:0 34px 54px 0;transform:perspective(1400px) rotateY(-5deg) rotateX(3deg)}}
 /* ---- THE CUT ----
    The two halves are one card severed across the scroll. §03's card ends on a
    perforated edge, §04's begins on its mirror, and a dashed volt line carries
@@ -1206,42 +1256,51 @@ footer .mono{line-height:2}
   </div>
 
     <div class="vp-prov vp-side">
-      <!-- the calling card: the queue the open card came out of -->
-      <div class="vp-queue">
-        <div class="vp-queue-h"><span>Up next &middot; <b>your queue</b></span><span>4 prepared</span></div>
-        <div class="vp-q-row on">
-          <span class="vp-q-i">V</span>
-          <div>
-            <div class="vp-q-n">Dana Rivera</div>
-            <div class="vp-q-c">VP, Technology Implementation &middot; Verrida Health</div>
-            <div class="vp-q-t">Open now &middot; touch 1 of 4</div>
+      <!-- the calling card: the queue the open card came out of. Same component
+           as the product card (.va-card .vp-card), so it carries the same paper,
+           grain, sheen and perspective tilt - shrunk to a single row per contact. -->
+      <div class="vp-light vp-deck">
+        <div class="va-card vp-card vp-queue" id="vpQueue">
+          <div class="vp-grain"></div><div class="vp-sheen"></div>
+          <div class="vp-q-head"><span>Up next &middot; <b>your queue</b></span><span>4 prepared</span></div>
+          <div class="vp-q-row on">
+            <span class="va-logo" aria-hidden="true">V</span>
+            <div>
+              <div class="va-name">Dana Rivera</div>
+              <div class="va-title">VP, Technology Implementation &middot; <span class="va-org">Verrida Health</span></div>
+              <div class="vp-q-t">Touch 1 of 4</div>
+            </div>
+            <span class="vp-q-open">open &rarr;</span>
           </div>
-        </div>
-        <div class="vp-q-row">
-          <span class="vp-q-i">K</span>
-          <div>
-            <div class="vp-q-n">Marcus Vale</div>
-            <div class="vp-q-c">Director of Operations &middot; Kestrelbrook Devices</div>
-            <div class="vp-q-t">Ready &middot; 4 facts verified</div>
+          <div class="vp-q-row">
+            <span class="va-logo" aria-hidden="true">K</span>
+            <div>
+              <div class="va-name">Marcus Vale</div>
+              <div class="va-title">Director of Operations &middot; <span class="va-org">Kestrelbrook Devices</span></div>
+              <div class="vp-q-t">Ready &middot; 4 facts verified</div>
+            </div>
+            <span class="vp-q-open">&nbsp;</span>
           </div>
-        </div>
-        <div class="vp-q-row">
-          <span class="vp-q-i">M</span>
-          <div>
-            <div class="vp-q-n">Priya Anand</div>
-            <div class="vp-q-c">Head of Talent &middot; Marrowfield Platforms</div>
-            <div class="vp-q-t">Ready &middot; replied, needs a human</div>
+          <div class="vp-q-row">
+            <span class="va-logo" aria-hidden="true">M</span>
+            <div>
+              <div class="va-name">Priya Anand</div>
+              <div class="va-title">Head of Talent &middot; <span class="va-org">Marrowfield Platforms</span></div>
+              <div class="vp-q-t">Ready &middot; replied, needs a human</div>
+            </div>
+            <span class="vp-q-open">&nbsp;</span>
           </div>
-        </div>
-        <div class="vp-q-row">
-          <span class="vp-q-i">A</span>
-          <div>
-            <div class="vp-q-n">Leo Fontaine</div>
-            <div class="vp-q-c">VP, Network Operations &middot; Aldervane Freight</div>
-            <div class="vp-q-t">Holding &middot; one claim failed the recheck</div>
+          <div class="vp-q-row">
+            <span class="va-logo" aria-hidden="true">A</span>
+            <div>
+              <div class="va-name">Leo Fontaine</div>
+              <div class="va-title">VP, Network Operations &middot; <span class="va-org">Aldervane Freight</span></div>
+              <div class="vp-q-t">Holding &middot; one claim failed the recheck</div>
+            </div>
+            <span class="vp-q-open">&nbsp;</span>
           </div>
+          <div class="vp-q-foot"><span class="va-sample">Sample data &middot; fictional</span></div>
         </div>
-        <div class="vp-queue-f">Sample data &middot; fictional</div>
       </div>
       <div class="vp-queue-cap">Every card in the queue opens like the one beside it &mdash; <b>same evidence, same receipts, same draft waiting.</b></div>
 
