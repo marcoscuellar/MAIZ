@@ -18,7 +18,7 @@
   --black:#0B0C10; --surface:#14161F; --raised:#0E1016; --border:#222634;
   --white:#FFFFFF; --ink:#F8FAFC; --slate:#94A3B8; --body:#C9D3DE; --dim:#77879A;
   --cy:#F8FAFC;
-  --em:#D4FF00; --em-rgb:212,255,0; --on-em:#14180A; --em-tint:rgba(212,255,0,.12); --em-line:rgba(212,255,0,.26);
+  --em:#FF4500; --em-rgb:255,69,0; --on-em:#180B05; --em-tint:rgba(255,69,0,.12); --em-line:rgba(255,69,0,.26);
 }
 html[data-accent="volt"]{
   --em:#D4FF00; --em-rgb:212,255,0; --on-em:#14180A; --em-tint:rgba(212,255,0,.12); --em-line:rgba(212,255,0,.26);
@@ -55,18 +55,11 @@ button{font-family:inherit;cursor:pointer}
 
 .page{max-width:1200px;margin:0 auto;padding:0 32px}
 
-.hero{padding:104px 0 78px;min-height:58vh;display:flex;flex-direction:column;justify-content:center;text-align:left;position:relative}
+.hero{padding:150px 0 132px;text-align:center;position:relative}
 .kicker{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;justify-content:center}
 .kicker .rule{flex:1;height:1px;background:var(--border);align-self:center;max-width:180px}
 .hero-mark{width:34px;height:34px;margin:52px auto 0;display:block;opacity:.9}
-h1{font-weight:900;font-size:clamp(44px,10.2vw,150px);line-height:.84;letter-spacing:-.06em;margin:26px 0 0;text-transform:uppercase;color:var(--white)}
-h1 .outline{color:transparent;-webkit-text-stroke:1.6px #3a4150}
-/* editorial stagger — words rise + de-blur in sequence (no scramble) */
-h1.stagger .w{display:inline-block;will-change:transform,opacity,filter}
-h1.stagger.armed .w{opacity:0;transform:translateY(.55em) scale(.985);filter:blur(11px)}
-h1.stagger.go .w{opacity:1;transform:none;filter:none;
-  transition:opacity .7s ease var(--d,0s),transform .9s cubic-bezier(.2,.9,.25,1) var(--d,0s),filter .7s ease var(--d,0s)}
-@media(prefers-reduced-motion:reduce){h1.stagger .w{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}
+h1{font-weight:900;font-size:clamp(52px,8.6vw,126px);line-height:.88;letter-spacing:-.055em;margin:38px auto 0;text-transform:uppercase;color:var(--white)}
 h1 .v{color:var(--em)}
 h1 .hl{background:var(--em);color:var(--on-em);padding:0 .08em;
   box-shadow:0 0 34px rgba(var(--em-rgb),.55),0 0 90px 14px rgba(var(--em-rgb),.45),0 0 180px 30px rgba(var(--em-rgb),.28)}
@@ -90,16 +83,9 @@ h1.scr-armed.reveal2 .accent::after{opacity:1;transition:opacity .45s ease}
 .deck-explain{max-width:760px;margin:38px auto 0;display:flex;flex-direction:column;gap:12px;text-align:center;color:var(--slate);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:clamp(12.5px,1.3vw,14.5px);line-height:1.85;letter-spacing:.02em}
 .deck-explain b{color:var(--white)}
 .deck-explain .hk{font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:.04em;font-size:clamp(16px,2vw,21px)}
-.hero-flow{display:flex;align-items:center;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
-.hero-flow::after{content:"";height:1px;background:var(--border);flex:1}
+.hero-flow{margin-top:36px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
 .hero-flow .ar{color:var(--em);margin:0 6px;font-weight:700}
-.hero-cta{margin-top:42px}
-.hero-foot{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;margin-top:48px;align-items:start}
-.hero-foot .lead{font-size:clamp(16px,1.65vw,20px);line-height:1.5;font-weight:600;letter-spacing:-.005em;color:var(--ink)}
-.hero-foot .lead .v{color:var(--em)}
-.hero-foot p{color:var(--slate);max-width:52ch;font-size:16px;line-height:1.62}
-.hero-foot p strong{color:var(--body)}
-@media(max-width:900px){.hero-foot{grid-template-columns:1fr;gap:24px}}
+.hero-cta{margin-top:44px}
 .hero.js-armed .hero-post{opacity:0;transform:translateY(16px)}
 .hero .hero-post.in{opacity:1;transform:none;transition:opacity .65s ease,transform .65s cubic-bezier(.16,1,.3,1)}
 .magnet{display:inline-block;will-change:transform}
@@ -332,10 +318,6 @@ td .mono{font-size:9px}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(248,250,252,.45)}70%{box-shadow:0 0 0 7px rgba(248,250,252,0)}100%{box-shadow:0 0 0 0 rgba(248,250,252,0)}}
 .cons-body{padding:18px 18px 20px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.85;letter-spacing:-.005em;color:var(--slate)}
 .cl{display:flex;gap:9px;align-items:baseline}
-/* console lines are flex rows of unbreakable monospace; without these they set a
-   min-content floor wider than a phone viewport and stretch the whole page */
-.cl,.cl>*,.cons-body{min-width:0}
-.cl>*{overflow-wrap:anywhere}
 .cl b{font-weight:600;color:var(--em)}
 .cl .ok{color:var(--cy);font-weight:600}
 .cl .dim{color:var(--dim)}
@@ -713,6 +695,8 @@ td .mono{font-size:9px}
    drew from, each still carrying its engine. The receipts, next to the pitch. */
 .vp-out-grid{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
   gap:44px;align-items:start}
+/* minmax(0,1fr), not 1fr: a bare 1fr is minmax(auto,1fr) and will not shrink
+   below the card's min-content, which overflowed at 320px */
 @media(max-width:980px){.vp-out-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
 /* The card sits on the right so its edge lines up with the right margin of the
    headline and lede above it; the evidence column takes the left. DOM order stays
@@ -858,12 +842,12 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 .sp-dot{color:#C4CAD2}
 @media(prefers-reduced-motion:reduce){.sp-macron{animation:none}}
 /* Section 02 — signal engine result bubble */
-.sig-bubble{margin-top:2px;display:flex;gap:12px;align-items:flex-start;max-width:min(520px,100%);min-width:0;
+.sig-bubble{margin-top:2px;display:flex;gap:12px;align-items:flex-start;max-width:520px;
   opacity:0;transform:translateY(16px);filter:blur(8px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1),filter .7s ease}
 .sig-bubble.show{opacity:1;transform:none;filter:none}
 .sig-ava{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(212,255,0,.1);border:1px solid rgba(212,255,0,.35);display:flex;align-items:center;justify-content:center;margin-top:4px}
 .sig-ava svg{width:17px;height:17px}
-.sig-card{position:relative;flex:1;min-width:0;background:#fff;color:#0B0C10;border-radius:6px 18px 18px 18px;padding:18px 20px;
+.sig-card{position:relative;flex:1;background:#fff;color:#0B0C10;border-radius:6px 18px 18px 18px;padding:18px 20px;
   box-shadow:0 26px 50px -22px rgba(0,0,0,.6);font-family:'IBM Plex Mono',monospace}
 .sig-card-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .sig-card-k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#98A0AD;font-weight:700}
@@ -967,137 +951,6 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:1;height:360px;
 footer .mono{line-height:2}
 .foot-mark{font-weight:900;font-size:clamp(32px,6vw,60px);letter-spacing:-.03em;text-transform:uppercase;line-height:1}
 @media(max-width:600px){.shell{margin-bottom:320px}footer{height:320px}}
-/* ===== Testimonials card deck (#voices) ===== */
-.deck{margin-top:40px;max-width:720px}
-.deck-stack{position:relative;height:340px;perspective:1400px}
-@media(max-width:620px){.deck-stack{height:420px}}
-.deck-card{position:absolute;inset:0;background:var(--surface);border:1px solid var(--border);border-radius:16px;
-  padding:34px 36px 30px;display:flex;flex-direction:column;
-  box-shadow:0 30px 60px -28px rgba(0,0,0,.7);
-  transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .5s ease,filter .5s ease;
-  will-change:transform,opacity;transform-origin:center bottom}
-.deck-card[data-depth="0"]{transform:translateY(0) scale(1);opacity:1;filter:none;z-index:40}
-.deck-card[data-depth="1"]{transform:translateY(16px) scale(.955);opacity:.5;filter:saturate(.6);z-index:30}
-.deck-card[data-depth="2"]{transform:translateY(30px) scale(.91);opacity:.28;filter:saturate(.4);z-index:20}
-.deck-card[data-depth="3"]{transform:translateY(42px) scale(.88);opacity:0;z-index:10}
-.deck-card.fly{transform:translateX(-118%) translateY(-8px) rotate(-7deg) scale(.98);opacity:0;z-index:50}
-.deck-card.nofx{transition:none}
-.deck-stars{display:flex;gap:5px;color:var(--em);font-size:15px;letter-spacing:2px}
-.deck-tag{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);border:1px solid var(--border);border-radius:4px;padding:5px 9px}
-.deck-top{display:flex;align-items:center;gap:12px}
-.deck-card .deck-quote{margin:22px 0 0;max-width:none;text-align:left;text-indent:0;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(19px,2.3vw,25px);line-height:1.32;letter-spacing:-.015em;color:var(--ink)}
-.deck-quote i{color:var(--body);font-style:italic;font-weight:600}
-.deck-who{margin-top:auto;padding-top:22px;display:flex;align-items:center;gap:13px}
-.deck-mono{flex:none;width:40px;height:40px;border-radius:50%;background:var(--em-tint);border:1px solid var(--em-line);display:flex;align-items:center;justify-content:center}
-.deck-mono svg{width:22px;height:22px}
-.deck-who-t{font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.5;color:var(--body)}
-.deck-who-t b{color:var(--ink);font-weight:600;display:block;letter-spacing:.02em}
-.deck-who-t span{color:var(--slate)}
-.deck-nav{display:flex;align-items:center;gap:18px;margin-top:26px}
-.deck-arrow{width:46px;height:46px;border:1px solid var(--border);background:transparent;color:var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:border-color .2s,background .2s,color .2s}
-.deck-arrow:hover{border-color:var(--em);color:var(--em)}
-.deck-dots{display:flex;gap:8px;align-items:center}
-.deck-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:0;padding:0;cursor:pointer;transition:width .3s ease,background .3s ease,border-radius .3s ease}
-.deck-dot.on{width:26px;border-radius:5px;background:var(--em)}
-@media(prefers-reduced-motion:reduce){.deck-card{transition:none}.deck-card.fly{opacity:0}}
-/* ===== §03 — click a field to flip it and reveal how ŌLLIN verified it ===== */
-.vp-intel .va-row{perspective:900px}
-/* each field reads as a pressable button — accent-bordered, with a persistent FLIP chip */
-.vp-intel .va-row.flippable{cursor:pointer;position:relative;border-top:none!important;
-  background:rgba(212,255,0,.05);border:1px solid var(--em-line);border-radius:11px;
-  padding:13px 84px 13px 13px;margin:9px 0;
-  transition:background .2s ease,border-color .2s ease,box-shadow .25s ease,transform .2s ease}
-.vp-intel .va-row.flippable:hover{background:rgba(212,255,0,.11);border-color:var(--em);
-  box-shadow:0 0 0 3px rgba(212,255,0,.10);transform:translateY(-1px)}
-.vp-intel .va-row.row-flipped{background:var(--em-tint);border-color:var(--em);box-shadow:0 0 0 3px rgba(212,255,0,.12)}
-/* the FLIP chip */
-.vp-intel .va-row.flippable::after{content:"⟲ Flip";position:absolute;top:11px;right:11px;
-  font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  color:var(--on-em);background:var(--em);border-radius:20px;padding:4px 9px;
-  box-shadow:0 0 16px -2px rgba(212,255,0,.6);animation:chipBreath 2.6s ease-in-out infinite;
-  transition:transform .2s ease}
-.vp-intel .va-row.flippable:hover::after{transform:scale(1.06)}
-.vp-intel .va-row.row-flipped::after{content:"⟲ Back";background:transparent;color:var(--em);border:1px solid var(--em);box-shadow:none;animation:none}
-@keyframes chipBreath{0%,100%{box-shadow:0 0 12px -3px rgba(212,255,0,.5)}50%{box-shadow:0 0 20px 1px rgba(212,255,0,.85)}}
-/* stronger one-time attention pull when the card scrolls in */
-@keyframes rowCue{0%,100%{box-shadow:0 0 0 0 rgba(212,255,0,0)}40%{box-shadow:0 0 0 4px rgba(212,255,0,.35)}}
-.vp-intel.cue .va-row.flippable{animation:rowCue 1.1s ease .1s 2}
-.vp-intel.cue .va-row.flippable:nth-of-type(2){animation-delay:.24s}
-.vp-intel.cue .va-row.flippable:nth-of-type(3){animation-delay:.38s}
-@media(prefers-reduced-motion:reduce){.vp-intel .va-row.flippable::after{animation:none}.vp-intel.cue .va-row.flippable{animation:none}}
-/* real 3D flip — the field turns over on its horizontal axis */
-.vp-intel .va-val{perspective:1300px}
-.vp-intel .v3d{position:relative;transform-style:preserve-3d;will-change:transform;
-  transition:transform .66s cubic-bezier(.34,1.2,.34,1),min-height .5s cubic-bezier(.4,.15,.2,1)}
-.vp-intel .va-row.row-flipped .v3d{transform:rotateX(180deg)}
-.vp-intel .v3d-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;top:0;left:0;width:100%}
-.vp-intel .v3d-back{position:absolute;transform:rotateX(180deg);display:flex;flex-direction:column;gap:9px}
-.vp-intel .vflip-h{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--em)}
-.vp-intel .v3d-back.is-empty .vflip-h{color:var(--dim)}
-.vp-intel .vflip-s{font-size:12.5px;line-height:1.5;color:var(--body)}
-.vp-intel .vflip-e{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--em);margin-bottom:2px}
-.vp-intel .v3d-back.is-empty .vflip-e{color:var(--dim)}
-@media(prefers-reduced-motion:reduce){.vp-intel .v3d{transition:none}}
-/* ===== §03 / §04 — standalone clean containers (AI AT WORK §02 style) ===== */
-#vamos .vp-grain,#vamos .vp-sheen,#vamos .vp-perf,#vamos .vp-cut,#vamos .vp-link,
-#ovamos .vp-grain,#ovamos .vp-sheen,#ovamos .vp-perf,#ovamos .vp-link{display:none!important}
-#ovamos .vp-cut{padding:20px 24px 0;color:var(--dim)}
-#ovamos .vp-cut::after{display:none}
-#vamos .vp-card.tiltable.rise,#ovamos .vp-card.tiltable.rise{transform:none!important}
-#ovamos .vp-out-grid{grid-template-columns:1fr 1fr!important;gap:20px;align-items:stretch}
-#vamos .vp-out-grid{grid-template-columns:minmax(0,720px)!important;justify-content:center;gap:20px}
-#vamos .vp-intel{max-width:720px!important}
-@media(max-width:980px){#ovamos .vp-out-grid{grid-template-columns:1fr!important}}
-.hover-hint{margin-top:18px;color:var(--dim);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-/* provenance / facts → clean dark card matching the data card */
-#vamos .vp-prov,#ovamos .vp-prov{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px 28px 22px;align-self:stretch}
-#vamos .vp-prov .vp-fact:first-of-type,#ovamos .vp-prov .vp-fact:first-of-type{border-top:1px solid var(--border)}
-/* data / compose card → clean hairline, dark, full radius, no cut edge */
-#vamos .vp-intel,#ovamos .vp-out{border-radius:14px!important;border:1px solid var(--border)!important;max-width:none!important;background:var(--raised)!important}
-#vamos .va-logo{background:#0B0C10;color:var(--em)}
-/* one-line principle */
-.principle{border-left:2px solid var(--em);padding:8px 0 8px 20px;margin-top:28px;color:var(--slate);max-width:74ch;font-size:14px;line-height:1.6}
-.principle strong,.principle b{color:var(--white)}
-/* ===== §04 — full VAMOS platform snapshot ===== */
-.vamos-app{display:grid;grid-template-columns:224px minmax(0,1fr);background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 44px 90px -34px rgba(0,0,0,.75);margin-top:6px}
-@media(max-width:920px){.vamos-app{grid-template-columns:1fr}}
-.vamos-queue{background:var(--raised);border-right:1px solid var(--border);padding:16px 12px;max-height:660px;overflow:auto}
-@media(max-width:920px){.vamos-queue{max-height:none}}
-.vq-h{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);padding:4px 6px 12px}
-.vq-item{border:1px solid var(--border);border-radius:10px;padding:11px 12px;margin-bottom:8px;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
-.vq-item:hover{border-color:var(--slate);background:rgba(255,255,255,.02)}
-.vq-item.on{border-color:var(--em);background:rgba(212,255,0,.07);box-shadow:0 0 0 1px var(--em-line)}
-.vq-name{font-weight:700;font-size:13px;color:var(--ink);padding-right:52px}
-.vq-role{font-size:11px;color:var(--slate);margin-top:2px}
-.vq-co{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);margin-top:7px;display:flex;align-items:center;gap:6px}
-.vq-co::before{content:"";width:14px;height:14px;border-radius:4px;background:var(--border);flex:none}
-.vq-ready{position:absolute;top:11px;right:11px;font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--on-em);background:var(--em);border-radius:10px;padding:3px 7px}
-.vamos-main{display:flex;flex-direction:column;min-width:0}
-.vm-head{padding:22px 26px 18px;border-bottom:1px solid var(--border);position:relative}
-.vm-kick{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-.vm-verified{position:absolute;top:18px;right:24px;display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
-.vm-verified i{width:6px;height:6px;border-radius:50%;background:var(--em);display:inline-block}
-.vm-verified i:nth-child(2){opacity:.6}.vm-verified i:nth-child(3){opacity:.3}
-.vm-name{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(24px,3vw,36px);letter-spacing:-.025em;line-height:1;margin:12px 0 8px;color:var(--ink)}
-.vm-sub{font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;color:var(--body)}
-.vm-sub .co{color:var(--em)}
-.vm-contact{margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--slate)}
-.vm-contact a{color:var(--body);text-decoration:underline;text-underline-offset:2px}
-.vm-body{display:grid;grid-template-columns:1fr 1fr;min-width:0}
-@media(max-width:760px){.vm-body{grid-template-columns:1fr}}
-.vm-intel{padding:20px 24px;border-right:1px solid var(--border);min-width:0}
-@media(max-width:760px){.vm-intel{border-right:none;border-bottom:1px solid var(--border)}}
-.vm-compose{padding:20px 22px;min-width:0}
-.vm-know-h{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
-.vm-know-h:first-child{margin-top:0}
-.vm-row{display:grid;grid-template-columns:60px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--border)}
-.vm-k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding-top:2px}
-.vm-val{font-size:12.5px;line-height:1.5;color:var(--body)}
-.vm-val.dim{color:var(--dim)}
-.vm-eng{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--em);white-space:nowrap}
-.vamos-shot{border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 44px 90px -34px rgba(0,0,0,.75);margin-top:6px;line-height:0}
-.vamos-shot img{width:100%;height:auto;display:block}
-.vamos-cap{margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -1118,7 +971,7 @@ footer .mono{line-height:2}
 <div class="shell">
 <div class="masthead">
   <div class="mrow">
-    <div class="mword">ŌLL<span class="mi">I</span>N<i>.</i></div>
+    <svg class="mmark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg><div class="mword">ŌLL<span class="mi">I</span>N<i>.</i></div>
     <div class="mnav">
       <a href="#evidence">The gap</a><a href="#trust">Trust</a><a href="#signal">The signal</a><a href="#vamos">Intelligence</a><a href="#ovamos">VAMOS</a>
     </div>
@@ -1128,13 +981,13 @@ footer .mono{line-height:2}
 
 <div class="page">
   <div class="hero">
-    <div class="hero-flow hero-post" style="color:#fff">ŌLLIN OS</div>
-    <h1 id="heroH1" class="stagger"><span class="w outline" style="--d:.06s">Not</span> <span class="w outline" style="--d:.18s">another</span><br><span class="w" style="--d:.36s">AI</span> <span class="w" style="--d:.47s">sales</span> <span class="w hl" style="--d:.58s">tool</span><span class="v p2">.</span></h1>
-    <div class="hero-foot hero-post">
-      <div class="lead">ŌLLIN isn’t another AI sales tool that throws a list at you and hopes you make sense of it. <span class="v">It verifies market needs, finds real client intelligence along with the right stakeholders and their verified contact info — and it doesn’t stop there…</span></div>
-      <p>Then it keeps the work moving through execution — <strong>so you show up where you matter most: in the conversation, building the kind of relationships that last.</strong></p>
+    <div class="hero-flow hero-post" style="margin:0 0 26px">From question <span class="ar">→</span> to evidence <span class="ar">→</span> to execution</div>
+    <h1 id="heroH1"><span class="scr" data-d="0">Not another</span><br><span class="scr" data-d="820">AI sales</span>&nbsp;<span class="scr hl" data-d="820">tool</span><span class="v p2">.</span></h1>
+    <div class="deck-explain hero-post">
+      <p>ŌLLIN finds the opportunity, proves it’s real, finds the right stakeholder, and builds the next move — then keeps the work moving through execution. <b>So you can show up where you matter most: in the conversation, building the kind of relationships that last.</b></p>
     </div>
-    <div class="hero-cta hero-post"><span class="magnet" id="heroMagnet"><a class="btn-hatch" href="#trust">See it run <span class="plus"></span><span class="cn l"></span><span class="cn r"></span></a></span></div>
+    <div class="hero-cta hero-post"><span class="magnet" id="heroMagnet"><a class="btn-hatch" href="#vamos">See it run <span class="plus"></span><span class="cn l"></span><span class="cn r"></span></a></span></div>
+    <svg class="hero-mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg>
   </div>
 </div>
 
@@ -1246,7 +1099,7 @@ footer .mono{line-height:2}
 
 <div class="page">
   <div class="vp-out-grid">
-  <div class="vp-panel">
+  <div class="vp-light">
     <div class="va-card vp-card vp-intel" id="vpIntel">
       <div class="vp-grain"></div><div class="vp-sheen"></div>
       <div class="va-head">
@@ -1282,9 +1135,19 @@ footer .mono{line-height:2}
       <div class="vp-perf"></div>
     </div>
   </div>
+
+    <!-- where each fact came from, and what it had to survive -->
+    <div class="vp-prov">
+      <div class="vp-prov-h">Every fact <b>double-checked</b> &mdash; or dropped</div>
+      <div class="vp-fact"><div class="vp-fact-n">01</div><div class="vp-fact-t">Found on the careers page: 4 senior Azure implementation reqs.<span class="vp-fact-e">&#9679; Engine 02 &middot; Signals</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">02</div><div class="vp-fact-t">Re-checked against the live ATS &mdash; still open, still aged past 60 days.<span class="vp-fact-e">&#9679; Engine 03 &middot; The skeptic</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">03</div><div class="vp-fact-t">Requisition age and employment model confirmed at the source.<span class="vp-fact-e">&#9679; Engine 04 &middot; Roles</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">04</div><div class="vp-fact-t">Buyer and hook found nothing that survived the second check, so both stayed empty.<span class="vp-fact-e">&#9679; Engine 06 &middot; Contact intel</span></div></div>
+      <div class="vp-prov-note">Job board <b>plus</b> live ATS, or it does not ship. A claim that fails the second check is <b>dropped, not softened</b> &mdash; which is why two rows on this card still read <b>not tracked yet</b>.</div>
+    </div>
   </div>
-  <div class="hover-hint mono">Click any field &mdash; it flips to show how ŌLLIN verified it, and which engine found it.</div>
-  <div class="principle">Two rows still read <b>not tracked yet</b>. Nothing fills them in until an engine can prove it &mdash; <b>missing beats fabricated.</b></div>
+  <div class="vp-link"><span>the same card, cut in half</span><i></i></div>
+  <div class="note" style="margin-top:20px">Two rows still read <b>not tracked yet</b>. Nothing fills them in until an engine can prove it &mdash; <b>missing beats fabricated.</b></div>
 </div></section>
 
 <section id="ovamos"><div class="page"><div class="sec">
@@ -1299,8 +1162,42 @@ footer .mono{line-height:2}
 </div></div>
 
 <div class="page">
-  <div class="vamos-shot"><img src="assets/vamos-snapshot.png" alt="The VAMOS platform — Up Next queue, the account intelligence, and the outreach draft on one screen." loading="lazy"></div>
-  <div class="vamos-cap">One screen · pick who &rarr; read what we know &rarr; choose the angle &rarr; you send. Sample data · nothing leaves without you.</div>
+  <div class="vp-out-grid">
+  <div class="vp-light">
+    <div class="va-card vp-card vp-out" id="vpOut">
+      <div class="vp-grain"></div><div class="vp-sheen"></div>
+      <div class="vp-perf top"></div>
+      <div class="vp-cut"><b>continued</b> Dana Rivera &middot; Verrida Health<span class="va-sample" style="margin-left:12px">Sample data</span></div>
+      <div class="va-body">
+        <div class="va-compose">
+          <div class="va-seg"><button class="va-seg-b on" type="button">&#9993; Email</button><button class="va-seg-b" type="button">in&nbsp;LinkedIn</button></div>
+          <div class="va-grounded mono">Grounded in 4 facts</div>
+          <textarea class="va-ta" id="vaTa" placeholder="Ask ŌLLIN to write it — or type your own." spellcheck="false"></textarea>
+          <div class="va-ta-meta mono"><span><span id="vaCount">0 chars · 0 words</span> &middot; <span class="va-aud">audited &#10003;</span></span><span><span class="va-lk">Open email</span> &middot; <span class="va-lk">Copy</span></span></div>
+          <div class="askbar va-ask" aria-hidden="true"><span class="q" data-ph="Ask ŌLLIN to write it — or ask about the account…">Ask ŌLLIN to write it — or ask about the account…</span><span class="mic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="18" x2="12" y2="21.5"/></svg></span><span class="send" id="vaSend">&rarr;</span></div>
+          <button class="va-go" id="vaGo" type="button">Let's go &raquo;</button>
+          <div class="va-chips">
+            <button class="va-chip on" data-a="0" type="button">The gap</button>
+            <button class="va-chip" data-a="1" type="button">Cost of waiting</button>
+            <button class="va-chip" data-a="2" type="button">The person</button>
+            <button class="va-chip" data-a="3" type="button">Freestyle</button>
+          </div>
+          <div class="va-not mono">Not now? <button class="va-nb" type="button">Tomorrow</button><button class="va-nb" type="button">Next week</button><button class="va-nb" type="button">Not a fit</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- the receipts, sitting next to the pitch -->
+    <div class="vp-prov">
+      <div class="vp-prov-h">Standing on <b>4 verified facts</b> &mdash; nothing else</div>
+      <div class="vp-fact"><div class="vp-fact-n">01</div><div class="vp-fact-t">Workforce Operating System launched &mdash; unified labor tracking across health systems.<span class="vp-fact-e">&#9679; Engine 02 &middot; Signals</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">02</div><div class="vp-fact-t">4 senior Azure implementation roles, open 60+ days on Workday ATS.<span class="vp-fact-e">&#9679; Engine 04 &middot; Roles</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">03</div><div class="vp-fact-t">Rollout live this year, so the delivery pressure is being held internally.<span class="vp-fact-e">&#9679; Engine 05 &middot; Cost of gap</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">04</div><div class="vp-fact-t">Leads the global Workforce OS team &mdash; owns the outcome when go-lives slip.<span class="vp-fact-e">&#9679; Engine 06 &middot; Contact intel</span></div></div>
+      <div class="vp-prov-note">Every sentence in the draft traces to one of these. <b>No fact, no sentence</b> &mdash; the two rows the engines could not verify stayed empty rather than getting filled in.</div>
+    </div>
+  </div>
 
   <div class="vp-turn">
     <h3>Approval is<br>not send<span class="v">.</span></h3>
@@ -1308,47 +1205,6 @@ footer .mono{line-height:2}
   </div>
 </div></section>
 
-
-<section id="voices"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">05</div>
-    <div class="rt">Receipts<br><span class="sub">verbatim · field tests</span></div>
-  </div></div>
-  <div class="content">
-    <h2>We gave it to<br>people who&rsquo;d know<span class="v">.</span></h2>
-    <p class="lede">People who have spent their careers doing this work—and who would recognize a shortcut immediately—ran the system against real commercial questions. <strong>Their words are verbatim.</strong></p>
-    <div class="deck" id="deck">
-      <div class="deck-stack" id="deckStack">
-        <article class="deck-card">
-          <div class="deck-top"><div class="deck-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><span class="deck-tag">very impressed</span></div>
-          <p class="deck-quote">&ldquo;They know when to go, when to stop, and how to check each other&hellip; <i>we know the routes and the answer</i>, because it&rsquo;s well laid out. I&rsquo;m very impressed.&rdquo;</p>
-          <div class="deck-who"><span class="deck-mono"><svg viewBox="0 0 100 100" fill="none"><rect x="28" y="14" width="44" height="10" rx="5" fill="var(--em)"/><circle cx="50" cy="62" r="24" stroke="var(--em)" stroke-width="11"/></svg></span><div class="deck-who-t"><b>Analytics &amp; AI leader</b><span>major recruiting-tech platform</span></div></div>
-        </article>
-        <article class="deck-card">
-          <div class="deck-top"><div class="deck-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><span class="deck-tag">more field time</span></div>
-          <p class="deck-quote">&ldquo;These engines work together to do the work, so we can get out in the field even more.&rdquo;</p>
-          <div class="deck-who"><span class="deck-mono"><svg viewBox="0 0 100 100" fill="none"><rect x="28" y="14" width="44" height="10" rx="5" fill="var(--em)"/><circle cx="50" cy="62" r="24" stroke="var(--em)" stroke-width="11"/></svg></span><div class="deck-who-t"><b>SVP</b><span>national staffing firm</span></div></div>
-        </article>
-        <article class="deck-card">
-          <div class="deck-top"><div class="deck-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><span class="deck-tag">one prompt</span></div>
-          <p class="deck-quote">&ldquo;I cannot believe it does all this from just one prompt. Amazing.&rdquo;</p>
-          <div class="deck-who"><span class="deck-mono"><svg viewBox="0 0 100 100" fill="none"><rect x="28" y="14" width="44" height="10" rx="5" fill="var(--em)"/><circle cx="50" cy="62" r="24" stroke="var(--em)" stroke-width="11"/></svg></span><div class="deck-who-t"><b>Senior Director</b><span>IT staffing firm</span></div></div>
-        </article>
-        <article class="deck-card">
-          <div class="deck-top"><div class="deck-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><span class="deck-tag">it works</span></div>
-          <p class="deck-quote">&ldquo;Wow &mdash; I&rsquo;m impressed. This really works.&rdquo;</p>
-          <div class="deck-who"><span class="deck-mono"><svg viewBox="0 0 100 100" fill="none"><rect x="28" y="14" width="44" height="10" rx="5" fill="var(--em)"/><circle cx="50" cy="62" r="24" stroke="var(--em)" stroke-width="11"/></svg></span><div class="deck-who-t"><b>Owner</b><span>search &amp; staffing firm</span></div></div>
-        </article>
-      </div>
-      <div class="deck-nav">
-        <button class="deck-arrow" id="deckPrev" aria-label="Previous">&larr;</button>
-        <div class="deck-dots" id="deckDots"></div>
-        <button class="deck-arrow" id="deckNext" aria-label="Next">&rarr;</button>
-      </div>
-      <div class="note" style="margin-top:22px">Engines run: <b>8</b> &middot; Invented facts: <b>0</b></div>
-    </div>
-  </div>
-</div></div></section>
 
 <section id="book" style="border-bottom:1px solid var(--border)"><div class="page"><div class="sec">
   <div class="rail"><div class="inner">
@@ -1385,7 +1241,6 @@ footer .mono{line-height:2}
       <div class="cs-err" id="csErr" role="alert" aria-live="polite"></div>
       <div class="cs-actions">
         <button class="btn" type="submit" id="csSend">Book 30 minutes →</button>
-        <a class="btn" id="csDirectBtn" href="#book" style="background:transparent;color:var(--em);border:1px solid var(--em)">Email me directly →</a>
         <span class="mono" style="letter-spacing:.14em">No list, no newsletter</span>
       </div>
       <div class="cs-note">Submitting opens your own email client with this filled in &mdash; <b>nothing is transmitted from this page</b>, and there is no tracker on it. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
@@ -1411,7 +1266,7 @@ footer .mono{line-height:2}
   <svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:40px;height:40px"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg>
   <div class="foot-mark">ŌLL<span class="mi">I</span>N<span class="mi">.</span></div>
   <div class="mono">ŌLLIN · Intelligence to execution</div>
-  <div class="mono" style="color:var(--dim)">ŌLLIN, like the glyph: always in motion</div>
+  <div class="mono" style="color:var(--dim)">ŌLLIN, like the crop: plant once, harvest all season · ŌLLIN, like the glyph: always in motion</div>
 </footer>
 
 <script>
@@ -1592,7 +1447,7 @@ footer .mono{line-height:2}
     setTimeout(function(){
       intro.classList.add('gone');
       root.classList.remove('intro-lock');
-      if(window.__heroReveal) setTimeout(window.__heroReveal,760);
+      if(window.__heroReveal) setTimeout(window.__heroReveal,240);
       setTimeout(function(){ if(intro&&intro.parentNode) intro.style.display='none'; },1150);
     },hold);
   }
@@ -1710,10 +1565,6 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
     direct.href='mailto:'+OLLIN_CONTACT_EMAIL+'?subject='+encodeURIComponent('Run one of my accounts');
     direct.textContent=OLLIN_CONTACT_EMAIL;
   }
-  var directBtn=document.getElementById('csDirectBtn');
-  if(directBtn){
-    directBtn.href='mailto:'+OLLIN_CONTACT_EMAIL+'?subject='+encodeURIComponent('Run one of my accounts');
-  }
 
   function invalid(el,on){ el.setAttribute('aria-invalid',on?'true':'false'); }
 
@@ -1742,7 +1593,7 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
     if(F('csCo').value.trim())   L.push('Company: '+F('csCo').value.trim());
     if(F('csAcct').value.trim()) L.push('Account to run: '+F('csAcct').value.trim());
     if(F('csMsg').value.trim())  L.push('', 'What they want it to find:', F('csMsg').value.trim());
-    L.push('', '— sent from ollinos.com');
+    L.push('', '— sent from ollin');
 
     var subject='30 minutes — '+(F('csCo').value.trim() || name.value.trim());
     var href='mailto:'+OLLIN_CONTACT_EMAIL
@@ -1905,144 +1756,6 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
     },{threshold:0, rootMargin:'0px 0px -35% 0px'});
     sio.observe(bar);
   } else { run(); }
-})();
-</script>
-<script>
-/* Testimonials card deck — shuffle through like dealing cards */
-(function(){
-  var stack=document.getElementById('deckStack'); if(!stack) return;
-  var cards=[].slice.call(stack.querySelectorAll('.deck-card'));
-  var dotsWrap=document.getElementById('deckDots');
-  var prevB=document.getElementById('deckPrev'), nextB=document.getElementById('deckNext');
-  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var n=cards.length, order=cards.map(function(_,i){return i;}), busy=false, timer=null;
-  // dots
-  var dots=cards.map(function(_,i){
-    var d=document.createElement('button'); d.className='deck-dot'; d.setAttribute('aria-label','Go to '+(i+1));
-    d.addEventListener('click',function(){ goTo(i); });
-    dotsWrap.appendChild(d); return d;
-  });
-  function apply(){
-    order.forEach(function(idx,depth){ cards[idx].dataset.depth=Math.min(depth,3); });
-    dots.forEach(function(d,i){ d.classList.toggle('on', i===order[0]); });
-  }
-  function advance(dir){
-    if(busy) return; busy=true;
-    if(dir>0){
-      var front=cards[order[0]];
-      if(reduce){ order.push(order.shift()); apply(); busy=false; return; }
-      front.classList.add('fly');
-      setTimeout(function(){
-        order.push(order.shift());
-        front.classList.add('nofx'); front.classList.remove('fly');
-        front.dataset.depth=3; // snap to back invisibly
-        void front.offsetWidth; front.classList.remove('nofx');
-        apply(); busy=false;
-      },420);
-    } else {
-      order.unshift(order.pop());
-      var back=cards[order[0]];
-      back.classList.add('nofx'); back.dataset.depth=0;
-      back.classList.add('fly'); void back.offsetWidth; back.classList.remove('nofx');
-      requestAnimationFrame(function(){ back.classList.remove('fly'); apply(); setTimeout(function(){busy=false;},420); });
-    }
-  }
-  function goTo(target){
-    if(busy||target===order[0]) return;
-    // step forward until front === target (simple, few cards)
-    var guard=0;
-    (function step(){
-      if(order[0]===target||guard++>n) return;
-      advance(1); setTimeout(step,140);
-    })();
-  }
-  function next(){ advance(1); }
-  function prev(){ advance(-1); }
-  nextB.addEventListener('click',function(){ next(); restart(); });
-  prevB.addEventListener('click',function(){ prev(); restart(); });
-  function restart(){ if(timer) clearInterval(timer); timer=setInterval(next, 5500); }
-  var deck=document.getElementById('deck');
-  deck.addEventListener('mouseenter',function(){ if(timer) clearInterval(timer); });
-  deck.addEventListener('mouseleave',restart);
-  apply();
-  if(!reduce){
-    if('IntersectionObserver' in window){
-      var started=false;
-      var io=new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting&&!started){ started=true; restart(); } }); },{threshold:.3});
-      io.observe(deck);
-    } else { restart(); }
-  }
-})();
-</script>
-<script>
-/* §03 — click a card field to flip it and reveal how ŌLLIN verified it */
-(function(){
-  var card=document.getElementById('vpIntel'); if(!card) return;
-  var MAP={
-    signal:{empty:false,steps:[
-      {e:'Engine 02 · Signals',t:'Found on the careers page — 4 senior Azure implementation reqs.'},
-      {e:'Engine 03 · The skeptic',t:'Re-checked against the live ATS — still open, aged past 60 days.'},
-      {e:'Engine 04 · Roles',t:'Requisition age and employment model confirmed at the source.'}
-    ]},
-    money:{empty:false,steps:[
-      {e:'Engine 05 · Cost of gap',t:'Modeled from the verified open reqs and the live rollout timeline — $12,000 / week, compounding while the reqs sit open.'}
-    ]},
-    buyer:{empty:true,steps:[
-      {e:'Engine 06 · Contact intel',t:'Nothing survived the second check, so it stayed empty. Missing beats fabricated.'}
-    ]},
-    why:{empty:false,steps:[
-      {e:'Engine 06 · Contact intel',t:'Leads the global Workforce OS team — feels the gap before anyone reports it. Confirmed at the source.'}
-    ]},
-    hook:{empty:true,steps:[
-      {e:'Engine 06 · Contact intel',t:'Nothing survived the second check, so it stayed empty. Missing beats fabricated.'}
-    ]},
-    status:{empty:false,steps:[
-      {e:'System',t:'In cadence — touch 1 of 4. Every step logged.'}
-    ]}
-  };
-  function backHTML(cfg){
-    var h='<span class="vflip-h">'+(cfg.empty?'Dropped — missing beats fabricated':'How ŌLLIN verified it')+'</span>';
-    return h+cfg.steps.map(function(s){return '<span class="vflip-s"><span class="vflip-e">'+s.e+'</span>'+s.t+'</span>';}).join('');
-  }
-  var rows=[].slice.call(card.querySelectorAll('.va-row')), sizers=[];
-  rows.forEach(function(row){
-    var kEl=row.querySelector('.va-k'); if(!kEl) return;
-    var cfg=MAP[kEl.textContent.trim().toLowerCase()]; if(!cfg) return;
-    var val=row.querySelector('.va-val'); if(!val) return;
-    var wrap=document.createElement('div'); wrap.className='v3d';
-    var f=document.createElement('div'); f.className='v3d-face v3d-front'; f.innerHTML=val.innerHTML;
-    var bk=document.createElement('div'); bk.className='v3d-face v3d-back'+(cfg.empty?' is-empty':''); bk.innerHTML=backHTML(cfg);
-    wrap.appendChild(f); wrap.appendChild(bk);
-    val.innerHTML=''; val.appendChild(wrap);
-    var fH=0,bH=0,flipped=false;
-    function sizeIt(){
-      wrap.style.minHeight='0px';
-      bk.style.cssText='position:static;transform:none;visibility:hidden;display:flex;flex-direction:column;gap:9px';
-      bH=bk.offsetHeight; bk.style.cssText='';
-      fH=f.offsetHeight;
-      wrap.style.minHeight=(flipped?bH:fH)+'px';
-    }
-    sizers.push(sizeIt); sizeIt();
-    row.classList.add('flippable'); row.setAttribute('tabindex','0'); row.setAttribute('role','button');
-    function toggle(){ flipped=!flipped; row.classList.toggle('row-flipped',flipped); wrap.style.minHeight=(flipped?bH:fH)+'px'; }
-    row.addEventListener('click',toggle);
-    row.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
-  });
-  // re-measure once fonts settle and on resize (text wrap changes heights)
-  if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(function(){ sizers.forEach(function(s){s();}); }); }
-  var rz; window.addEventListener('resize',function(){ clearTimeout(rz); rz=setTimeout(function(){ sizers.forEach(function(s){s();}); },180); });
-  /* VAMOS queue — clicking a person highlights them (feels navigable) */
-  var vqItems=[].slice.call(document.querySelectorAll('.vamos-queue .vq-item'));
-  vqItems.forEach(function(it){ it.addEventListener('click',function(){ vqItems.forEach(function(x){x.classList.remove('on');}); it.classList.add('on'); }); });
-  /* one-time attention pulse on the flip cues when the card scrolls into view */
-  if('IntersectionObserver' in window){
-    var cued=false;
-    var cio=new IntersectionObserver(function(en){
-      en.forEach(function(e){ if(e.isIntersecting && !cued){ cued=true; card.classList.add('cue');
-        setTimeout(function(){ card.classList.remove('cue'); },2600); cio.disconnect(); } });
-    },{threshold:.4});
-    cio.observe(card);
-  }
 })();
 </script>
 </body>
