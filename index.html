@@ -469,6 +469,54 @@ td .mono{font-size:9px}
 .cs-note b{color:var(--body)}
 .cs-alt{color:var(--em);text-decoration:none;border-bottom:1px solid var(--em-line)}
 .cs-alt:hover{border-bottom-color:var(--em)}
+.cs.sent{display:none}
+
+/* ---- CONFIRMATION ----
+   The celebration reuses the page's own signature device: the stamp presses
+   down on the submission, the same way it presses on a verified fact. What it
+   claims depends on whether the submission was actually received. */
+/* overflow-x:clip contains the burst: absolutely positioned shards still count
+   toward scrollable overflow and propagate up to the document. Clip horizontally
+   only, so the stamp's glow can still bleed vertically. */
+.cs-done{display:none;margin-top:30px;max-width:640px;position:relative;
+  overflow-x:clip;padding-top:10px}
+.cs-done.show{display:block}
+.cs-done-stamp{display:inline-flex;align-items:center;gap:14px;
+  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:15px;letter-spacing:.36em;
+  text-transform:uppercase;color:var(--em);border:3px solid var(--em);
+  padding:14px 22px 14px 18px;border-radius:6px;transform:rotate(-5deg) scale(1.15);
+  opacity:0;filter:blur(7px);
+  box-shadow:inset 0 0 0 1.5px rgba(var(--em-rgb),.35),0 0 40px -8px rgba(var(--em-rgb),.6);
+  text-shadow:0 0 16px rgba(var(--em-rgb),.55);
+  transition:opacity .34s ease,transform .46s cubic-bezier(.2,1.5,.35,1),filter .34s ease}
+.cs-done.show .cs-done-stamp{opacity:.96;transform:rotate(-5deg) scale(1);filter:none}
+.cs-done-stamp svg{width:26px;height:26px;flex:none}
+/* the stamp is inline-flex, so its min-content sets the column's floor — at
+   phone widths the wide tracking made that floor wider than the viewport */
+@media(max-width:560px){
+  .cs-done-stamp{font-size:11px;letter-spacing:.2em;gap:10px;padding:11px 15px 11px 12px;border-width:2.5px}
+  .cs-done-stamp svg{width:19px;height:19px}
+}
+.cs-done h3{font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:1;
+  font-size:clamp(24px,3vw,34px);margin:24px 0 12px;color:var(--ink);
+  opacity:0;transform:translateY(10px);transition:opacity .5s ease .26s,transform .5s ease .26s}
+.cs-done p{color:var(--slate);font-size:15px;line-height:1.6;max-width:50ch;
+  opacity:0;transform:translateY(10px);transition:opacity .5s ease .38s,transform .5s ease .38s}
+.cs-done p b{color:var(--body)}
+.cs-done.show h3,.cs-done.show p{opacity:1;transform:none}
+/* the burst — volt shards thrown from the stamp */
+.cs-spark{position:absolute;left:0;top:26px;width:6px;height:6px;border-radius:2px;
+  background:var(--em);opacity:0;pointer-events:none}
+.cs-done.show .cs-spark{animation:csBurst .82s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes csBurst{
+  0%{opacity:0;transform:translate(0,0) scale(.4) rotate(0deg)}
+  18%{opacity:1}
+  100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.5) rotate(var(--dr))}}
+@media(prefers-reduced-motion:reduce){
+  .cs-done-stamp,.cs-done h3,.cs-done p{opacity:1!important;transform:rotate(-5deg)!important;
+    filter:none!important;transition:none!important}
+  .cs-done h3,.cs-done p{transform:none!important}
+  .cs-spark{display:none}}
 
 /* ---- VAMOS card · light product theme ----
    The .va-* rules above are written entirely in custom properties, so the whole
@@ -647,7 +695,9 @@ td .mono{font-size:9px}
    drew from, each still carrying its engine. The receipts, next to the pitch. */
 .vp-out-grid{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
   gap:44px;align-items:start}
-@media(max-width:980px){.vp-out-grid{grid-template-columns:1fr;gap:28px}}
+/* minmax(0,1fr), not 1fr: a bare 1fr is minmax(auto,1fr) and will not shrink
+   below the card's min-content, which overflowed at 320px */
+@media(max-width:980px){.vp-out-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
 /* The card sits on the right so its edge lines up with the right margin of the
    headline and lede above it; the evidence column takes the left. DOM order stays
    card-first, so on narrow screens the card still leads. */
@@ -1195,6 +1245,17 @@ footer .mono{line-height:2}
       </div>
       <div class="cs-note">Submitting opens your own email client with this filled in &mdash; <b>nothing is transmitted from this page</b>, and there is no tracker on it. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
     </form>
+    <div class="cs-done" id="csDone" role="status" aria-live="polite">
+      <div class="cs-done-stamp">
+        <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <rect x="28" y="10" width="44" height="11" rx="3" fill="currentColor"/>
+          <circle cx="50" cy="62" r="27" stroke="currentColor" stroke-width="13" fill="none"/>
+        </svg>
+        <span id="csDoneStamp">Received</span>
+      </div>
+      <h3 id="csDoneH">That&rsquo;s in front of me<span style="color:var(--em)">.</span></h3>
+      <p id="csDoneP">I read these myself. Expect a reply within one business day &mdash; and bring that account, we&rsquo;ll run it live.</p>
+    </div>
     <div class="note" style="margin-top:26px"><b>Approval is not send:</b> two-signal minimum, every claim double-checked against the live ATS, and nothing leaves the building without you.</div>
   </div>
 </div></div></section>
@@ -1481,6 +1542,11 @@ footer .mono{line-height:2}
 var MAIZ_BOOKING_URL = '';                    /* optional: a scheduler link. When set, the
                                                  masthead button points at it instead of the form. */
 var MAIZ_CONTACT_EMAIL = 'hello@getmaiz.com'; /* where the contact sheet sends. Must be a real mailbox. */
+var MAIZ_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formspree URL). When set, the
+                                                 form submits for real and the confirmation says
+                                                 "Received". While empty it falls back to the visitor's
+                                                 mail client and says "Ready to send" instead — the
+                                                 wording never claims more than actually happened. */
 
 (function(){
   /* masthead button: scheduler if there is one, otherwise down to the contact sheet */
@@ -1535,13 +1601,61 @@ var MAIZ_CONTACT_EMAIL = 'hello@getmaiz.com'; /* where the contact sheet sends. 
            + '&body='+encodeURIComponent(L.join('\n'));
 
     var btn=document.getElementById('csSend'), was=btn.textContent;
-    btn.textContent='Opening your email…';
-    window.location.href=href;
-    setTimeout(function(){
-      btn.textContent=was;
-      err.textContent='';
-      /* if no mail client picked it up, the fallback link is right below */
-    },2600);
+    var done=document.getElementById('csDone');
+
+    function celebrate(received){
+      /* the wording tracks the truth: only claim receipt when a server took it */
+      document.getElementById('csDoneStamp').textContent = received ? 'Received' : 'Ready to send';
+      document.getElementById('csDoneH').innerHTML = received
+        ? 'That&rsquo;s in front of me<span style="color:var(--em)">.</span>'
+        : 'Your email is ready<span style="color:var(--em)">.</span>';
+      document.getElementById('csDoneP').innerHTML = received
+        ? 'I read these myself. Expect a reply within one business day &mdash; and bring that account, we&rsquo;ll run it live.'
+        : 'It should have opened in your mail app, filled in and addressed. <b>Hit send there</b> and it reaches me &mdash; nothing left this page on its own.';
+      /* throw the shards from the stamp */
+      var n=14;
+      /* keep the throw inside the viewport — the shards are transformed, and a
+         transform still counts toward scrollWidth, so on a phone an unbounded
+         burst adds a horizontal scrollbar */
+      var reach=Math.max(40,Math.min(90,window.innerWidth*0.16));
+      var spread=Math.max(30,Math.min(90,window.innerWidth*0.16));
+      for(var i=0;i<n;i++){
+        var s=document.createElement('i'); s.className='cs-spark';
+        var a=(-140 + (280/(n-1))*i) * Math.PI/180, d=reach+((i*37)%Math.round(reach*0.78));
+        s.style.setProperty('--dx',(Math.cos(a)*d).toFixed(0)+'px');
+        s.style.setProperty('--dy',(Math.sin(a)*d-30).toFixed(0)+'px');
+        s.style.setProperty('--dr',((i*53)%360)+'deg');
+        s.style.left=(Math.round(spread*0.6)+((i*13)%Math.round(spread)))+'px';
+        s.style.animationDelay=(i*22)+'ms';
+        done.appendChild(s);
+      }
+      form.classList.add('sent');
+      done.classList.add('show');
+      done.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+
+    if(MAIZ_FORM_ENDPOINT){
+      /* a server is taking it — celebrate only once it actually says yes */
+      btn.disabled=true; btn.textContent='Sending…';
+      fetch(MAIZ_FORM_ENDPOINT,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({name:name.value.trim(),email:email.value.trim(),
+          company:F('csCo').value.trim(),account:F('csAcct').value.trim(),
+          message:F('csMsg').value.trim(),source:'getmaiz.com'})
+      }).then(function(r){
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        celebrate(true);
+      }).catch(function(){
+        btn.disabled=false; btn.textContent=was;
+        err.textContent='That didn’t go through. Use the direct email link below.';
+      });
+    } else {
+      /* no endpoint: hand it to their mail client and say exactly that */
+      btn.textContent='Opening your email…';
+      window.location.href=href;
+      setTimeout(function(){ btn.textContent=was; celebrate(false); },900);
+    }
   });
 })();
 
