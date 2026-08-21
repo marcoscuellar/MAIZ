@@ -29,7 +29,7 @@ APPROVED=(
 
 # The one genuine address on the page (the contact sheet destination). Everything
 # else that looks like an email must use a reserved TLD.
-REAL_CONTACT="hello@getmaiz.com"
+REAL_CONTACT="marcos@ollinos.com"
 
 # Form placeholder text — interface chrome, not sample data about anyone.
 UI_PLACEHOLDERS="you@company.com"

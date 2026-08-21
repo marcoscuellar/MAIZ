@@ -1,8 +1,8 @@
-# HANDOFF — ŌLLIN : MAIZ Landing Page
+# HANDOFF — ŌLLIN Landing Page
 
 **From:** Claude Code (session 3) · **To:** the next session · **Owner:** Marcos Cuellar (marcosmcuellar@gmail.com)
 **Date:** 2026-08-18
-**Repo:** `marcoscuellar/MAIZ` · **Branch:** `claude/maiz-gtm-strategy-qk9hh5`
+**Repo:** `marcoscuellar/MAIZ` (repo name unchanged — renaming it would break the deploy) · **Branch:** `claude/maiz-gtm-strategy-qk9hh5`
 
 ---
 
@@ -72,7 +72,7 @@ Rebuilt on Marcos's own words: *"I'd love to show you how the engines actually w
 **Nothing is live yet.** The Vercel MCP connector kept dropping out of the session and requires an OAuth authorization that a non-interactive session cannot complete. No Vercel CLI, no token, no `~/.vercel` credentials.
 
 Two ways through, pick either:
-- **Connect the repo (recommended, permanent):** Vercel → project `maiz` → Settings → Git → connect `marcoscuellar/MAIZ`. Every push then auto-builds. Five commits are already waiting on the branch.
+- **Connect the repo (recommended, permanent):** Vercel → project `maiz` → Settings → Git → connect `marcoscuellar/MAIZ` (repo name unchanged — renaming it would break the deploy). Every push then auto-builds. Five commits are already waiting on the branch.
 - **Authorize the Vercel connector** in claude.ai connector settings, then a session can deploy directly.
 
 Project details: team `marcosmcuellar-3433s-projects` (`team_G7WBdov66WzlS910sSqwaJB9`), project `maiz` (`prj_hA9wYDj1a3D2BCKsReQJIQz4lMgb`). `maiz-ten.vercel.app` still serves the **old 57KB build**. Deploy `index.html` as-is — no build step, zero config.
@@ -81,10 +81,10 @@ Do **not** try to inline the 99KB page into `deploy_to_vercel` — retyping 1,45
 
 ### 2. ⚠️ Wire the booking link
 
-`MAIZ_BOOKING_URL` is a **single empty constant** at the top of the second `<script>` block. Set it and both CTAs (masthead `#bookStreak`, final `#bookBtn`) pick it up automatically:
+`OLLIN_BOOKING_URL` is a **single empty constant** at the top of the second `<script>` block. Set it and both CTAs (masthead `#bookStreak`, final `#bookBtn`) pick it up automatically:
 
 ```js
-var MAIZ_BOOKING_URL = 'https://...';
+var OLLIN_BOOKING_URL = 'https://...';
 ```
 
 While empty, both fall back to jumping to `#book`. Marcos said the real link *"lives on another maiz brand"* — he still owes it. Also confirm the scheduler actually books **30** minutes, to match the copy.
@@ -112,7 +112,7 @@ Signup says *"domain already in use."* Path A: `admin.google.com` with his gmail
 3. **ŌLLIN always with the macron (Ō)** in all visible text.
 4. **No hype language:** never "revolutionary", "game-changing", "effortless", "next level", or unverifiable absolutes like "the only".
 5. **Preserve verbatim:** stats + citations (Salesforce State of Sales, Bullhorn GRID 2026), receipt quotes + anonymized attributions, "Evidence or not at all", "Missing beats fabricated", "Approval is not send", and all "sample data / nothing sent" disclaimers. Parking a section does not alter its text; reinstating one must not reword it.
-6. **Ship a date-stamped copy into `builds/` on every delivery** (`ollin-maiz-YYYYMMDD-HHMM.html`).
+6. **Ship a date-stamped copy into `builds/` on every delivery** (`ollin-YYYYMMDD-HHMM.html`).
 7. **El Macron in 3D is fine small** (badge/stamp on a card) but **never** as a big page-header showcase.
 8. Verified stamp reads **VERIFIED**, not "VALIDATED".
 9. **He works section-by-section, fast, and has ADHD.** TLDR first, bullets, short replies. Small edits: apply and ship. Visual changes: one screenshot check.
@@ -136,7 +136,7 @@ Signup says *"domain already in use."* Path A: `admin.google.com` with his gmail
 | Path | What |
 |---|---|
 | `index.html` | The live page. Edit this. ~1,452 lines, self-contained. |
-| `builds/ollin-maiz-20260817-1211.html` | The **complete original 14-section build**, byte-identical to what Marcos delivered (md5 `c0b64afa1b26ac2d6839b2b48baa28fe`). Never edit. |
+| `builds/ollin-20260817-1211.html` | The **complete original 14-section build**, byte-identical to what Marcos delivered (md5 `c0b64afa1b26ac2d6839b2b48baa28fe`). Never edit. |
 | `parked/pages/` | Standalone **runnable** extractions: `engines.html` (8-card 3D carousel), `pathways.html` (4 routes), `vamos-dark.html`, `ai.html`. All render-verified. |
 | `parked/sections/` | Static markup snippets: `output`, `tracker`, `rules`, `receipts` — each annotated with original line range + CSS/JS deps. |
 | `parked/README.md` | Why each section came off and how to reinstate it. |
@@ -161,6 +161,6 @@ Signup says *"domain already in use."* Path A: `admin.google.com` with his gmail
 
 ## BRAND VOICE
 
-Concise, confident, specific, human. Editorial black and volt. The system shows its work; **restraint is the differentiator**. Anti-lead-gen: everyone else sells volume — MAIZ verifies, protects, and tracks the person.
+Concise, confident, specific, human. Editorial black and volt. The system shows its work; **restraint is the differentiator**. Anti-lead-gen: everyone else sells volume — ŌLLIN verifies, protects, and tracks the person.
 
 The strongest thing on the page is that it **volunteers what it does not know**: two intel rows read `not tracked yet`, and the copy points at them — *"missing beats fabricated"*, *"no fact, no sentence."* Protect that. It is the whole differentiator.

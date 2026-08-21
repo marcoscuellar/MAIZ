@@ -1,6 +1,6 @@
-# ŌLLIN : MAIZ — landing page
+# ŌLLIN — landing page
 
-A self-contained landing page for **MAIZ**, the agentic sales-intelligence system under the **ŌLLIN** parent brand.
+A self-contained landing page for **ŌLLIN**, the agentic sales-intelligence system.
 
 - **`index.html` is canonical.** Open it in a browser and it works.
 - **No build step. No dependencies.** The only external request is the Google Fonts CDN (Archivo + IBM Plex Mono).
@@ -12,15 +12,17 @@ A self-contained landing page for **MAIZ**, the agentic sales-intelligence syste
 | Path | What it is |
 |---|---|
 | `index.html` | The live page. Edit this. |
-| `builds/` | Date-stamped snapshots (`ollin-maiz-YYYYMMDD-HHMM.html`). Never edited — these are the retrieval trail. |
+| `builds/` | Date-stamped snapshots (`ollin-YYYYMMDD-HHMM.html`). Never edited — these are the retrieval trail. |
 | `parked/` | Sections lifted off the landing page but preserved whole, ready to become their own pages. Not referenced by `index.html`. |
 
-`builds/ollin-maiz-20260817-1211.html` is the **complete original 14-section build** the current page was reduced from. If a section needs to come back, it's in there and in git history.
+`builds/ollin-20260817-1211.html` is the **complete original 14-section build** the current page was reduced from. If a section needs to come back, it's in there and in git history.
 
 ## The product story — do not dilute
 
 - **ŌLLIN AI** — conversational front door / orchestrator
-- **MAIZ** — the intelligence-to-execution system (8 engines)
+- **ŌLLIN** — the intelligence-to-execution system (8 engines)
+
+> The product formerly carried the MAIZ name. It was retired from all visible branding; only infrastructure identifiers (the repo, the Vercel project, `getmaiz.com`) still use it, because renaming those would break the deploy.
 - **Tracker** — connective tissue / shared record
 - **VAMOS** — puts prepared actions in front of the human
 
@@ -76,7 +78,7 @@ The volt palette is applied via `<html data-accent="volt">`; the bare `:root` or
 
 ## Brand voice
 
-Concise, confident, specific, human. Editorial black and volt. The system shows its work; restraint is the differentiator. Anti-lead-gen positioning: everyone else sells volume — MAIZ verifies, protects, and tracks the person.
+Concise, confident, specific, human. Editorial black and volt. The system shows its work; restraint is the differentiator. Anti-lead-gen positioning: everyone else sells volume — ŌLLIN verifies, protects, and tracks the person.
 
 ## Page structure
 
@@ -100,12 +102,12 @@ The CTA is a **contact sheet** — a form in `#book`. There is no backend: on su
 Two constants sit at the top of the second `<script>` block:
 
 ```js
-var MAIZ_BOOKING_URL   = '';                     // optional scheduler link
-var MAIZ_CONTACT_EMAIL = 'hello@getmaiz.com';    // where the form sends
+var OLLIN_BOOKING_URL   = '';                     // optional scheduler link
+var OLLIN_CONTACT_EMAIL = 'hello@getmaiz.com';    // where the form sends
 ```
 
-- **`MAIZ_CONTACT_EMAIL` must be a real, monitored mailbox.** Until `hello@getmaiz.com` exists, submissions bounce. Create the alias in Google Workspace, or change this to an address that already works.
-- **`MAIZ_BOOKING_URL` is optional.** Set it and the masthead button points at the scheduler instead of scrolling to the form; leave it empty and the form is the only path.
+- **`OLLIN_CONTACT_EMAIL` must be a real, monitored mailbox.** Until `hello@getmaiz.com` exists, submissions bounce. Create the alias in Google Workspace, or change this to an address that already works.
+- **`OLLIN_BOOKING_URL` is optional.** Set it and the masthead button points at the scheduler instead of scrolling to the form; leave it empty and the form is the only path.
 - `scripts/check-sample-data.sh` allowlists the real contact address and the form's placeholder; every other email on the page must use a reserved TLD.
 
 ## Known issues

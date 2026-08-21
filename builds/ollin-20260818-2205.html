@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="28" y="10" width="44" height="11" fill="%23D4FF00"/><circle cx="50" cy="62" r="27" stroke="%23F8FAFC" stroke-width="13" fill="none"/></svg>'>
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="28" y="10" width="44" height="11" fill="%234DA3FF"/><circle cx="50" cy="62" r="27" stroke="%23F8FAFC" stroke-width="13" fill="none"/></svg>'>
 <title>ŌLLIN — not another AI sales tool</title>
 <meta name="description" content="Eight engines research and verify the account before anyone writes a word. Every fact carries the engine that found it. Approval is not send.">
 <meta property="og:title" content="ŌLLIN — not another AI sales tool">
@@ -18,10 +18,10 @@
   --black:#0B0C10; --surface:#14161F; --raised:#0E1016; --border:#222634;
   --white:#FFFFFF; --ink:#F8FAFC; --slate:#94A3B8; --body:#C9D3DE; --dim:#77879A;
   --cy:#F8FAFC;
-  --em:#D4FF00; --em-rgb:212,255,0; --on-em:#14180A; --em-tint:rgba(212,255,0,.12); --em-line:rgba(212,255,0,.26);
+  --em:#4DA3FF; --em-rgb:77,163,255; --on-em:#07111D; --em-tint:rgba(77,163,255,.12); --em-line:rgba(77,163,255,.26);
 }
 html[data-accent="volt"]{
-  --em:#D4FF00; --em-rgb:212,255,0; --on-em:#14180A; --em-tint:rgba(212,255,0,.12); --em-line:rgba(212,255,0,.26);
+  --em:#4DA3FF; --em-rgb:77,163,255; --on-em:#07111D; --em-tint:rgba(77,163,255,.12); --em-line:rgba(77,163,255,.26);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -38,7 +38,7 @@ button{font-family:inherit;cursor:pointer}
 .mmark{width:20px;height:20px;flex:none;margin-right:-8px}
 .mword{font-weight:900;font-size:17px;letter-spacing:-.01em}
 .mword i{font-style:normal;color:var(--em)}
-/* the I of ŌLLIN carries the volt, in the masthead and the footer alike */
+/* the I of MAIZ carries the volt, in the masthead and the footer alike */
 .mi{color:var(--em)}
 .mword .parent{font-weight:700;font-size:11px;letter-spacing:.08em;color:var(--slate);margin-right:8px}
 /* min-width:0 is required: as a flex item .mnav otherwise refuses to shrink below
@@ -332,10 +332,6 @@ td .mono{font-size:9px}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(248,250,252,.45)}70%{box-shadow:0 0 0 7px rgba(248,250,252,0)}100%{box-shadow:0 0 0 0 rgba(248,250,252,0)}}
 .cons-body{padding:18px 18px 20px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.85;letter-spacing:-.005em;color:var(--slate)}
 .cl{display:flex;gap:9px;align-items:baseline}
-/* console lines are flex rows of unbreakable monospace; without these they set a
-   min-content floor wider than a phone viewport and stretch the whole page */
-.cl,.cl>*,.cons-body{min-width:0}
-.cl>*{overflow-wrap:anywhere}
 .cl b{font-weight:600;color:var(--em)}
 .cl .ok{color:var(--cy);font-weight:600}
 .cl .dim{color:var(--dim)}
@@ -487,54 +483,6 @@ td .mono{font-size:9px}
 .cs-note b{color:var(--body)}
 .cs-alt{color:var(--em);text-decoration:none;border-bottom:1px solid var(--em-line)}
 .cs-alt:hover{border-bottom-color:var(--em)}
-.cs.sent{display:none}
-
-/* ---- CONFIRMATION ----
-   The celebration reuses the page's own signature device: the stamp presses
-   down on the submission, the same way it presses on a verified fact. What it
-   claims depends on whether the submission was actually received. */
-/* overflow-x:clip contains the burst: absolutely positioned shards still count
-   toward scrollable overflow and propagate up to the document. Clip horizontally
-   only, so the stamp's glow can still bleed vertically. */
-.cs-done{display:none;margin-top:30px;max-width:640px;position:relative;
-  overflow-x:clip;padding-top:10px}
-.cs-done.show{display:block}
-.cs-done-stamp{display:inline-flex;align-items:center;gap:14px;
-  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:15px;letter-spacing:.36em;
-  text-transform:uppercase;color:var(--em);border:3px solid var(--em);
-  padding:14px 22px 14px 18px;border-radius:6px;transform:rotate(-5deg) scale(1.15);
-  opacity:0;filter:blur(7px);
-  box-shadow:inset 0 0 0 1.5px rgba(var(--em-rgb),.35),0 0 40px -8px rgba(var(--em-rgb),.6);
-  text-shadow:0 0 16px rgba(var(--em-rgb),.55);
-  transition:opacity .34s ease,transform .46s cubic-bezier(.2,1.5,.35,1),filter .34s ease}
-.cs-done.show .cs-done-stamp{opacity:.96;transform:rotate(-5deg) scale(1);filter:none}
-.cs-done-stamp svg{width:26px;height:26px;flex:none}
-/* the stamp is inline-flex, so its min-content sets the column's floor — at
-   phone widths the wide tracking made that floor wider than the viewport */
-@media(max-width:560px){
-  .cs-done-stamp{font-size:11px;letter-spacing:.2em;gap:10px;padding:11px 15px 11px 12px;border-width:2.5px}
-  .cs-done-stamp svg{width:19px;height:19px}
-}
-.cs-done h3{font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:1;
-  font-size:clamp(24px,3vw,34px);margin:24px 0 12px;color:var(--ink);
-  opacity:0;transform:translateY(10px);transition:opacity .5s ease .26s,transform .5s ease .26s}
-.cs-done p{color:var(--slate);font-size:15px;line-height:1.6;max-width:50ch;
-  opacity:0;transform:translateY(10px);transition:opacity .5s ease .38s,transform .5s ease .38s}
-.cs-done p b{color:var(--body)}
-.cs-done.show h3,.cs-done.show p{opacity:1;transform:none}
-/* the burst — volt shards thrown from the stamp */
-.cs-spark{position:absolute;left:0;top:26px;width:6px;height:6px;border-radius:2px;
-  background:var(--em);opacity:0;pointer-events:none}
-.cs-done.show .cs-spark{animation:csBurst .82s cubic-bezier(.16,1,.3,1) forwards}
-@keyframes csBurst{
-  0%{opacity:0;transform:translate(0,0) scale(.4) rotate(0deg)}
-  18%{opacity:1}
-  100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.5) rotate(var(--dr))}}
-@media(prefers-reduced-motion:reduce){
-  .cs-done-stamp,.cs-done h3,.cs-done p{opacity:1!important;transform:rotate(-5deg)!important;
-    filter:none!important;transition:none!important}
-  .cs-done h3,.cs-done p{transform:none!important}
-  .cs-spark{display:none}}
 
 /* ---- VAMOS card · light product theme ----
    The .va-* rules above are written entirely in custom properties, so the whole
@@ -581,7 +529,7 @@ td .mono{font-size:9px}
 .va-logo{flex:none;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;
   justify-content:center;font-family:'Archivo',sans-serif;font-weight:900;font-size:20px;
   letter-spacing:-.02em;margin-top:4px}
-.vp-light .va-logo{background:#0B0C10;color:#D4FF00}
+.vp-light .va-logo{background:#0B0C10;color:#4DA3FF}
 .va-ident .va-name{margin-top:0}
 .va-meta-row{display:flex;flex-wrap:wrap;gap:0 10px;margin-top:14px;
   font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;
@@ -686,7 +634,7 @@ td .mono{font-size:9px}
 .vp-card>.vp-sheen{position:absolute;inset:0;pointer-events:none;z-index:1;border-radius:inherit;
   opacity:0;transition:opacity .35s ease;
   background:
-    radial-gradient(440px circle at var(--mx) var(--my), rgba(212,255,0,.13), rgba(212,255,0,0) 56%),
+    radial-gradient(440px circle at var(--mx) var(--my), rgba(77,163,255,.13), rgba(77,163,255,0) 56%),
     linear-gradient(160deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 40%, rgba(11,12,16,.05) 100%)}
 .vp-card.tiltable:hover>.vp-sheen{opacity:1}
 /* the tilt itself — applied only after the entrance has landed, so the two
@@ -713,7 +661,7 @@ td .mono{font-size:9px}
    drew from, each still carrying its engine. The receipts, next to the pitch. */
 .vp-out-grid{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
   gap:44px;align-items:start}
-@media(max-width:980px){.vp-out-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
+@media(max-width:980px){.vp-out-grid{grid-template-columns:1fr;gap:28px}}
 /* The card sits on the right so its edge lines up with the right margin of the
    headline and lede above it; the evidence column takes the left. DOM order stays
    card-first, so on narrow screens the card still leads. */
@@ -858,12 +806,12 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 .sp-dot{color:#C4CAD2}
 @media(prefers-reduced-motion:reduce){.sp-macron{animation:none}}
 /* Section 02 — signal engine result bubble */
-.sig-bubble{margin-top:2px;display:flex;gap:12px;align-items:flex-start;max-width:min(520px,100%);min-width:0;
+.sig-bubble{margin-top:2px;display:flex;gap:12px;align-items:flex-start;max-width:520px;
   opacity:0;transform:translateY(16px);filter:blur(8px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1),filter .7s ease}
 .sig-bubble.show{opacity:1;transform:none;filter:none}
-.sig-ava{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(212,255,0,.1);border:1px solid rgba(212,255,0,.35);display:flex;align-items:center;justify-content:center;margin-top:4px}
+.sig-ava{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(77,163,255,.1);border:1px solid rgba(77,163,255,.35);display:flex;align-items:center;justify-content:center;margin-top:4px}
 .sig-ava svg{width:17px;height:17px}
-.sig-card{position:relative;flex:1;min-width:0;background:#fff;color:#0B0C10;border-radius:6px 18px 18px 18px;padding:18px 20px;
+.sig-card{position:relative;flex:1;background:#fff;color:#0B0C10;border-radius:6px 18px 18px 18px;padding:18px 20px;
   box-shadow:0 26px 50px -22px rgba(0,0,0,.6);font-family:'IBM Plex Mono',monospace}
 .sig-card-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .sig-card-k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#98A0AD;font-weight:700}
@@ -1000,55 +948,35 @@ footer .mono{line-height:2}
 .deck-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:0;padding:0;cursor:pointer;transition:width .3s ease,background .3s ease,border-radius .3s ease}
 .deck-dot.on{width:26px;border-radius:5px;background:var(--em)}
 @media(prefers-reduced-motion:reduce){.deck-card{transition:none}.deck-card.fly{opacity:0}}
-/* ===== §03 — click a field to flip it and reveal how ŌLLIN verified it ===== */
-.vp-intel .va-row{perspective:900px}
-/* each field reads as a pressable button — accent-bordered, with a persistent FLIP chip */
-.vp-intel .va-row.flippable{cursor:pointer;position:relative;border-top:none!important;
-  background:rgba(212,255,0,.05);border:1px solid var(--em-line);border-radius:11px;
-  padding:13px 84px 13px 13px;margin:9px 0;
-  transition:background .2s ease,border-color .2s ease,box-shadow .25s ease,transform .2s ease}
-.vp-intel .va-row.flippable:hover{background:rgba(212,255,0,.11);border-color:var(--em);
-  box-shadow:0 0 0 3px rgba(212,255,0,.10);transform:translateY(-1px)}
-.vp-intel .va-row.row-flipped{background:var(--em-tint);border-color:var(--em);box-shadow:0 0 0 3px rgba(212,255,0,.12)}
-/* the FLIP chip */
-.vp-intel .va-row.flippable::after{content:"⟲ Flip";position:absolute;top:11px;right:11px;
-  font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  color:var(--on-em);background:var(--em);border-radius:20px;padding:4px 9px;
-  box-shadow:0 0 16px -2px rgba(212,255,0,.6);animation:chipBreath 2.6s ease-in-out infinite;
-  transition:transform .2s ease}
-.vp-intel .va-row.flippable:hover::after{transform:scale(1.06)}
-.vp-intel .va-row.row-flipped::after{content:"⟲ Back";background:transparent;color:var(--em);border:1px solid var(--em);box-shadow:none;animation:none}
-@keyframes chipBreath{0%,100%{box-shadow:0 0 12px -3px rgba(212,255,0,.5)}50%{box-shadow:0 0 20px 1px rgba(212,255,0,.85)}}
-/* stronger one-time attention pull when the card scrolls in */
-@keyframes rowCue{0%,100%{box-shadow:0 0 0 0 rgba(212,255,0,0)}40%{box-shadow:0 0 0 4px rgba(212,255,0,.35)}}
-.vp-intel.cue .va-row.flippable{animation:rowCue 1.1s ease .1s 2}
-.vp-intel.cue .va-row.flippable:nth-of-type(2){animation-delay:.24s}
-.vp-intel.cue .va-row.flippable:nth-of-type(3){animation-delay:.38s}
-@media(prefers-reduced-motion:reduce){.vp-intel .va-row.flippable::after{animation:none}.vp-intel.cue .va-row.flippable{animation:none}}
-/* real 3D flip — the field turns over on its horizontal axis */
-.vp-intel .va-val{perspective:1300px}
-.vp-intel .v3d{position:relative;transform-style:preserve-3d;will-change:transform;
-  transition:transform .66s cubic-bezier(.34,1.2,.34,1),min-height .5s cubic-bezier(.4,.15,.2,1)}
-.vp-intel .va-row.row-flipped .v3d{transform:rotateX(180deg)}
-.vp-intel .v3d-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;top:0;left:0;width:100%}
-.vp-intel .v3d-back{position:absolute;transform:rotateX(180deg);display:flex;flex-direction:column;gap:9px}
-.vp-intel .vflip-h{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--em)}
-.vp-intel .v3d-back.is-empty .vflip-h{color:var(--dim)}
-.vp-intel .vflip-s{font-size:12.5px;line-height:1.5;color:var(--body)}
-.vp-intel .vflip-e{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--em);margin-bottom:2px}
-.vp-intel .v3d-back.is-empty .vflip-e{color:var(--dim)}
-@media(prefers-reduced-motion:reduce){.vp-intel .v3d{transition:none}}
+/* ===== §03 provenance overlay (hover a card field → how we know it) ===== */
+.vp-intel .va-row{border-radius:7px;padding:6px 8px;margin:0 -8px;transition:background .2s ease,box-shadow .2s ease;cursor:help}
+.vp-intel .va-row.prov-hot{background:rgba(0,0,0,.05);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.prov-pop{position:absolute;z-index:40;left:5%;right:5%;
+  background:#0B0C10;color:#F8FAFC;border:1px solid var(--em);border-radius:12px;
+  padding:15px 17px;box-shadow:0 26px 54px -18px rgba(0,0,0,.85);
+  opacity:0;transform:translateY(8px) scale(.99);pointer-events:none;
+  transition:opacity .22s ease,transform .28s cubic-bezier(.22,1,.36,1)}
+.prov-pop.show{opacity:1;transform:none}
+.prov-pop .pp-h{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--em);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.prov-pop .pp-h::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--em);box-shadow:0 0 10px var(--em)}
+.prov-pop .pp-step{padding:8px 0;border-top:1px solid rgba(248,250,252,.08)}
+.prov-pop .pp-step:first-of-type{border-top:0;padding-top:2px}
+.prov-pop .pp-e{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--em);display:block;margin-bottom:3px}
+.prov-pop .pp-t{font-size:12.5px;line-height:1.55;color:var(--body)}
+.prov-pop.empty{border-color:var(--dim)}
+.prov-pop.empty .pp-h{color:var(--dim)}.prov-pop.empty .pp-h::before{background:var(--dim);box-shadow:none}
+.prov-pop.empty .pp-e{color:var(--dim)}
+.vp-fact.prov-lit{background:var(--em-tint);border-radius:7px;box-shadow:inset 0 0 0 1px var(--em-line)}
+.vp-fact{transition:background .2s ease,box-shadow .2s ease}
+@media(prefers-reduced-motion:reduce){.prov-pop{transition:opacity .01s}}
 /* ===== §03 / §04 — standalone clean containers (AI AT WORK §02 style) ===== */
 #vamos .vp-grain,#vamos .vp-sheen,#vamos .vp-perf,#vamos .vp-cut,#vamos .vp-link,
 #ovamos .vp-grain,#ovamos .vp-sheen,#ovamos .vp-perf,#ovamos .vp-link{display:none!important}
 #ovamos .vp-cut{padding:20px 24px 0;color:var(--dim)}
 #ovamos .vp-cut::after{display:none}
 #vamos .vp-card.tiltable.rise,#ovamos .vp-card.tiltable.rise{transform:none!important}
-#ovamos .vp-out-grid{grid-template-columns:1fr 1fr!important;gap:20px;align-items:stretch}
-#vamos .vp-out-grid{grid-template-columns:minmax(0,720px)!important;justify-content:center;gap:20px}
-#vamos .vp-intel{max-width:720px!important}
-@media(max-width:980px){#ovamos .vp-out-grid{grid-template-columns:1fr!important}}
-.hover-hint{margin-top:18px;color:var(--dim);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+#vamos .vp-out-grid,#ovamos .vp-out-grid{grid-template-columns:1fr 1fr!important;gap:20px;align-items:stretch}
+@media(max-width:980px){#vamos .vp-out-grid,#ovamos .vp-out-grid{grid-template-columns:1fr!important}}
 /* provenance / facts → clean dark card matching the data card */
 #vamos .vp-prov,#ovamos .vp-prov{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px 28px 22px;align-self:stretch}
 #vamos .vp-prov .vp-fact:first-of-type,#ovamos .vp-prov .vp-fact:first-of-type{border-top:1px solid var(--border)}
@@ -1058,53 +986,13 @@ footer .mono{line-height:2}
 /* one-line principle */
 .principle{border-left:2px solid var(--em);padding:8px 0 8px 20px;margin-top:28px;color:var(--slate);max-width:74ch;font-size:14px;line-height:1.6}
 .principle strong,.principle b{color:var(--white)}
-/* ===== §04 — full VAMOS platform snapshot ===== */
-.vamos-app{display:grid;grid-template-columns:224px minmax(0,1fr);background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 44px 90px -34px rgba(0,0,0,.75);margin-top:6px}
-@media(max-width:920px){.vamos-app{grid-template-columns:1fr}}
-.vamos-queue{background:var(--raised);border-right:1px solid var(--border);padding:16px 12px;max-height:660px;overflow:auto}
-@media(max-width:920px){.vamos-queue{max-height:none}}
-.vq-h{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);padding:4px 6px 12px}
-.vq-item{border:1px solid var(--border);border-radius:10px;padding:11px 12px;margin-bottom:8px;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
-.vq-item:hover{border-color:var(--slate);background:rgba(255,255,255,.02)}
-.vq-item.on{border-color:var(--em);background:rgba(212,255,0,.07);box-shadow:0 0 0 1px var(--em-line)}
-.vq-name{font-weight:700;font-size:13px;color:var(--ink);padding-right:52px}
-.vq-role{font-size:11px;color:var(--slate);margin-top:2px}
-.vq-co{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);margin-top:7px;display:flex;align-items:center;gap:6px}
-.vq-co::before{content:"";width:14px;height:14px;border-radius:4px;background:var(--border);flex:none}
-.vq-ready{position:absolute;top:11px;right:11px;font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--on-em);background:var(--em);border-radius:10px;padding:3px 7px}
-.vamos-main{display:flex;flex-direction:column;min-width:0}
-.vm-head{padding:22px 26px 18px;border-bottom:1px solid var(--border);position:relative}
-.vm-kick{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-.vm-verified{position:absolute;top:18px;right:24px;display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
-.vm-verified i{width:6px;height:6px;border-radius:50%;background:var(--em);display:inline-block}
-.vm-verified i:nth-child(2){opacity:.6}.vm-verified i:nth-child(3){opacity:.3}
-.vm-name{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(24px,3vw,36px);letter-spacing:-.025em;line-height:1;margin:12px 0 8px;color:var(--ink)}
-.vm-sub{font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;color:var(--body)}
-.vm-sub .co{color:var(--em)}
-.vm-contact{margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--slate)}
-.vm-contact a{color:var(--body);text-decoration:underline;text-underline-offset:2px}
-.vm-body{display:grid;grid-template-columns:1fr 1fr;min-width:0}
-@media(max-width:760px){.vm-body{grid-template-columns:1fr}}
-.vm-intel{padding:20px 24px;border-right:1px solid var(--border);min-width:0}
-@media(max-width:760px){.vm-intel{border-right:none;border-bottom:1px solid var(--border)}}
-.vm-compose{padding:20px 22px;min-width:0}
-.vm-know-h{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:16px 0 6px}
-.vm-know-h:first-child{margin-top:0}
-.vm-row{display:grid;grid-template-columns:60px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--border)}
-.vm-k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding-top:2px}
-.vm-val{font-size:12.5px;line-height:1.5;color:var(--body)}
-.vm-val.dim{color:var(--dim)}
-.vm-eng{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--em);white-space:nowrap}
-.vamos-shot{border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 44px 90px -34px rgba(0,0,0,.75);margin-top:6px;line-height:0}
-.vamos-shot img{width:100%;height:auto;display:block}
-.vamos-cap{margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
 </style>
 </head>
 <body>
 
 <div id="intro">
   <div class="intro-inner">
-    <div class="intro-mk" id="introProc"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:46px;height:46px"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg></div>
+    <div class="intro-mk" id="introProc"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:46px;height:46px"><rect x="28" y="10" width="44" height="11" fill="#4DA3FF"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg></div>
     <div class="askbar intro-ask" id="introAsk" aria-hidden="true">
       <div class="ask-row">
         <span class="q" id="introQ" data-ph=""></span><span class="ph-cursor" id="introCur"></span>
@@ -1218,7 +1106,7 @@ footer .mono{line-height:2}
         </div>
       </div>
       <div class="sig-bubble" id="sigBubble">
-        <div class="sig-ava"><svg viewBox="0 0 100 100" fill="none"><rect x="28" y="14" width="44" height="10" rx="5" fill="#D4FF00"/><circle cx="50" cy="62" r="24" stroke="#D4FF00" stroke-width="11"/></svg></div>
+        <div class="sig-ava"><svg viewBox="0 0 100 100" fill="none"><rect x="28" y="14" width="44" height="10" rx="5" fill="#4DA3FF"/><circle cx="50" cy="62" r="24" stroke="#4DA3FF" stroke-width="11"/></svg></div>
         <div class="sig-card">
           <!-- the same stamp from §01, pressed onto the result it verified -->
           <div class="sig-stamp"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" rx="3" fill="currentColor"/><circle cx="50" cy="62" r="27" stroke="currentColor" stroke-width="13" fill="none"/></svg>Verified</div>
@@ -1280,10 +1168,20 @@ footer .mono{line-height:2}
         </div>
       </div>
       <div class="vp-perf"></div>
+      <div class="prov-pop" id="provPop" aria-hidden="true"></div>
     </div>
   </div>
+
+    <!-- where each fact came from, and what it had to survive -->
+    <div class="vp-prov">
+      <div class="vp-prov-h">Every fact <b>double-checked</b> &mdash; or dropped</div>
+      <div class="vp-fact"><div class="vp-fact-n">01</div><div class="vp-fact-t">Found on the careers page: 4 senior Azure implementation reqs.<span class="vp-fact-e">&#9679; Engine 02 &middot; Signals</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">02</div><div class="vp-fact-t">Re-checked against the live ATS &mdash; still open, still aged past 60 days.<span class="vp-fact-e">&#9679; Engine 03 &middot; The skeptic</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">03</div><div class="vp-fact-t">Requisition age and employment model confirmed at the source.<span class="vp-fact-e">&#9679; Engine 04 &middot; Roles</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">04</div><div class="vp-fact-t">Buyer and hook found nothing that survived the second check, so both stayed empty.<span class="vp-fact-e">&#9679; Engine 06 &middot; Contact intel</span></div></div>
+      <div class="vp-prov-note">Job board <b>plus</b> live ATS, or it does not ship. A claim that fails the second check is <b>dropped, not softened</b> &mdash; which is why two rows on this card still read <b>not tracked yet</b>.</div>
+    </div>
   </div>
-  <div class="hover-hint mono">Click any field &mdash; it flips to show how ŌLLIN verified it, and which engine found it.</div>
   <div class="principle">Two rows still read <b>not tracked yet</b>. Nothing fills them in until an engine can prove it &mdash; <b>missing beats fabricated.</b></div>
 </div></section>
 
@@ -1299,8 +1197,42 @@ footer .mono{line-height:2}
 </div></div>
 
 <div class="page">
-  <div class="vamos-shot"><img src="assets/vamos-snapshot.png" alt="The VAMOS platform — Up Next queue, the account intelligence, and the outreach draft on one screen." loading="lazy"></div>
-  <div class="vamos-cap">One screen · pick who &rarr; read what we know &rarr; choose the angle &rarr; you send. Sample data · nothing leaves without you.</div>
+  <div class="vp-out-grid">
+  <div class="vp-panel">
+    <div class="va-card vp-card vp-out" id="vpOut">
+      <div class="vp-grain"></div><div class="vp-sheen"></div>
+      <div class="vp-perf top"></div>
+      <div class="vp-cut">Dana Rivera &middot; Verrida Health<span class="va-sample" style="margin-left:12px">Sample data</span></div>
+      <div class="va-body">
+        <div class="va-compose">
+          <div class="va-seg"><button class="va-seg-b on" type="button">&#9993; Email</button><button class="va-seg-b" type="button">in&nbsp;LinkedIn</button></div>
+          <div class="va-grounded mono">Grounded in 4 facts</div>
+          <textarea class="va-ta" id="vaTa" placeholder="Ask ŌLLIN to write it — or type your own." spellcheck="false"></textarea>
+          <div class="va-ta-meta mono"><span><span id="vaCount">0 chars · 0 words</span> &middot; <span class="va-aud">audited &#10003;</span></span><span><span class="va-lk">Open email</span> &middot; <span class="va-lk">Copy</span></span></div>
+          <div class="askbar va-ask" aria-hidden="true"><span class="q" data-ph="Ask ŌLLIN to write it — or ask about the account…">Ask ŌLLIN to write it — or ask about the account…</span><span class="mic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0"/><line x1="12" y1="18" x2="12" y2="21.5"/></svg></span><span class="send" id="vaSend">&rarr;</span></div>
+          <button class="va-go" id="vaGo" type="button">Let's go &raquo;</button>
+          <div class="va-chips">
+            <button class="va-chip on" data-a="0" type="button">The gap</button>
+            <button class="va-chip" data-a="1" type="button">Cost of waiting</button>
+            <button class="va-chip" data-a="2" type="button">The person</button>
+            <button class="va-chip" data-a="3" type="button">Freestyle</button>
+          </div>
+          <div class="va-not mono">Not now? <button class="va-nb" type="button">Tomorrow</button><button class="va-nb" type="button">Next week</button><button class="va-nb" type="button">Not a fit</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- the receipts, sitting next to the pitch -->
+    <div class="vp-prov">
+      <div class="vp-prov-h">Standing on <b>4 verified facts</b> &mdash; nothing else</div>
+      <div class="vp-fact"><div class="vp-fact-n">01</div><div class="vp-fact-t">Workforce Operating System launched &mdash; unified labor tracking across health systems.<span class="vp-fact-e">&#9679; Engine 02 &middot; Signals</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">02</div><div class="vp-fact-t">4 senior Azure implementation roles, open 60+ days on Workday ATS.<span class="vp-fact-e">&#9679; Engine 04 &middot; Roles</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">03</div><div class="vp-fact-t">Rollout live this year, so the delivery pressure is being held internally.<span class="vp-fact-e">&#9679; Engine 05 &middot; Cost of gap</span></div></div>
+      <div class="vp-fact"><div class="vp-fact-n">04</div><div class="vp-fact-t">Leads the global Workforce OS team &mdash; owns the outcome when go-lives slip.<span class="vp-fact-e">&#9679; Engine 06 &middot; Contact intel</span></div></div>
+      <div class="vp-prov-note">Every sentence in the draft traces to one of these. <b>No fact, no sentence</b> &mdash; the two rows the engines could not verify stayed empty rather than getting filled in.</div>
+    </div>
+  </div>
 
   <div class="vp-turn">
     <h3>Approval is<br>not send<span class="v">.</span></h3>
@@ -1390,17 +1322,6 @@ footer .mono{line-height:2}
       </div>
       <div class="cs-note">Submitting opens your own email client with this filled in &mdash; <b>nothing is transmitted from this page</b>, and there is no tracker on it. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
     </form>
-    <div class="cs-done" id="csDone" role="status" aria-live="polite">
-      <div class="cs-done-stamp">
-        <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
-          <rect x="28" y="10" width="44" height="11" rx="3" fill="currentColor"/>
-          <circle cx="50" cy="62" r="27" stroke="currentColor" stroke-width="13" fill="none"/>
-        </svg>
-        <span id="csDoneStamp">Received</span>
-      </div>
-      <h3 id="csDoneH">That&rsquo;s in front of me<span style="color:var(--em)">.</span></h3>
-      <p id="csDoneP">I read these myself. Expect a reply within one business day &mdash; and bring that account, we&rsquo;ll run it live.</p>
-    </div>
     <div class="note" style="margin-top:26px"><b>Approval is not send:</b> two-signal minimum, every claim double-checked against the live ATS, and nothing leaves the building without you.</div>
   </div>
 </div></div></section>
@@ -1408,7 +1329,7 @@ footer .mono{line-height:2}
 </div><!-- /shell -->
 
 <footer>
-  <svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:40px;height:40px"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg>
+  <svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:40px;height:40px"><rect x="28" y="10" width="44" height="11" fill="#4DA3FF"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg>
   <div class="foot-mark">ŌLL<span class="mi">I</span>N<span class="mi">.</span></div>
   <div class="mono">ŌLLIN · Intelligence to execution</div>
   <div class="mono" style="color:var(--dim)">ŌLLIN, like the glyph: always in motion</div>
@@ -1684,20 +1605,15 @@ footer .mono{line-height:2}
    Replace the value below with the real scheduler URL and both
    CTAs (masthead + final) pick it up. Nothing else to change.
    ============================================================ */
-var OLLIN_BOOKING_URL = '';                    /* optional: a scheduler link. When set, the
+var MAIZ_BOOKING_URL = '';                    /* optional: a scheduler link. When set, the
                                                  masthead button points at it instead of the form. */
-var OLLIN_CONTACT_EMAIL = 'marcos@ollinos.com'; /* where the contact sheet sends. Must be a real mailbox. */
-var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formspree URL). When set, the
-                                                 form submits for real and the confirmation says
-                                                 "Received". While empty it falls back to the visitor's
-                                                 mail client and says "Ready to send" instead — the
-                                                 wording never claims more than actually happened. */
+var MAIZ_CONTACT_EMAIL = 'marcos@ollinos.com'; /* where the contact sheet sends. Must be a real mailbox. */
 
 (function(){
   /* masthead button: scheduler if there is one, otherwise down to the contact sheet */
   var streak=document.getElementById('bookStreak');
   if(streak){
-    if(OLLIN_BOOKING_URL){ streak.href=OLLIN_BOOKING_URL; streak.target='_blank'; streak.rel='noopener'; }
+    if(MAIZ_BOOKING_URL){ streak.href=MAIZ_BOOKING_URL; streak.target='_blank'; streak.rel='noopener'; }
     else { streak.href='#book'; }
   }
 
@@ -1707,12 +1623,12 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
 
   var direct=document.getElementById('csDirect');
   if(direct){
-    direct.href='mailto:'+OLLIN_CONTACT_EMAIL+'?subject='+encodeURIComponent('Run one of my accounts');
-    direct.textContent=OLLIN_CONTACT_EMAIL;
+    direct.href='mailto:'+MAIZ_CONTACT_EMAIL+'?subject='+encodeURIComponent('Run one of my accounts');
+    direct.textContent=MAIZ_CONTACT_EMAIL;
   }
   var directBtn=document.getElementById('csDirectBtn');
   if(directBtn){
-    directBtn.href='mailto:'+OLLIN_CONTACT_EMAIL+'?subject='+encodeURIComponent('Run one of my accounts');
+    directBtn.href='mailto:'+MAIZ_CONTACT_EMAIL+'?subject='+encodeURIComponent('Run one of my accounts');
   }
 
   function invalid(el,on){ el.setAttribute('aria-invalid',on?'true':'false'); }
@@ -1745,66 +1661,18 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
     L.push('', '— sent from ollinos.com');
 
     var subject='30 minutes — '+(F('csCo').value.trim() || name.value.trim());
-    var href='mailto:'+OLLIN_CONTACT_EMAIL
+    var href='mailto:'+MAIZ_CONTACT_EMAIL
            + '?subject='+encodeURIComponent(subject)
            + '&body='+encodeURIComponent(L.join('\n'));
 
     var btn=document.getElementById('csSend'), was=btn.textContent;
-    var done=document.getElementById('csDone');
-
-    function celebrate(received){
-      /* the wording tracks the truth: only claim receipt when a server took it */
-      document.getElementById('csDoneStamp').textContent = received ? 'Received' : 'Ready to send';
-      document.getElementById('csDoneH').innerHTML = received
-        ? 'That&rsquo;s in front of me<span style="color:var(--em)">.</span>'
-        : 'Your email is ready<span style="color:var(--em)">.</span>';
-      document.getElementById('csDoneP').innerHTML = received
-        ? 'I read these myself. Expect a reply within one business day &mdash; and bring that account, we&rsquo;ll run it live.'
-        : 'It should have opened in your mail app, filled in and addressed. <b>Hit send there</b> and it reaches me &mdash; nothing left this page on its own.';
-      /* throw the shards from the stamp */
-      var n=14;
-      /* keep the throw inside the viewport — the shards are transformed, and a
-         transform still counts toward scrollWidth, so on a phone an unbounded
-         burst adds a horizontal scrollbar */
-      var reach=Math.max(40,Math.min(90,window.innerWidth*0.16));
-      var spread=Math.max(30,Math.min(90,window.innerWidth*0.16));
-      for(var i=0;i<n;i++){
-        var s=document.createElement('i'); s.className='cs-spark';
-        var a=(-140 + (280/(n-1))*i) * Math.PI/180, d=reach+((i*37)%Math.round(reach*0.78));
-        s.style.setProperty('--dx',(Math.cos(a)*d).toFixed(0)+'px');
-        s.style.setProperty('--dy',(Math.sin(a)*d-30).toFixed(0)+'px');
-        s.style.setProperty('--dr',((i*53)%360)+'deg');
-        s.style.left=(Math.round(spread*0.6)+((i*13)%Math.round(spread)))+'px';
-        s.style.animationDelay=(i*22)+'ms';
-        done.appendChild(s);
-      }
-      form.classList.add('sent');
-      done.classList.add('show');
-      done.scrollIntoView({behavior:'smooth',block:'center'});
-    }
-
-    if(OLLIN_FORM_ENDPOINT){
-      /* a server is taking it — celebrate only once it actually says yes */
-      btn.disabled=true; btn.textContent='Sending…';
-      fetch(OLLIN_FORM_ENDPOINT,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({name:name.value.trim(),email:email.value.trim(),
-          company:F('csCo').value.trim(),account:F('csAcct').value.trim(),
-          message:F('csMsg').value.trim(),source:'ollin'})
-      }).then(function(r){
-        if(!r.ok) throw new Error('HTTP '+r.status);
-        celebrate(true);
-      }).catch(function(){
-        btn.disabled=false; btn.textContent=was;
-        err.textContent='That didn’t go through. Use the direct email link below.';
-      });
-    } else {
-      /* no endpoint: hand it to their mail client and say exactly that */
-      btn.textContent='Opening your email…';
-      window.location.href=href;
-      setTimeout(function(){ btn.textContent=was; celebrate(false); },900);
-    }
+    btn.textContent='Opening your email…';
+    window.location.href=href;
+    setTimeout(function(){
+      btn.textContent=was;
+      err.textContent='';
+      /* if no mail client picked it up, the fallback link is right below */
+    },2600);
   });
 })();
 
@@ -1975,74 +1843,68 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
 })();
 </script>
 <script>
-/* §03 — click a card field to flip it and reveal how ŌLLIN verified it */
+/* §03 — hover a card field to overlay how it was verified (+ light the matching provenance rows) */
 (function(){
-  var card=document.getElementById('vpIntel'); if(!card) return;
+  var card=document.getElementById('vpIntel'), pop=document.getElementById('provPop');
+  if(!card||!pop) return;
+  var facts=[].slice.call(document.querySelectorAll('#vamos .vp-prov .vp-fact'));
   var MAP={
-    signal:{empty:false,steps:[
+    signal:{h:'Signal · how we verified it',lit:[0,1,2],steps:[
       {e:'Engine 02 · Signals',t:'Found on the careers page — 4 senior Azure implementation reqs.'},
-      {e:'Engine 03 · The skeptic',t:'Re-checked against the live ATS — still open, aged past 60 days.'},
+      {e:'Engine 03 · The skeptic',t:'Re-checked against the live ATS — still open, still aged past 60 days.'},
       {e:'Engine 04 · Roles',t:'Requisition age and employment model confirmed at the source.'}
     ]},
-    money:{empty:false,steps:[
+    money:{h:'Money · how we got it',lit:[],steps:[
       {e:'Engine 05 · Cost of gap',t:'Modeled from the verified open reqs and the live rollout timeline — $12,000 / week, compounding while the reqs sit open.'}
     ]},
-    buyer:{empty:true,steps:[
+    buyer:{h:'Buyer · not tracked yet',empty:true,lit:[3],steps:[
       {e:'Engine 06 · Contact intel',t:'Nothing survived the second check, so it stayed empty. Missing beats fabricated.'}
     ]},
-    why:{empty:false,steps:[
-      {e:'Engine 06 · Contact intel',t:'Leads the global Workforce OS team — feels the gap before anyone reports it. Confirmed at the source.'}
+    why:{h:'Why · how we know',lit:[3],steps:[
+      {e:'Engine 06 · Contact intel',t:'Leads the global Workforce OS team — feels the gap before anyone reports it. Confirmed.'}
     ]},
-    hook:{empty:true,steps:[
+    hook:{h:'Hook · not tracked yet',empty:true,lit:[3],steps:[
       {e:'Engine 06 · Contact intel',t:'Nothing survived the second check, so it stayed empty. Missing beats fabricated.'}
     ]},
-    status:{empty:false,steps:[
-      {e:'System',t:'In cadence — touch 1 of 4. Every step logged.'}
+    status:{h:'Status',lit:[],steps:[
+      {e:'System',t:'In cadence — touch 1 of 4.'}
     ]}
   };
-  function backHTML(cfg){
-    var h='<span class="vflip-h">'+(cfg.empty?'Dropped — missing beats fabricated':'How ŌLLIN verified it')+'</span>';
-    return h+cfg.steps.map(function(s){return '<span class="vflip-s"><span class="vflip-e">'+s.e+'</span>'+s.t+'</span>';}).join('');
+  function render(cfg){
+    var html='<div class="pp-h">'+cfg.h+'</div>';
+    cfg.steps.forEach(function(s){ html+='<div class="pp-step"><span class="pp-e">'+s.e+'</span><span class="pp-t">'+s.t+'</span></div>'; });
+    pop.innerHTML=html;
+    pop.classList.toggle('empty', !!cfg.empty);
   }
-  var rows=[].slice.call(card.querySelectorAll('.va-row')), sizers=[];
+  function place(row){
+    var cr=card.getBoundingClientRect(), rr=row.getBoundingClientRect();
+    var top=rr.top-cr.top;
+    var h=pop.offsetHeight, max=card.clientHeight-h-10;
+    if(top>max) top=max; if(top<8) top=8;
+    pop.style.top=top+'px';
+  }
+  var rows=[].slice.call(card.querySelectorAll('.va-row'));
+  function show(row){
+    var key=(row.querySelector('.va-k')||{}).textContent; if(!key) return;
+    var cfg=MAP[key.trim().toLowerCase()]; if(!cfg) return;
+    render(cfg); place(row);
+    pop.classList.add('show'); row.classList.add('prov-hot');
+    cfg.lit.forEach(function(i){ if(facts[i]) facts[i].classList.add('prov-lit'); });
+  }
+  function hide(){
+    pop.classList.remove('show');
+    rows.forEach(function(r){ r.classList.remove('prov-hot'); });
+    facts.forEach(function(f){ f.classList.remove('prov-lit'); });
+  }
   rows.forEach(function(row){
-    var kEl=row.querySelector('.va-k'); if(!kEl) return;
-    var cfg=MAP[kEl.textContent.trim().toLowerCase()]; if(!cfg) return;
-    var val=row.querySelector('.va-val'); if(!val) return;
-    var wrap=document.createElement('div'); wrap.className='v3d';
-    var f=document.createElement('div'); f.className='v3d-face v3d-front'; f.innerHTML=val.innerHTML;
-    var bk=document.createElement('div'); bk.className='v3d-face v3d-back'+(cfg.empty?' is-empty':''); bk.innerHTML=backHTML(cfg);
-    wrap.appendChild(f); wrap.appendChild(bk);
-    val.innerHTML=''; val.appendChild(wrap);
-    var fH=0,bH=0,flipped=false;
-    function sizeIt(){
-      wrap.style.minHeight='0px';
-      bk.style.cssText='position:static;transform:none;visibility:hidden;display:flex;flex-direction:column;gap:9px';
-      bH=bk.offsetHeight; bk.style.cssText='';
-      fH=f.offsetHeight;
-      wrap.style.minHeight=(flipped?bH:fH)+'px';
-    }
-    sizers.push(sizeIt); sizeIt();
-    row.classList.add('flippable'); row.setAttribute('tabindex','0'); row.setAttribute('role','button');
-    function toggle(){ flipped=!flipped; row.classList.toggle('row-flipped',flipped); wrap.style.minHeight=(flipped?bH:fH)+'px'; }
-    row.addEventListener('click',toggle);
-    row.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+    row.addEventListener('mouseenter',function(){ show(row); });
+    row.addEventListener('mouseleave',hide);
+    row.setAttribute('tabindex','0');
+    row.addEventListener('focus',function(){ show(row); });
+    row.addEventListener('blur',hide);
+    row.addEventListener('click',function(){ if(pop.classList.contains('show')&&row.classList.contains('prov-hot')) hide(); else { hide(); show(row); } });
   });
-  // re-measure once fonts settle and on resize (text wrap changes heights)
-  if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(function(){ sizers.forEach(function(s){s();}); }); }
-  var rz; window.addEventListener('resize',function(){ clearTimeout(rz); rz=setTimeout(function(){ sizers.forEach(function(s){s();}); },180); });
-  /* VAMOS queue — clicking a person highlights them (feels navigable) */
-  var vqItems=[].slice.call(document.querySelectorAll('.vamos-queue .vq-item'));
-  vqItems.forEach(function(it){ it.addEventListener('click',function(){ vqItems.forEach(function(x){x.classList.remove('on');}); it.classList.add('on'); }); });
-  /* one-time attention pulse on the flip cues when the card scrolls into view */
-  if('IntersectionObserver' in window){
-    var cued=false;
-    var cio=new IntersectionObserver(function(en){
-      en.forEach(function(e){ if(e.isIntersecting && !cued){ cued=true; card.classList.add('cue');
-        setTimeout(function(){ card.classList.remove('cue'); },2600); cio.disconnect(); } });
-    },{threshold:.4});
-    cio.observe(card);
-  }
+  card.addEventListener('mouseleave',hide);
 })();
 </script>
 </body>

@@ -2,7 +2,7 @@
 
 Sections lifted off the landing page but **kept whole**. Nothing here was deleted from the project — it was moved out of `index.html` so the landing page could become a short product page, and preserved so it can come back or become its own page.
 
-Everything here originated in **`builds/ollin-maiz-20260817-1211.html`**, the complete 14-section build. That file is the reference copy; git history holds it too (first commit on this branch).
+Everything here originated in **`builds/ollin-20260817-1211.html`**, the complete 14-section build. That file is the reference copy; git history holds it too (first commit on this branch).
 
 ## `pages/` — standalone and runnable
 
