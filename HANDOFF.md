@@ -63,6 +63,12 @@ Rebuilt on Marcos's own words: *"I'd love to show you how the engines actually w
 - `"Approval is not send"` was relocated here from the parked `#rules`, where it does the most work.
 - The headline is now a genuine open loop: the engine carousel is parked, so the page never shows the engines.
 
+**Layout (session 4) — centred signup, after the Motion UI `cta-signup-celebrate` pattern.** The section comes **off the `.sec` rail grid** entirely and runs as one centred column (`.cta-wrap`, 660px): pill badge → headline → one line of copy → **one field and one button sharing a single rounded pill** (`.cs-pill`) → fine print. Dropping the rail is safe: the scroll-lit observer only picks up sections that contain `.rail .no`.
+
+- The five-field sheet is now **one required field — work email**. Name, company, account and the message live behind the `Add your name and the account` disclosure (`#csMoreT` / `#csMore`), so the composed mailto still carries everything it used to. **Name is no longer required**; the subject falls back company → name → email.
+- Below 520px the pill stacks (input over full-width button) — the two won't fit side by side without crushing the field.
+- The confirmation is unchanged in behaviour but now **centred**, so the shard burst is thrown from `left:calc(50% - 3px)` instead of the old left-aligned origin. The reach is still clamped to the viewport — transformed shards count toward `scrollWidth`.
+
 ---
 
 ## IMMEDIATE TASKS
