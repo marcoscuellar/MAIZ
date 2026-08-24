@@ -448,21 +448,69 @@ td .mono{font-size:9px}
 .va-nb{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);background:none;border:1px solid var(--border);border-radius:100px;padding:6px 12px}
 .va-nb:hover{border-color:var(--slate);color:var(--white)}
 
-/* CTA eyebrow */
-.cta-kick{font-size:11px;letter-spacing:.2em;color:var(--em);font-weight:700;margin-bottom:16px}
+/* ---- CLOSING CTA · centred signup ----
+   The last beat comes off the rail grid and runs as one centred column:
+   badge, headline, one line of copy, one field, one button. Everything the
+   old five-field sheet collected is still collectable — it just lives behind
+   a disclosure now, so the default path is a single decision. */
+.cta-wrap{max-width:660px;margin:0 auto;text-align:center}
+.cta-kick{display:inline-flex;align-items:center;gap:9px;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--em);font-weight:700;
+  background:var(--em-tint);border:1px solid var(--em-line);border-radius:999px;
+  padding:7px 15px;margin-bottom:24px}
+.cta-kick .dot{width:5px;height:5px;border-radius:50%;background:var(--em);flex:none;
+  box-shadow:0 0 10px 1px rgba(var(--em-rgb),.75)}
+.cta-wrap h2{font-weight:900;font-size:clamp(34px,5.4vw,60px);line-height:.94;
+  letter-spacing:-.045em;margin-bottom:18px;text-transform:uppercase;text-wrap:balance}
+.cta-wrap h2 .v{color:var(--em)}
+.cta-wrap .lede{max-width:54ch;margin:0 auto 34px;text-align:center;text-wrap:pretty}
 
 /* ---- CONTACT SHEET ----
    No backend: on submit the fields are composed into a pre-filled email and
    handed to the visitor's mail client. Nothing is transmitted from the page,
    which is also the honest version of "approval is not send". */
-.cs{margin-top:30px;max-width:640px}
+.cs{margin:0 auto;max-width:560px}
+/* the one row that matters — field and button share a single pill */
+.cs-pill{display:flex;align-items:center;gap:8px;background:var(--black);
+  border:1px solid var(--border);border-radius:999px;padding:7px;
+  transition:border-color .2s,box-shadow .2s}
+.cs-pill:focus-within{border-color:var(--em);box-shadow:0 0 0 4px rgba(var(--em-rgb),.10)}
+.cs-pill.bad{border-color:#FF6B4A}
+.cs-pill input{flex:1;min-width:0;background:none;border:0;color:var(--ink);
+  font-family:'Archivo',sans-serif;font-size:15px;line-height:1.5;padding:12px 8px 12px 18px}
+.cs-pill input:focus{outline:none}
+.cs-pill input::placeholder{color:var(--dim)}
+.cs-go{flex:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:700;background:var(--em);color:var(--on-em);
+  border:1px solid var(--em);border-radius:999px;padding:13px 22px;cursor:pointer;
+  white-space:nowrap;transition:background .2s,color .2s,transform .15s,box-shadow .2s}
+.cs-go:hover{background:transparent;color:var(--em);box-shadow:0 0 24px -6px rgba(var(--em-rgb),.65)}
+.cs-go:active{transform:scale(.97)}
+.cs-go[disabled]{opacity:.6;cursor:default;transform:none}
+/* below ~520px the pill can't hold both without crushing the field */
+@media(max-width:520px){
+  .cs-pill{flex-direction:column;align-items:stretch;border-radius:18px;padding:8px}
+  .cs-pill input{padding:12px 14px;text-align:center}
+  .cs-go{width:100%;border-radius:12px}
+}
+/* the optional detail, folded away */
+.cs-more-t{display:inline-block;margin-top:16px;background:none;border:0;padding:0 0 3px;
+  cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--slate);border-bottom:1px solid var(--border);
+  transition:color .2s,border-color .2s}
+.cs-more-t:hover{color:var(--white);border-bottom-color:var(--slate)}
+.cs-more-t .cr{display:inline-block;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.cs-more-t[aria-expanded="true"] .cr{transform:rotate(90deg)}
+.cs-more{display:none;margin-top:24px;text-align:left}
+.cs-more.open{display:block;animation:csOpen .34s cubic-bezier(.16,1,.3,1) both}
+@keyframes csOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:640px){.cs-grid{grid-template-columns:1fr}}
 .cs-f{display:flex;flex-direction:column;gap:7px}
 .cs-f.wide{grid-column:1/-1}
 .cs-f label{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--dim)}
-.cs-f label .req{color:var(--em)}
 .cs-f input,.cs-f textarea{width:100%;min-width:0;background:var(--black);
   border:1px solid var(--border);border-radius:10px;padding:12px 13px;color:var(--ink);
   font-family:'Archivo',sans-serif;font-size:14.5px;line-height:1.5;
@@ -471,11 +519,10 @@ td .mono{font-size:9px}
 .cs-f input:focus,.cs-f textarea:focus{outline:none;border-color:var(--em);
   box-shadow:0 0 0 3px rgba(var(--em-rgb),.10)}
 .cs-f input::placeholder,.cs-f textarea::placeholder{color:var(--dim)}
-.cs-f input[aria-invalid="true"],.cs-f textarea[aria-invalid="true"]{border-color:#FF6B4A}
 .cs-err{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;
-  text-transform:uppercase;color:#FF6B4A;min-height:12px}
-.cs-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px}
-.cs-note{font-size:12px;color:var(--dim);line-height:1.6;margin-top:14px}
+  text-transform:uppercase;color:#FF6B4A;min-height:12px;margin-top:12px;text-align:center}
+.cs-note{font-size:12px;color:var(--dim);line-height:1.6;margin:14px auto 0;
+  max-width:54ch;text-align:center}
 .cs-note b{color:var(--body)}
 .cs-alt{color:var(--em);text-decoration:none;border-bottom:1px solid var(--em-line)}
 .cs-alt:hover{border-bottom-color:var(--em)}
@@ -488,7 +535,7 @@ td .mono{font-size:9px}
 /* overflow-x:clip contains the burst: absolutely positioned shards still count
    toward scrollable overflow and propagate up to the document. Clip horizontally
    only, so the stamp's glow can still bleed vertically. */
-.cs-done{display:none;margin-top:30px;max-width:640px;position:relative;
+.cs-done{display:none;margin:0 auto;max-width:600px;position:relative;text-align:center;
   overflow-x:clip;padding-top:10px}
 .cs-done.show{display:block}
 .cs-done-stamp{display:inline-flex;align-items:center;gap:14px;
@@ -510,12 +557,12 @@ td .mono{font-size:9px}
 .cs-done h3{font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:1;
   font-size:clamp(24px,3vw,34px);margin:24px 0 12px;color:var(--ink);
   opacity:0;transform:translateY(10px);transition:opacity .5s ease .26s,transform .5s ease .26s}
-.cs-done p{color:var(--slate);font-size:15px;line-height:1.6;max-width:50ch;
+.cs-done p{color:var(--slate);font-size:15px;line-height:1.6;max-width:50ch;margin:0 auto;
   opacity:0;transform:translateY(10px);transition:opacity .5s ease .38s,transform .5s ease .38s}
 .cs-done p b{color:var(--body)}
 .cs-done.show h3,.cs-done.show p{opacity:1;transform:none}
-/* the burst — volt shards thrown from the stamp */
-.cs-spark{position:absolute;left:0;top:26px;width:6px;height:6px;border-radius:2px;
+/* the burst — volt shards thrown from the stamp, which now sits centred */
+.cs-spark{position:absolute;left:calc(50% - 3px);top:30px;width:6px;height:6px;border-radius:2px;
   background:var(--em);opacity:0;pointer-events:none}
 .cs-done.show .cs-spark{animation:csBurst .82s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes csBurst{
@@ -526,6 +573,7 @@ td .mono{font-size:9px}
   .cs-done-stamp,.cs-done h3,.cs-done p{opacity:1!important;transform:rotate(-5deg)!important;
     filter:none!important;transition:none!important}
   .cs-done h3,.cs-done p{transform:none!important}
+  .cs-more.open{animation:none}
   .cs-spark{display:none}}
 
 /* ---- VAMOS card · light product theme ----
@@ -1321,45 +1369,44 @@ footer .mono{line-height:2}
 </div></section>
 
 
-<section id="book" style="border-bottom:1px solid var(--border)"><div class="page"><div class="sec">
-  <div class="rail"><div class="inner">
-    <div class="no">→</div>
-    <div class="rt"><b>Book 30 minutes</b><br><span class="sub">bring a real account</span></div>
-  </div></div>
-  <div class="content">
-    <div class="cta-kick mono">30 minutes &middot; the engines running live</div>
-    <h2>Let me show you how<br>the engines <span class="v">actually work.</span></h2>
-    <p class="lede">You&rsquo;ve seen one card. There are eight engines behind it, and I&rsquo;d rather show you than describe them. <strong>Let&rsquo;s book 30 minutes to go over them and work out how we can support you.</strong> Bring an account you&rsquo;re already working &mdash; we&rsquo;ll run it.</p>
+<section id="book" style="border-bottom:1px solid var(--border)"><div class="page">
+  <div class="cta-wrap">
+    <div class="cta-kick"><span class="dot"></span>30 minutes &middot; the engines running live</div>
+    <h2>Let me show you how the engines <span class="v">actually work.</span></h2>
+    <p class="lede">You&rsquo;ve seen one card. There are eight engines behind it, and I&rsquo;d rather show you than describe them. <strong>Bring an account you&rsquo;re already working &mdash; we&rsquo;ll run it live.</strong></p>
+
     <form class="cs" id="csForm" novalidate>
-      <div class="cs-grid">
-        <div class="cs-f">
-          <label for="csName">Name <span class="req">*</span></label>
-          <input id="csName" name="name" type="text" autocomplete="name" placeholder="Your name" required>
-        </div>
-        <div class="cs-f">
-          <label for="csEmail">Work email <span class="req">*</span></label>
-          <input id="csEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
-        </div>
-        <div class="cs-f">
-          <label for="csCo">Company</label>
-          <input id="csCo" name="company" type="text" autocomplete="organization" placeholder="Where you work">
-        </div>
-        <div class="cs-f">
-          <label for="csAcct">An account to run</label>
-          <input id="csAcct" name="account" type="text" placeholder="One you&rsquo;re already working">
-        </div>
-        <div class="cs-f wide">
-          <label for="csMsg">What would you want it to find?</label>
-          <textarea id="csMsg" name="message" placeholder="A territory, a market, a role you keep struggling to fill &mdash; whatever you&rsquo;d bring to the call."></textarea>
-        </div>
+      <div class="cs-pill" id="csPill">
+        <input id="csEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" aria-label="Work email" required>
+        <button class="cs-go" type="submit" id="csSend">Book 30 minutes →</button>
       </div>
       <div class="cs-err" id="csErr" role="alert" aria-live="polite"></div>
-      <div class="cs-actions">
-        <button class="btn" type="submit" id="csSend">Book 30 minutes →</button>
-        <span class="mono" style="letter-spacing:.14em">No list, no newsletter</span>
+
+      <button type="button" class="cs-more-t" id="csMoreT" aria-expanded="false" aria-controls="csMore"><span class="cr">›</span> Add your name and the account</button>
+      <div class="cs-more" id="csMore">
+        <div class="cs-grid">
+          <div class="cs-f">
+            <label for="csName">Name</label>
+            <input id="csName" name="name" type="text" autocomplete="name" placeholder="Your name">
+          </div>
+          <div class="cs-f">
+            <label for="csCo">Company</label>
+            <input id="csCo" name="company" type="text" autocomplete="organization" placeholder="Where you work">
+          </div>
+          <div class="cs-f wide">
+            <label for="csAcct">An account to run</label>
+            <input id="csAcct" name="account" type="text" placeholder="One you&rsquo;re already working">
+          </div>
+          <div class="cs-f wide">
+            <label for="csMsg">What would you want it to find?</label>
+            <textarea id="csMsg" name="message" placeholder="A territory, a market, a role you keep struggling to fill &mdash; whatever you&rsquo;d bring to the call."></textarea>
+          </div>
+        </div>
       </div>
-      <div class="cs-note">Submitting opens your own email client with this filled in &mdash; <b>nothing is transmitted from this page</b>, and there is no tracker on it. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
+
+      <div class="cs-note">No list, no newsletter. Submitting opens your own email client with this filled in &mdash; <b>nothing is transmitted from this page</b>, and there is no tracker on it. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
     </form>
+
     <div class="cs-done" id="csDone" role="status" aria-live="polite">
       <div class="cs-done-stamp">
         <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
@@ -1371,9 +1418,10 @@ footer .mono{line-height:2}
       <h3 id="csDoneH">That&rsquo;s in front of me<span style="color:var(--em)">.</span></h3>
       <p id="csDoneP">I read these myself. Expect a reply within one business day &mdash; and bring that account, we&rsquo;ll run it live.</p>
     </div>
-    <div class="note" style="margin-top:26px"><b>Approval is not send:</b> two-signal minimum, every claim double-checked against the live ATS, and nothing leaves the building without you.</div>
+
+    <div class="note" style="margin-top:30px"><b>Approval is not send:</b> two-signal minimum, every claim double-checked against the live ATS, and nothing leaves the building without you.</div>
   </div>
-</div></div></section>
+</div></section>
 
 </div><!-- /shell -->
 
@@ -1673,7 +1721,9 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
 
   var form=document.getElementById('csForm'); if(!form) return;
   var err=document.getElementById('csErr');
+  var pill=document.getElementById('csPill');
   var F=function(id){ return document.getElementById(id); };
+  var val=function(id){ var el=F(id); return el ? el.value.trim() : ''; };
 
   var direct=document.getElementById('csDirect');
   if(direct){
@@ -1681,36 +1731,43 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
     direct.textContent=OLLIN_CONTACT_EMAIL;
   }
 
-  function invalid(el,on){ el.setAttribute('aria-invalid',on?'true':'false'); }
+  /* the detail fields are optional by design: the pill asks for one thing, and
+     anyone who wants to arrive with more can open this */
+  var moreT=F('csMoreT'), more=F('csMore');
+  if(moreT&&more){
+    moreT.addEventListener('click',function(){
+      var open=more.classList.toggle('open');
+      moreT.setAttribute('aria-expanded',open?'true':'false');
+      if(open){ var n=F('csName'); if(n) n.focus(); }
+    });
+  }
 
   /* clear the red state as soon as they start fixing it, not on the next submit */
-  ['csName','csEmail'].forEach(function(id){
-    var el=F(id); if(!el) return;
-    el.addEventListener('input',function(){
-      if(el.getAttribute('aria-invalid')==='true'){ invalid(el,false); err.textContent=''; }
-    });
+  var email=F('csEmail');
+  email.addEventListener('input',function(){
+    if(pill.classList.contains('bad')){ pill.classList.remove('bad'); email.removeAttribute('aria-invalid'); err.textContent=''; }
   });
 
   form.addEventListener('submit',function(e){
     e.preventDefault();
-    var name=F('csName'), email=F('csEmail');
-    var problems=[];
-    invalid(name,false); invalid(email,false);
-    if(!name.value.trim()){ invalid(name,true); problems.push('a name'); }
     /* deliberately loose — a strict regex rejects real, valid addresses */
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())){ invalid(email,true); problems.push('a valid work email'); }
-    if(problems.length){ err.textContent='Still needs '+problems.join(' and ')+'.'; return; }
-    err.textContent='';
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())){
+      pill.classList.add('bad'); email.setAttribute('aria-invalid','true');
+      err.textContent='Still needs a valid work email.';
+      email.focus();
+      return;
+    }
+    pill.classList.remove('bad'); email.removeAttribute('aria-invalid'); err.textContent='';
 
     var L=[];
-    L.push('Name: '+name.value.trim());
+    if(val('csName')) L.push('Name: '+val('csName'));
     L.push('Email: '+email.value.trim());
-    if(F('csCo').value.trim())   L.push('Company: '+F('csCo').value.trim());
-    if(F('csAcct').value.trim()) L.push('Account to run: '+F('csAcct').value.trim());
-    if(F('csMsg').value.trim())  L.push('', 'What they want it to find:', F('csMsg').value.trim());
+    if(val('csCo'))   L.push('Company: '+val('csCo'));
+    if(val('csAcct')) L.push('Account to run: '+val('csAcct'));
+    if(val('csMsg'))  L.push('', 'What they want it to find:', val('csMsg'));
     L.push('', '— sent from ollin');
 
-    var subject='30 minutes — '+(F('csCo').value.trim() || name.value.trim());
+    var subject='30 minutes — '+(val('csCo') || val('csName') || email.value.trim());
     var href='mailto:'+OLLIN_CONTACT_EMAIL
            + '?subject='+encodeURIComponent(subject)
            + '&body='+encodeURIComponent(L.join('\n'));
@@ -1727,20 +1784,18 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
       document.getElementById('csDoneP').innerHTML = received
         ? 'I read these myself. Expect a reply within one business day &mdash; and bring that account, we&rsquo;ll run it live.'
         : 'It should have opened in your mail app, filled in and addressed. <b>Hit send there</b> and it reaches me &mdash; nothing left this page on its own.';
-      /* throw the shards from the stamp */
-      var n=14;
+      /* throw the shards from the stamp, which sits centred in the column */
+      var n=16;
       /* keep the throw inside the viewport — the shards are transformed, and a
          transform still counts toward scrollWidth, so on a phone an unbounded
          burst adds a horizontal scrollbar */
-      var reach=Math.max(40,Math.min(90,window.innerWidth*0.16));
-      var spread=Math.max(30,Math.min(90,window.innerWidth*0.16));
+      var reach=Math.max(40,Math.min(110,window.innerWidth*0.16));
       for(var i=0;i<n;i++){
         var s=document.createElement('i'); s.className='cs-spark';
-        var a=(-140 + (280/(n-1))*i) * Math.PI/180, d=reach+((i*37)%Math.round(reach*0.78));
+        var a=(-160 + (320/(n-1))*i) * Math.PI/180, d=reach+((i*37)%Math.round(reach*0.78));
         s.style.setProperty('--dx',(Math.cos(a)*d).toFixed(0)+'px');
         s.style.setProperty('--dy',(Math.sin(a)*d-30).toFixed(0)+'px');
         s.style.setProperty('--dr',((i*53)%360)+'deg');
-        s.style.left=(Math.round(spread*0.6)+((i*13)%Math.round(spread)))+'px';
         s.style.animationDelay=(i*22)+'ms';
         done.appendChild(s);
       }
@@ -1755,9 +1810,9 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
       fetch(OLLIN_FORM_ENDPOINT,{
         method:'POST',
         headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({name:name.value.trim(),email:email.value.trim(),
-          company:F('csCo').value.trim(),account:F('csAcct').value.trim(),
-          message:F('csMsg').value.trim(),source:'ollin'})
+        body:JSON.stringify({name:val('csName'),email:email.value.trim(),
+          company:val('csCo'),account:val('csAcct'),
+          message:val('csMsg'),source:'ollin'})
       }).then(function(r){
         if(!r.ok) throw new Error('HTTP '+r.status);
         celebrate(true);
