@@ -65,7 +65,7 @@ Rebuilt on Marcos's own words: *"I'd love to show you how the engines actually w
 
 **Layout (session 4) — centred signup, after the Motion UI `cta-signup-celebrate` pattern.** The section comes **off the `.sec` rail grid** entirely and runs as one centred column (`.cta-wrap`, 660px): pill badge → headline → one line of copy → **one field and one button sharing a single rounded pill** (`.cs-pill`) → fine print. Dropping the rail is safe: the scroll-lit observer only picks up sections that contain `.rail .no`.
 
-- The five-field sheet is now **one required field — work email**. Name, company, account and the message live behind the `Add your name and the account` disclosure (`#csMoreT` / `#csMore`), so the composed mailto still carries everything it used to. **Name is no longer required**; the subject falls back company → name → email.
+- The five-field sheet is now **one field — work email — and nothing else**. Name, company, account and the message are **gone**, not hidden: an interim version parked them behind a disclosure and Marcos cut that too. The mailto body compensates by carrying the intent as a real editable draft ("I'd like 30 minutes to see the engines run…"), since the address alone says nothing. Subject is `30 minutes — <email>`.
 - Below 520px the pill stacks (input over full-width button) — the two won't fit side by side without crushing the field.
 - The confirmation is unchanged in behaviour but now **centred**, so the shard burst is thrown from `left:calc(50% - 3px)` instead of the old left-aligned origin. The reach is still clamped to the viewport — transformed shards count toward `scrollWidth`.
 

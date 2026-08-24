@@ -494,31 +494,6 @@ td .mono{font-size:9px}
   .cs-pill input{padding:12px 14px;text-align:center}
   .cs-go{width:100%;border-radius:12px}
 }
-/* the optional detail, folded away */
-.cs-more-t{display:inline-block;margin-top:16px;background:none;border:0;padding:0 0 3px;
-  cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--slate);border-bottom:1px solid var(--border);
-  transition:color .2s,border-color .2s}
-.cs-more-t:hover{color:var(--white);border-bottom-color:var(--slate)}
-.cs-more-t .cr{display:inline-block;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
-.cs-more-t[aria-expanded="true"] .cr{transform:rotate(90deg)}
-.cs-more{display:none;margin-top:24px;text-align:left}
-.cs-more.open{display:block;animation:csOpen .34s cubic-bezier(.16,1,.3,1) both}
-@keyframes csOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:640px){.cs-grid{grid-template-columns:1fr}}
-.cs-f{display:flex;flex-direction:column;gap:7px}
-.cs-f.wide{grid-column:1/-1}
-.cs-f label{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--dim)}
-.cs-f input,.cs-f textarea{width:100%;min-width:0;background:var(--black);
-  border:1px solid var(--border);border-radius:10px;padding:12px 13px;color:var(--ink);
-  font-family:'Archivo',sans-serif;font-size:14.5px;line-height:1.5;
-  transition:border-color .2s,box-shadow .2s}
-.cs-f textarea{min-height:104px;resize:vertical}
-.cs-f input:focus,.cs-f textarea:focus{outline:none;border-color:var(--em);
-  box-shadow:0 0 0 3px rgba(var(--em-rgb),.10)}
-.cs-f input::placeholder,.cs-f textarea::placeholder{color:var(--dim)}
 .cs-err{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;
   text-transform:uppercase;color:#FF6B4A;min-height:12px;margin-top:12px;text-align:center}
 .cs-note{font-size:12px;color:var(--dim);line-height:1.6;margin:14px auto 0;
@@ -573,7 +548,6 @@ td .mono{font-size:9px}
   .cs-done-stamp,.cs-done h3,.cs-done p{opacity:1!important;transform:rotate(-5deg)!important;
     filter:none!important;transition:none!important}
   .cs-done h3,.cs-done p{transform:none!important}
-  .cs-more.open{animation:none}
   .cs-spark{display:none}}
 
 /* ---- VAMOS card · light product theme ----
@@ -1382,28 +1356,6 @@ footer .mono{line-height:2}
       </div>
       <div class="cs-err" id="csErr" role="alert" aria-live="polite"></div>
 
-      <button type="button" class="cs-more-t" id="csMoreT" aria-expanded="false" aria-controls="csMore"><span class="cr">›</span> Add your name and the account</button>
-      <div class="cs-more" id="csMore">
-        <div class="cs-grid">
-          <div class="cs-f">
-            <label for="csName">Name</label>
-            <input id="csName" name="name" type="text" autocomplete="name" placeholder="Your name">
-          </div>
-          <div class="cs-f">
-            <label for="csCo">Company</label>
-            <input id="csCo" name="company" type="text" autocomplete="organization" placeholder="Where you work">
-          </div>
-          <div class="cs-f wide">
-            <label for="csAcct">An account to run</label>
-            <input id="csAcct" name="account" type="text" placeholder="One you&rsquo;re already working">
-          </div>
-          <div class="cs-f wide">
-            <label for="csMsg">What would you want it to find?</label>
-            <textarea id="csMsg" name="message" placeholder="A territory, a market, a role you keep struggling to fill &mdash; whatever you&rsquo;d bring to the call."></textarea>
-          </div>
-        </div>
-      </div>
-
       <div class="cs-note">No list, no newsletter. Submitting opens your own email client with this filled in &mdash; <b>nothing is transmitted from this page</b>, and there is no tracker on it. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
     </form>
 
@@ -1722,8 +1674,6 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
   var form=document.getElementById('csForm'); if(!form) return;
   var err=document.getElementById('csErr');
   var pill=document.getElementById('csPill');
-  var F=function(id){ return document.getElementById(id); };
-  var val=function(id){ var el=F(id); return el ? el.value.trim() : ''; };
 
   var direct=document.getElementById('csDirect');
   if(direct){
@@ -1731,19 +1681,8 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
     direct.textContent=OLLIN_CONTACT_EMAIL;
   }
 
-  /* the detail fields are optional by design: the pill asks for one thing, and
-     anyone who wants to arrive with more can open this */
-  var moreT=F('csMoreT'), more=F('csMore');
-  if(moreT&&more){
-    moreT.addEventListener('click',function(){
-      var open=more.classList.toggle('open');
-      moreT.setAttribute('aria-expanded',open?'true':'false');
-      if(open){ var n=F('csName'); if(n) n.focus(); }
-    });
-  }
-
   /* clear the red state as soon as they start fixing it, not on the next submit */
-  var email=F('csEmail');
+  var email=document.getElementById('csEmail');
   email.addEventListener('input',function(){
     if(pill.classList.contains('bad')){ pill.classList.remove('bad'); email.removeAttribute('aria-invalid'); err.textContent=''; }
   });
@@ -1759,15 +1698,15 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
     }
     pill.classList.remove('bad'); email.removeAttribute('aria-invalid'); err.textContent='';
 
+    /* one field means the body has to carry the intent itself — this is a
+       real draft they can edit, not a bare address */
     var L=[];
-    if(val('csName')) L.push('Name: '+val('csName'));
-    L.push('Email: '+email.value.trim());
-    if(val('csCo'))   L.push('Company: '+val('csCo'));
-    if(val('csAcct')) L.push('Account to run: '+val('csAcct'));
-    if(val('csMsg'))  L.push('', 'What they want it to find:', val('csMsg'));
+    L.push('Hi Marcos —');
+    L.push('', 'I\'d like 30 minutes to see the engines run. I\'ll bring an account I\'m already working.');
+    L.push('', 'Reply to: '+email.value.trim());
     L.push('', '— sent from ollin');
 
-    var subject='30 minutes — '+(val('csCo') || val('csName') || email.value.trim());
+    var subject='30 minutes — '+email.value.trim();
     var href='mailto:'+OLLIN_CONTACT_EMAIL
            + '?subject='+encodeURIComponent(subject)
            + '&body='+encodeURIComponent(L.join('\n'));
@@ -1810,9 +1749,7 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
       fetch(OLLIN_FORM_ENDPOINT,{
         method:'POST',
         headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({name:val('csName'),email:email.value.trim(),
-          company:val('csCo'),account:val('csAcct'),
-          message:val('csMsg'),source:'ollin'})
+        body:JSON.stringify({email:email.value.trim(),source:'ollin'})
       }).then(function(r){
         if(!r.ok) throw new Error('HTTP '+r.status);
         celebrate(true);
