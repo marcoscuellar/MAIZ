@@ -85,6 +85,22 @@ Project details: team `marcosmcuellar-3433s-projects` (`team_G7WBdov66WzlS910sSq
 
 Do **not** try to inline the 99KB page into `deploy_to_vercel` — retyping 1,452 lines verbatim risks silent corruption.
 
+### 1b. ⚠️ Contact form — needs two env vars in Vercel
+
+`api/contact.js` is a zero-config Vercel Node function at `/api/contact`. The page
+POSTs `{email, source, website}` to it and it sends through Resend, replying-to the
+visitor. `OLLIN_FORM_ENDPOINT` is now set, so the confirmation says **Received** only
+once the function returns 200; if it errors the page falls back to the direct address.
+
+**Until `RESEND_API_KEY` is set in Vercel, every submission fails visibly.** Set it at
+Vercel → project `maiz` → Settings → Environment Variables (all three environments),
+then redeploy. `CONTACT_TO` defaults to `marcos@ollinos.com` and `CONTACT_FROM` to
+Resend's shared `onboarding@resend.dev`, which **only delivers to the Resend account's
+own address** — verify `ollinos.com` in Resend and set `CONTACT_FROM` to lift that.
+
+A honeypot field (`name="website"`, off-screen) is submitted with every request; the
+function answers 200 and sends nothing when it is filled.
+
 ### 2. ⚠️ Wire the booking link
 
 `OLLIN_BOOKING_URL` is a **single empty constant** at the top of the second `<script>` block. Set it and both CTAs (masthead `#bookStreak`, final `#bookBtn`) pick it up automatically:

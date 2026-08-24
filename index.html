@@ -480,6 +480,8 @@ td .mono{font-size:9px}
 .cs-pill input{flex:1;min-width:0;background:none;border:0;color:var(--ink);
   font-family:'Archivo',sans-serif;font-size:15px;line-height:1.5;padding:12px 8px 12px 18px}
 .cs-pill input:focus{outline:none}
+/* honeypot: off-screen rather than display:none, which some bots skip */
+.cs-hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none}
 .cs-pill input::placeholder{color:var(--dim)}
 .cs-go{flex:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;
   text-transform:uppercase;font-weight:700;background:var(--em);color:var(--on-em);
@@ -1096,7 +1098,7 @@ footer .mono{line-height:2}
   <div class="mrow">
     <svg class="mmark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="28" y="10" width="44" height="11" fill="#D4FF00"/><circle cx="50" cy="62" r="27" stroke="#F8FAFC" stroke-width="13"/></svg><div class="mword">ŌLL<span class="mi">I</span>N<i>.</i></div>
     <div class="mnav">
-      <a href="#evidence">The gap</a><a href="#trust">Trust</a><a href="#signal">The signal</a><a href="#vamos">Intelligence</a><a href="#ovamos">VAMOS</a>
+      <a href="#evidence">The gap</a><a href="#trust">Trust</a><a href="#signal">The signal</a><a href="#vamos">Intelligence</a>
     </div>
     <a class="streak" id="bookStreak" href="#book">Book 30 minutes</a>
   </div>
@@ -1352,11 +1354,12 @@ footer .mono{line-height:2}
     <form class="cs" id="csForm" novalidate>
       <div class="cs-pill" id="csPill">
         <input id="csEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" aria-label="Work email" required>
+        <input class="cs-hp" id="csHp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="cs-go" type="submit" id="csSend">Book 30 minutes →</button>
       </div>
       <div class="cs-err" id="csErr" role="alert" aria-live="polite"></div>
 
-      <div class="cs-note">No list, no newsletter. Submitting opens your own email client with this filled in &mdash; <b>nothing is transmitted from this page</b>, and there is no tracker on it. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
+      <div class="cs-note">No list, no newsletter &mdash; your address reaches me and nothing else, and there is <b>no tracker on this page</b>. Prefer to write it yourself? <a class="cs-alt" id="csDirect" href="#book">Email direct</a>.</div>
     </form>
 
     <div class="cs-done" id="csDone" role="status" aria-live="polite">
@@ -1657,7 +1660,7 @@ footer .mono{line-height:2}
 var OLLIN_BOOKING_URL = '';                    /* optional: a scheduler link. When set, the
                                                  masthead button points at it instead of the form. */
 var OLLIN_CONTACT_EMAIL = 'marcos@ollinos.com'; /* where the contact sheet sends. Must be a real mailbox. */
-var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formspree URL). When set, the
+var OLLIN_FORM_ENDPOINT = '/api/contact';                  /* a POST endpoint (e.g. a Formspree URL). When set, the
                                                  form submits for real and the confirmation says
                                                  "Received". While empty it falls back to the visitor's
                                                  mail client and says "Ready to send" instead — the
@@ -1749,7 +1752,8 @@ var OLLIN_FORM_ENDPOINT = '';                  /* a POST endpoint (e.g. a Formsp
       fetch(OLLIN_FORM_ENDPOINT,{
         method:'POST',
         headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({email:email.value.trim(),source:'ollin'})
+        body:JSON.stringify({email:email.value.trim(),source:'ollin',
+          website:(document.getElementById('csHp')||{}).value||''})
       }).then(function(r){
         if(!r.ok) throw new Error('HTTP '+r.status);
         celebrate(true);
