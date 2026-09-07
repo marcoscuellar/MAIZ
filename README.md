@@ -1,9 +1,9 @@
 # ŌLLIN — landing page
 
-A self-contained landing page for **ŌLLIN**, the agentic sales-intelligence system.
+A self-contained landing page for **ŌLLIN OS** — sales intelligence, verified before it reaches you.
 
 - **`index.html` is canonical.** Open it in a browser and it works.
-- **No build step. No dependencies.** The only external request is the Google Fonts CDN (Archivo + IBM Plex Mono).
+- **No build step. No dependencies.** External requests: the Google Fonts CDN (Archivo + IBM Plex Mono) and the Motion library (`motion@13.2.0` from jsdelivr) for reveals. The contact pill degrades gracefully if Motion never loads.
 - All interactions are vanilla JS in two `<script>` blocks at the end of `<body>`. No frameworks.
 - Deployed as a static site on Vercel — a root `index.html` needs zero config.
 
@@ -49,32 +49,29 @@ These have been enforced repeatedly. If a spec document asks for something on th
 
 ## Design system — do not redesign
 
+Rebranded 2026-09-07 (session 5) from black/volt to graphite/yellow. The file is the source of truth; these are the tokens in use.
+
 **Colors**
 
 | Token | Value |
 |---|---|
-| `--black` | `#0B0C10` |
-| `--surface` | `#14161F` |
-| `--raised` | `#0E1016` |
-| `--border` | `#222634` |
-| `--em` (volt accent) | `#D4FF00` (rgb `212,255,0`) |
-| `--on-em` | `#14180A` |
-| `--ink` | `#F8FAFC` |
-| `--slate` | `#94A3B8` |
-| `--body` | `#C9D3DE` |
-| `--dim` | `#77879A` |
+| `--graphite` / `--graphite-2` | `#181A1E` / `#1F2227` (dark surfaces: nav, hero, Mushroom, CTA, footer) |
+| `--slate` / `--slate-2` | `#2F343D` / `#3A404A` |
+| `--yellow` / `--yellow-2` / `--yellow-tint` | `#FFE14D` / `#F5D63A` / `#FFF8D6` (the accent; buttons, highlights, verified ticks) |
+| `--white` / `--off` / `--light` | `#FFFFFF` / `#F6F7F9` / `#E9EDF2` (light sections) |
+| `--ink` / `--ink-2` / `--gray` / `--gray-2` | `#181A1E` / `#3A404A` / `#6B7280` / `#9CA3AF` |
+| `--on-dark` / `--on-dark-2` / `--on-dark-3` | `#F3F4F6` / `#B8BEC7` / `#7C8390` (text on graphite) |
+| `--line` / `--line-dark` | `#D9DEE5` / `#2C3037` |
 
-The volt palette is applied via `<html data-accent="volt">`; the bare `:root` orange (`#FF4500`) is the alternate theme.
-
-**Type** — Archivo (900, uppercase, tight tracking for all headlines) + IBM Plex Mono (labels, eyebrows, system voice). Hero `h1` is `clamp(52px,8.6vw,126px)` / line-height `.88` / tracking `-.055em`.
+**Type** — Archivo (800, tight tracking, `font-stretch:105%`, all headlines) + IBM Plex Mono (eyebrows, labels, system voice). Hero `h1` is `clamp(46px,6.6vw,84px)`.
 
 **Convention:** mono = the system talking, Archivo = humans talking.
 
-**Logo** — "El Macron": a volt macron bar over a white ring (the Ō). Appears in the masthead (20px), the hero (34px, scroll-fades by ~420px), the footer (40px), and the favicon (inline SVG data URI).
+**Logo** — "El Macron": in this build it is the wordmark `ŌLLIN | OS` in the masthead and the small `.omark` (yellow bar over an O) inside the VERIFIED chips. The favicon is the inline-SVG El Macron carried over from the previous build.
 
-**Signature device** — the volt highlight block (`.hl`) behind a key word, and volt periods ending headlines.
+**Signature devices** — the yellow highlight block (`.mark`) behind a key phrase, the animated yellow underline on the hero's key word, and the yellow verified tick that lands on each row of the account card.
 
-**Motion** — for "appear" animations, the Motion.dev hero-terminal feel: blur + fade + rise + slight scale, with staggered children. Reveals use IntersectionObserver with `rootMargin: '0px 0px -42% 0px'` so they play on arrival rather than on first peek. `prefers-reduced-motion` is honored throughout.
+**Motion** — Motion.dev (`animate`, `inView`, `scroll`, `stagger`): hero staggers in, the account card's rows verify one by one, the four-check rail fills on scroll, the Mushroom org map grows out from the seed contact, ŌLLIN GO rotates through three sample accounts. `prefers-reduced-motion` disables all of it and every piece of content stays visible.
 
 ## Brand voice
 
@@ -82,36 +79,40 @@ Concise, confident, specific, human. Editorial black and volt. The system shows 
 
 ## Page structure
 
-Five beats and an ask. The VAMOS card is the centerpiece — everything else earns its place.
-
-| Rail | Section | What it does |
+| id | Section | What it does |
 |---|---|---|
-| — | Hero | "Not another AI sales tool." |
-| **00** | `#evidence` | The execution gap — the problem, three cited stat cards |
-| **01** | `#trust` | Safety and privacy — the white verified report card |
-| **02** | `#signal` | The signal — a console that types itself a question and answers it |
-| **03** | `#vamos` | **Intelligence + outreach** — the VAMOS product card, then the turn to the human |
-| **→** | `#book` | Book 30 minutes |
+| — | Hero | "Stop the noise." + the example verified account card (four rows: why now, right person, right message, direct line — the last one **withheld**, because unverified) |
+| — | Four checks | Source found → cross-checked → live-confirmed → engine QA; a rail that fills on scroll |
+| `#why` | The haystack | Traditional sales intelligence vs ŌLLIN OS, side by side |
+| `#product` | Pillars | Verified Insights · Whole Account Mapping · It prepares, you decide |
+| `#mushroom` | Mushroom | Map the whole account from one seed contact; confirmed vs inferred lines clearly marked |
+| `#execute` | ŌLLIN GO | The execution workspace (`go.ollinos.com`): one card per contact, grounded draft, audited, *Let's go* |
+| — | Stats | Salesforce State of Sales, Bullhorn GRID 2026, and the Bullhorn receipt quote — verbatim |
+| `#rules` | The rules | Never invents · never softens · never sends on its own |
+| — | Core positioning | Verification is the mechanism. Better decisions are the product. |
+| `#run` | Bring an account | The contact pill (see below) |
 
-Sections held back for later pages live in `parked/` — see `parked/README.md`.
+Every "book / meet / bring an account" link on the page points to `#run`.
 
 ## Contact and booking
 
-The CTA is a **contact sheet** — a form in `#book`. There is no backend: on submit the fields are composed into a pre-filled email and handed to the visitor's own mail client, so nothing is transmitted from the page and there is no tracker on it.
+`#run` is a single centred signup pill, after the Motion UI *CTA: signup celebrate* pattern: one field (work email) and one button sharing a rounded pill. On submit it POSTs `{email, source:'ollin', website}` to **`/api/contact`** (`api/contact.js`, a zero-config Vercel Node function). The function sends through Resend to `CONTACT_TO` (default **`marcos@ollinos.com`**) with `reply_to` set to the visitor, and only then returns 200 — so the button morphing to **✓ Received** and the line *"Received. A person replies within one business day at …"* is honest. Any other outcome shows the direct address instead of failing silently. The `website` field is an off-screen honeypot.
 
-Two constants sit at the top of the second `<script>` block:
+Env vars (Vercel → project `maiz` → Settings → Environment Variables): `RESEND_API_KEY` (required), `CONTACT_TO`, `CONTACT_FROM` — see the header comment in `api/contact.js`. The form script is a plain `<script>`, independent of the Motion module, so it works even if the CDN is blocked; Motion only adds the particle burst.
+
+Three constants sit at the top of that script:
 
 ```js
-var OLLIN_BOOKING_URL   = '';                     // optional scheduler link
-var OLLIN_CONTACT_EMAIL = 'hello@getmaiz.com';    // where the form sends
+var OLLIN_BOOKING_URL   = '';               // optional scheduler link; when set, the masthead button points at it
+var OLLIN_FORM_ENDPOINT = '/api/contact';   // where the pill posts
+var OLLIN_CONTACT_EMAIL = 'marcos@ollinos.com';
 ```
 
-- **`OLLIN_CONTACT_EMAIL` must be a real, monitored mailbox.** Until `hello@getmaiz.com` exists, submissions bounce. Create the alias in Google Workspace, or change this to an address that already works.
-- **`OLLIN_BOOKING_URL` is optional.** Set it and the masthead button points at the scheduler instead of scrolling to the form; leave it empty and the form is the only path.
-- `scripts/check-sample-data.sh` allowlists the real contact address and the form's placeholder; every other email on the page must use a reserved TLD.
+`scripts/check-sample-data.sh` allowlists `marcos@ollinos.com` and the placeholder `you@company.com`; every other email on the page must use a reserved TLD.
 
 ## Known issues
 
-- **The Forrester / Tandem.ai statistic was removed** from §01. The "4.3 hours a week / $14,200 per employee" figures could not be traced to any Forrester publication — they appear on tendem.ai's own blog and a ring of SEO stat-roundup sites citing each other. Attributing them to Forrester was not defensible on a page arguing "evidence or not at all". The footnote now makes the same point without borrowed numbers. If the real Forrester report surfaces, cite it directly.
-- **`hello@getmaiz.com` does not exist yet.** The contact sheet is wired to it, so submissions bounce until the mailbox or alias is created. This is the one thing standing between the page and working.
-- The 30-minute duration in the CTA copy should match whatever a scheduler actually books, if one is added later.
+- **`CONTACT_FROM` defaults to Resend's shared `onboarding@resend.dev`**, which only delivers to the Resend account's own address. Verify `ollinos.com` in Resend and set `CONTACT_FROM` to lift that (see `api/contact.js`).
+- **`assets/og-cover.png` is the previous (black/volt) design.** Social previews work but don't match the rebrand — regenerate it at 1200×630 in graphite/yellow.
+- The stats quote attributed to a Bullhorn executive is marked *published with permission* — keep that confirmable.
+- The 30-minute duration in the CTA copy should match whatever a scheduler actually books, if `OLLIN_BOOKING_URL` is ever set.

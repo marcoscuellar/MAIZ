@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
 
   const source = String(body.source || 'unknown').replace(/[^\w.-]/g, '').slice(0, 40);
   const text = [
-    email + ' asked for 30 minutes.',
+    email + ' asked to bring an account and see the four checks run live.',
     '',
     'They said they would bring an account they are already working.',
     '',
@@ -77,7 +77,7 @@ module.exports = async (req, res) => {
         from: FROM,
         to: [TO],
         reply_to: email,          /* so hitting reply reaches them, not Resend */
-        subject: '30 minutes — ' + email,
+        subject: 'Bring an account — ' + email,
         text: text,
       }),
       signal: ctl.signal,
