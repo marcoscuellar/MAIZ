@@ -6,7 +6,24 @@
 
 ---
 
-## READ THIS FIRST — what changed this session
+## SESSION 5 (2026-09-07) — the rebrand shipped. Read this before the older notes below.
+
+`index.html` is now the **ŌLLIN OS rebrand** (graphite/yellow, "Stop the noise."), replacing the black/volt "not another AI sales tool" page. The previous page is in git history and in `builds/` (last snapshot `ollin-20260821-2048.html`). The older notes below describe that previous page — its section list, `.va-*` card, El Macron 3D stamp, and cut-in-half layout **no longer exist on the live page**; they survive in `builds/` and `parked/`.
+
+What was done to the rebrand file before shipping (it failed the deploy gate as delivered):
+
+1. **Sample data → approved roster.** Meridian Logistics → Aldervane Freight · Northstar Health → Verrida Health · ForgeWorks Manufacturing → Kestrelbrook Devices · Daniel Reyes → Omar Reyes · Rachel Okafor → Nadia Cole · Priya Natarajan → Priya Anand · Tom Lindqvist → Leo Fontaine · Marcus Bell → Marcus Vale · Amara Singh → Sofia Marin · Lucas Bennett → Dana Rivera. Sample emails moved to `.example`. Internal GO profile keys renamed to match. `./scripts/check-sample-data.sh` → PASS.
+2. **`<head>` metadata ported** (El Macron favicon, description, OG/Twitter; `og:image` still the old cover — see README known issues).
+3. **`#run` rebuilt as the Motion UI *CTA: signup celebrate* pattern** (Marcos's explicit ask, with the screenshot). One centred pill → POST `/api/contact` → on 200 the button morphs to **✓ Received** + particle burst + *"Received. A person replies within one business day at {email}."* On error: the direct address, visibly. The form script is a plain `<script>` so it works without the Motion CDN. Background stays graphite (deliberately not the example's pastel gradient).
+4. **`api/contact.js`**: only the notification wording changed — subject `Bring an account — {email}`, first line "…asked to bring an account and see the four checks run live." Env vars, honeypot, reply-to, error handling untouched. **Every submission emails Marcos at `marcos@ollinos.com` immediately** (his ask).
+
+Verified before shipping: gate PASS; Playwright at 390/768/1440 — no overflow, no JS errors, head meta present, pill stacks ≤520px; mocked 200 → Received state with the email in the line; mocked 500 → fallback + button re-enabled; invalid email → shake, no request.
+
+Still true from below: hard rules 1–9, the env-var notes in §1b, the booking link (`OLLIN_BOOKING_URL`) still unset, Google Workspace still blocked on Marcos. **Deploy is by pushing to `claude/maiz-gtm-strategy-qk9hh5`** — the `maiz` Vercel project is git-linked (that blocker from §1 is resolved).
+
+---
+
+## READ THIS FIRST — what changed in sessions 3–4 (previous page)
 
 The repo was **completely empty** at the start of this session. The page existed only as a local file and an orphan Vercel upload. It is now in git, with history.
 
